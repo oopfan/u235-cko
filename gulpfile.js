@@ -42,7 +42,7 @@ gulp.task('js', function () {
 gulp.task('css', function () {
     //Array of all CSS files needed
     var appCss = gulp.src([
-        './node_modules/bootstrap/dist/css/bootstrap.min.css',
+        './node_modules/bootswatch/dist/darkly/bootstrap.min.css',
         './src/css/*.css'
     ])
     .pipe(replace(/url\((')?\.\.\/fonts\//g, 'url($1fonts/'));
