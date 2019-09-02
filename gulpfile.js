@@ -19,7 +19,8 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
             'components/app/app',
             'components/nav-bar/nav-bar',
             'pages/home/home',
-            'pages/about/about'
+            'pages/about/about',
+            'pages/g2v-star-database/g2v-star-database'
         ],
         insertRequire: ['app/startup'],
         bundles: {
@@ -70,7 +71,7 @@ gulp.task('html', function() {
 
 // Copies server files
 gulp.task('server', function() {
-    return gulp.src('./src/server/app.js')
+    return gulp.src('./src/server/**/*')
         .pipe(gulp.dest('./dist/'));
 });
 
