@@ -68,13 +68,19 @@ gulp.task('html', function() {
         .pipe(gulp.dest('./dist/'));
 });
 
+// Copies server files
+gulp.task('server', function() {
+    return gulp.src('./src/server/app.js')
+        .pipe(gulp.dest('./dist/'));
+});
+
 // Removes all files from ./dist/
 gulp.task('clean', function() {
     return gulp.src('./dist/', { read: false })
         .pipe(clean());
 });
 
-gulp.task('build', ['html', 'js', 'css',  'fonts'], function(callback) {
+gulp.task('build', ['html', 'js', 'css', 'fonts', 'server'], function(callback) {
     callback();
     console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
 });

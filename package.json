@@ -5,6 +5,7 @@
   "author": "Brian Morgan",
   "license": "MIT",
   "scripts": {
+    "start": "node dist/app.js build",
     "postinstall": "gulp clean && gulp build"
   },
   "repository": {
@@ -21,6 +22,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "crossroads": "^0.12.2",
+    "express": "^4.17.1",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.0",
