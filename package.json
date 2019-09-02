@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "gulp clean && gulp build",
-    "start": "node dist/app.js build",
-    "dev-start": "node src/server/app.js dev"
+    "start": "node dist/app.js build json db-mock",
+    "dev-start": "node src/server/app.js dev json db-mock"
   },
   "repository": {
     "type": "git",
