@@ -1,0 +1,258 @@
+<h5 class="pt-3">LRGB Exposure Calculator</h5>
+<div class="row pt-3">
+  <div class="col-md-12">
+    <div class="card border-primary">
+      <div class="card-header">What does it do?</div>
+      <div class="card-body">
+        <p class="card-text">
+          It helps you create full color images using your monochrome camera and filters.
+          You begin by specifying the desired integration time of the luminance filter.
+          In response it calculates the integration time of each color filter so as to balance the
+          signal-to-noise ratio over all channels. Optionally, you can select the amount of hardware
+          binning, and the color balance ratios for your particular camera and filters.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row pt-3 pb-4">
+  <div class="col-md-12">
+    <span>Do you want to enter the RGB exposure values yourself?</span>
+  </div>
+  <div class="col-md-12">
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="variable" data-bind="checked: frameCountMode">
+      <label class="form-check-label" for="inlineRadio1">Yes</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="common" data-bind="checked: frameCountMode">
+      <label class="form-check-label" for="inlineRadio2">No</label>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-primary table-sm">
+      <thead>
+        <tr class="table-light">
+          <th scope="col">Filter</th>
+          <th scope="col">Binning</th>
+          <th scope="col">Color Balance</th>
+          <th scope="col">Frame Count</th>
+          <th scope="col">Exposure&nbsp;(s)</th>
+          <th scope="col">Integration&nbsp;(m)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticLuminance1" data-bind="value: lblLuminance">
+          </td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticLuminance1" data-bind="value: lblLuminanceBinning">
+          </td>
+          <td></td>
+          <td>
+            <input type="text" class="form-control" id="formLuminanceFrameCount" data-bind="value: luminanceFrameCount, valueUpdate: 'input'">
+          </td>
+          <td>
+            <input type="text" class="form-control" id="formLuminanceExposure" data-bind="value: luminanceExposure, valueUpdate: 'input'">
+          </td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticIntegrationTimeL" data-bind="value: luminanceIntegrationTime">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticRed1" data-bind="value: lblRed">
+          </td>
+          <td>
+            <select class="form-control" id="formRedBinning" data-bind="value: rgbBinning">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="formRedColorBalance" data-bind="value: redBalance, valueUpdate: 'input'">
+          </td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticRedFrameCount" data-bind="value: redFrameCount">
+          </td>
+          <td>
+            <input type="text" class="form-control" id="formRedExposure" data-bind="value: redExposure, valueUpdate: 'input', attr: { readonly: modeStatus }">
+          </td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticIntegrationTimeR" data-bind="value: redIntegrationTime">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticGreen1" data-bind="value: lblGreen">
+          </td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticGreenBinning" data-bind="value: rgbBinning">
+          </td>
+          <td>
+            <input type="text" class="form-control" id="formGreenColorBalance" data-bind="value: greenBalance, valueUpdate: 'input'">
+          </td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticGreenFrameCount" data-bind="value: greenFrameCount">
+          </td>
+          <td>
+            <input type="text" class="form-control" id="formGreenExposure" data-bind="value: greenExposure, valueUpdate: 'input', attr: { readonly: modeStatus }">
+          </td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticIntegrationTimeG" data-bind="value: greenIntegrationTime">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticBlue1" data-bind="value: lblBlue">
+          </td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticBlueBinning" data-bind="value: rgbBinning">
+          </td>
+          <td>
+            <input type="text" class="form-control" id="formBlueColorBalance" data-bind="value: blueBalance, valueUpdate: 'input'">
+          </td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticBlueFrameCount" data-bind="value: blueFrameCount">
+          </td>
+          <td>
+            <input type="text" class="form-control" id="formBlueExposure" data-bind="value: blueExposure, valueUpdate: 'input', attr: { readonly: modeStatus }">
+          </td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticIntegrationTimeB" data-bind="value: blueIntegrationTime">
+          </td>
+        </tr>
+        <tr class="table-light">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <input type="text" readonly class="form-control-plaintext" id="staticIntegrationTimeT" data-bind="value: totalIntegrationTime">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-12">
+    <div class="card border-primary">
+      <div class="card-header">Motivation</div>
+      <div class="card-body">
+        <p class="card-text">
+          Newcomers to color imaging who have monochrome cameras struggle to find the right combination of exposure times
+          to achieve acceptable results. By acceptable results I mean those that lend itself easily to post-processing.
+          If you find that you have to employ extreme measures in post-processing software then this calculator will help. Credit goes to
+          Starizona for their article on <a href="https://starizona.com/tutorial/color-imaging-3/" target="_blank">Color Imaging</a> which
+          provided inspiration.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-12">
+    <div class="card border-primary">
+      <div class="card-header">Theory of Operation</div>
+      <div class="card-body">
+        <p class="card-text">
+          Visible light covers the spectrum of wavelengths from 400nm to 700nm that spans blue to red, respectively.
+          These wavelengths are passed by the Luminance filter which when you hold it up to light appears clear but
+          in fact blocks infrared and ultraviolet that can spoil an image. The Red filter passes light between 600nm
+          and 700nm, Green between 500nm and 600nm, and Blue between 400nm and 500nm.
+        </p>
+        <p class="card-text">
+          So-called <em>white light</em> emits all wavelengths in equal amounts. Our Sun is said to be the benchmark white
+          light source. Its spectral type is G2V. Year-round there are many G2V stars in the night sky that you can
+          use to <em>color balance</em> your filters and camera. That is the subject of another calculator that I will link
+          to when ready.
+        </p>
+        <p class="card-text">
+          Common exposures using the luminance filter are almost always shorter than color filters unless you use a
+          feature called <em>binning</em> (more on that later).
+        </p>
+        <p class="card-text">
+          Let's try an experiment with the calculator:
+          <ol>
+            <li>Set <em>Binning</em> to 1</li>
+            <li>Ensure that <em>Color Balance</em> is 1:1:1 for RGB</li>
+            <li>It doesn't matter what <em>Frame Count</em> is</li>
+          </ol>
+          Notice that the RGB exposure values are three times longer than Luminance! That's because the luminance filter
+          passes three times more photons.
+        </p>
+        <p class="card-text">
+          Let's talk about binning. Binning refers to a feature of the camera that increases the signal-to-noise ratio
+          (SNR) of a frame. We haven't talked at all about noise but know that it is ever-present. Low noise images are
+          our goal.
+        </p>
+        <p class="card-text">
+          One negative side-effect of binning is that it reduces image resolution. bin2 means that the dimensions of a
+          frame are half the normal size. The camera achieves this by taking each 2x2 matrix of pixels and reducing it
+          to 1 pixel. bin3 takes a 3x3 matrix.
+        </p>
+        <p class="card-text">
+          This isn't as terrible as it sounds. I think it was Trevor Jones at
+          <a href="https://astrobackyard.com/" target="_blank">AstroBackyard</a> who made the analogy of a
+          child and his coloring book. The child provides the crayons and the publisher provides the detail in the form
+          of the outline. If the child draws a little outside the outline the picture still looks good. If he gets sloppy
+          it gets worse but is still acceptable especially if seen from a distance. This is the analogy that Trevor made
+          with binning: bin2 is like the child drawing a little outside the outline, and bin3 is sloppy but acceptable.
+          Remember that the <em>outline</em> is the job of the luminance filter running at bin1 and since the sensor sees three
+          times more photons the exposure time is reasonably short.
+        </p>
+        <p class="card-text">
+          Let's try another experiment with the calculator:
+          <ol>
+            <li>Set <em>Binning</em> to 2</li>
+            <li>Ensure that <em>Color Balance</em> is 1:1:1 for RGB</li>
+            <li>It doesn't matter what <em>Frame Count</em> is</li>
+          </ol>
+          Now notice that the RGB exposure values are less than the Luminance and that the total time to capture a full
+          LRGB sequence is about one-third!
+        </p>
+        <p class="card-text">
+          Before purchasing an imaging camera please check the manufacturer's website to ensure that it offers bin2,
+          at least. Even better if it offers bin3.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-12">
+    <div class="card border-primary">
+      <div class="card-header">Disclaimer</div>
+      <div class="card-body">
+        <p class="card-text">
+          This calculator will get you in the <em>ballpark</em>. Notice that it doesn't talk about your particular seeing
+          conditions: urban skies versus rural. You probably noticed that RGB exposures are a function of the luminance
+          exposure but what luminance exposure should you use? That will depend on your seeing conditions. If you are in
+          a city then you need short exposures. If you are rural then long exposures make sense.
+        </p>
+        <p class="card-text">
+          It comes with practice but you need to find a happy medium between capturing the Deep Sky object and reducing
+          star saturation. Remember that stars make up your composition too. For me, with my Bortle 5 suburban skies, I
+          generally use 60-second luminance exposures. When I travel to a Bortle 4 site I increase it to 120 seconds.
+        </p>
+        <p class="card-text">
+          Generally speaking, longer exposures will produce less noisy images but it puts a strain on your mount's ability
+          to track the target without smearing it. Also, longer exposures mean a higher likelihood that frames will be
+          spoiled by aircraft, satellites, and passing clouds. As always - experiment! Don't go for the <em>brass ring</em>
+          the first time out. Start small and build from there as your knowledge increases.
+        </p>
+        <p class="card-text">
+          One final important note: the calculator offers the question &quot;Do you want to enter the RGB exposure values yourself?&quot;
+          Be careful with this since you can easily saturate the frame by choosing values that are too high.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

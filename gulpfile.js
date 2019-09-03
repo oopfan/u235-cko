@@ -20,7 +20,8 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
             'components/nav-bar/nav-bar',
             'pages/home/home',
             'pages/about/about',
-            'pages/g2v-star-database/g2v-star-database'
+            'pages/g2v-star-database/g2v-star-database',
+            'pages/lrgb-exposure-calculator/lrgb-exposure-calculator'
         ],
         insertRequire: ['app/startup'],
         bundles: {
