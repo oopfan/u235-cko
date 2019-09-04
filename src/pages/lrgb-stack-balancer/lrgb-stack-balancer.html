@@ -1,79 +1,23 @@
-<h5>LRGB Stack Balancer</h5>
+<h5 class="pt-3">LRGB Stack Balancer</h5>
+
 <div class="row pt-3">
   <div class="col">
     <input id="fileopen" type="file" data-bind="event: { change: readFiles }" accept=".fits,.fit,.fts" multiple>
   </div>
 </div>
-<div class="row pt-3">
-  <div class="col">
-    Luminance Total Integration Time (m):
-  </div>
-</div>
-<div class="row align-items-center">
-  <div class="col-2">
-    <input type="text" class="form-control" id="luminanceAdjustedTotalIntegrationTime" data-bind="value: luminanceAdjustedTotalIntegrationTime, valueUpdate: 'input'">
-  </div>
-  <div class="col-2">
-    <span class="text-danger" data-bind="visible: luminanceViolation">Too few frames!</span>
-  </div>
-</div>
-<div class="row pt-3">
-  <div class="col">
-    Color Total Integration Time (m):
-  </div>
-</div>
-<div class="row align-items-center">
-  <div class="col-2">
-    <input type="text" class="form-control" id="colorAdjustedTotalIntegrationTime" data-bind="value: colorAdjustedTotalIntegrationTime, valueUpdate: 'input'">
-  </div>
-  <div class="col-2">
-    <span class="text-danger" data-bind="visible: colorViolation">Too few frames!</span>
-  </div>
-</div>
-<div class="row pt-3">
-  <div class="col">
-    Red Ratio:
-  </div>
-</div>
-<div class="row align-items-center">
-  <div class="col-2">
-    <input type="text" class="form-control" id="redRatio" data-bind="value: redRatio, valueUpdate: 'input'">
-  </div>
-  <div class="col-3">
-    <span class="text-danger" data-bind="visible: redViolation">Too few red frames!</span>
-  </div>
-</div>
-<div class="row pt-3">
-  <div class="col">
-    Green Ratio:
-  </div>
-</div>
-<div class="row align-items-center">
-  <div class="col-2">
-    <input type="text" class="form-control" id="greenRatio" data-bind="value: greenRatio, valueUpdate: 'input'">
-  </div>
-  <div class="col-3">
-    <span class="text-danger" data-bind="visible: greenViolation">Too few green frames!</span>
-  </div>
-</div>
-<div class="row pt-3">
-  <div class="col">
-    Blue Ratio:
-  </div>
-</div>
-<div class="row align-items-center">
-  <div class="col-2">
-    <input type="text" class="form-control" id="blueRatio" data-bind="value: blueRatio, valueUpdate: 'input'">
-  </div>
-  <div class="col-3">
-    <span class="text-danger" data-bind="visible: blueViolation">Too few blue frames!</span>
-  </div>
-</div>
+
+<div class="pt-3" data-bind="template: { name: 'input-template', data: { name: 'Luminance Total Integration Time (m)', value: luminanceAdjustedTotalIntegrationTime, violation: luminanceViolation } }"></div>
+<div class="pt-3" data-bind="template: { name: 'input-template', data: { name: 'Color Total Integration Time (m)', value: colorAdjustedTotalIntegrationTime, violation: colorViolation } }"></div>
+<div class="pt-3" data-bind="template: { name: 'input-template', data: { name: 'Red Ratio', value: redRatio, violation: redViolation } }"></div>
+<div class="pt-3" data-bind="template: { name: 'input-template', data: { name: 'Green Ratio', value: greenRatio, violation: greenViolation } }"></div>
+<div class="pt-3" data-bind="template: { name: 'input-template', data: { name: 'Blue Ratio', value: blueRatio, violation: blueViolation } }"></div>
+
 <div class="row pt-3">
   <div class="col">
     <button type="button" class="btn btn-success" data-bind="click: exportIt">Export!</button>
   </div>
 </div>
+
 <div data-bind="foreach: stagedFiles" style="font-size: 0.9rem;">
   <div class="row pt-3 border-bottom border-light">
     <div class="col-12">
@@ -81,132 +25,24 @@
     </div>
   </div>
   <div class="row border-bottom border-light">
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>Object:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: objectName"></span>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>Date:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: dateObs"></span>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>Instrument:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: instrument"></span>
-        </div>
-      </div>
-    </div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'Object', value: objectName } }"></div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'Date', value: dateObs } }"></div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'Instrument', value: instrument } }"></div>
   </div>
   <div class="row border-bottom border-light">
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>RA:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: objectRA"></span>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>Latitude:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: siteLat"></span>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>Filter:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: filter"></span>
-        </div>
-      </div>
-    </div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'RA', value: objectRA } }"></div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'Latitude', value: siteLat } }"></div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'Filter', value: filter } }"></div>
   </div>
   <div class="row border-bottom border-light">
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>DEC:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: objectDEC"></span>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>Longitude:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: siteLong"></span>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>Exposure:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: expTime"></span>
-        </div>
-      </div>
-    </div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'DEC', value: objectDEC } }"></div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'Longitude', value: siteLong } }"></div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'Exposure', value: expTime } }"></div>
   </div>
   <div class="row border-bottom border-light">
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>Altitude:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: altitudeFmt"></span>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>Airmass:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: airmassFmt"></span>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col-md-4">
-          <span>Extinction:</span>
-        </div>
-        <div class="col-md-auto">
-          <span data-bind="text: extinctionFmt"></span>
-        </div>
-      </div>
-    </div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'Altitude', value: altitudeFmt } }"></div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'Airmass', value: airmassFmt } }"></div>
+    <div class="col" data-bind="template: { name: 'fits-template', data: { name: 'Extinction', value: extinctionFmt } }"></div>
   </div>
 </div>
 
@@ -229,3 +65,31 @@
     </div>
   </div>
 </div>
+
+<!-- Templates -->
+<script type="text/html" id="fits-template">
+  <div class="row">
+    <div class="col-md-4">
+      <span data-bind="text: name"></span>:
+    </div>
+    <div class="col-md-auto">
+      <span data-bind="text: value"></span>
+    </div>
+  </div>
+</script>
+
+<script type="text/html" id="input-template">
+  <div class="row">
+    <div class="col">
+      <span data-bind="text: name"></span>:
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-2">
+      <input type="text" class="form-control" data-bind="value: value, valueUpdate: 'input'">
+    </div>
+    <div class="col-3">
+      <span class="text-danger" data-bind="visible: violation">Too few frames!</span>
+    </div>
+  </div>
+</script>
