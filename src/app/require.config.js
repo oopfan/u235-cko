@@ -13,6 +13,7 @@ var require = {
         "matrix3d":                       "./core/matrix3d",
         "timekeeper":                     "./core/timekeeper",
         "utility":                        "./core/utility",
+        "ko-modal-helper":                "./core/ko-modal-helper",
         "core-lrgb-exposure-calculator":  "./core/lrgb-exposure-calculator"
     }
 };

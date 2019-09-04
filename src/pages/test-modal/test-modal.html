@@ -1,22 +1,43 @@
-<h5>Test Modal</h5>
-<button type="button" class="btn btn-success" data-bind="click: showModal">Show Modal</button>
-<script type="text/html" id="person-template">
-  <div class="modal fade" id="modal-export" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button id="content-export-button" class="btn" data-toggle="tooltip" data-clipboard-target="#content-export">
-            <i class="fas fa-copy"></i>
-          </button>
-          <h5 class="modal-title" id="exampleModalLabel">Export</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <textarea class="form-control" id="content-export" rows="20"></textarea>
-        </div>
+<h5>Notes</h5>
+
+<div data-bind="foreach: notes">
+  <div class="row">
+    <div class="col">
+      <span data-bind="text: text"></span>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-success" data-bind="click: addNote">Add Note</button>
+
+<script type="text/html" id="add-note">
+<div class="modal hide fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Note</h5>
+        <button type="button" class="close" aria-hidden="true" data-bind="click: cancel">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form action="#" data-bind="submit: add">
+          <div class="control-group">
+            <label class="control-label">New note:</label>
+            <div class="controls">
+              <textarea class="form-control" data-bind="value: text"></textarea>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <label class="checkbox"><input type="checkbox" data-bind="checked: important" />Important</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-primary" data-bind="click: add">Add Note</a>
+        <a href="#" class="btn" data-bind="click: cancel">Cancel</a>
       </div>
     </div>
   </div>
+</div>
 </script>

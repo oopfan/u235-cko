@@ -1,116 +1,49 @@
-define(["knockout", "text!./test-modal.html"], function(ko, testModalTemplate) {
+define(["knockout", "ko-modal-helper", "text!./test-modal.html"], function(ko, modalHelper, testModalTemplate) {
 
-  var addHiddenDivToBody = function() {
-      var div = document.createElement("div");
-      div.style.display = "none";
-      document.body.appendChild(div);
-      return div;
+  var AppViewModel = function(params) {
+      this.notes = ko.observableArray();
   };
 
-  var createModalElement = function(templateName, viewModel) {
-      var temporaryDiv = addHiddenDivToBody();
-      var deferredElement = $.Deferred();
-      ko.renderTemplate(
-          templateName,
-          viewModel,
-          // We need to know when the template has been rendered,
-          // so we can get the resulting DOM element.
-          // The resolve function receives the element.
-          {
-              afterRender: function (nodes) {
-                  // Ignore any #text nodes before and after the modal element.
-                  var elements = nodes.filter(function(node) {
-                       return node.nodeType === 1; // Element
-                  });
-                  deferredElement.resolve(elements[0]);
-              }
-          },
-          // The temporary div will get replaced by the rendered template output.
-          temporaryDiv,
-          "replaceNode"
-      );
-      // Return the deferred DOM element so callers can wait until it's ready for use.
-      return deferredElement;
+  AppViewModel.prototype.addNote = function() {
+      modalHelper.showModal({
+          viewModel: new AddNoteViewModel(),
+          context: this // Set context so we don't need to bind the callback function
+      })
+      .done(function(result) {
+        //console.log("Modal closed with result: ", result);
+        this._addNoteToNotes(result);
+      })
+      .fail(function() {
+        //console.log("Modal cancelled");
+      });
   };
 
-  var addModalHelperToViewModel = function (viewModel, deferredModalResult, context) {
-      // Provide a way for the viewModel to close the modal and pass back a result.
-      viewModel.modal = {
-          close: function (result) {
-              if (typeof result !== "undefined") {
-                  deferredModalResult.resolveWith(context, [result]);
-              } else {
-                  // When result is undefined, we don't want any `done` callbacks of
-                  // the deferred being called. So reject instead of resolve.
-                  deferredModalResult.rejectWith(context, []);
-              }
-          }
+  AppViewModel.prototype._addNoteToNotes = function(newNote) {
+      this.notes.push(newNote);
+  };
+
+  var AddNoteViewModel = function() {
+      this.text = ko.observable();
+      this.important = ko.observable();
+  };
+
+  // The name of the template to render
+  AddNoteViewModel.prototype.template = "add-note";
+
+  AddNoteViewModel.prototype.add = function () {
+      var newNote = {
+          text: this.text(),
+          important: this.important()
       };
+      // Close the modal, passing the new note object as the result data.
+      this.modal.close(newNote);
   };
 
-  var showTwitterBootstrapModal = function($ui) {
-      // Display the modal UI using Twitter Bootstrap's modal plug-in.
-      $ui.modal({
-          // Clicking the backdrop, or pressing Escape, shouldn't automatically close the modal by default.
-          // The view model should remain in control of when to close.
-          backdrop: "static",
-          keyboard: false
-      });
+  AddNoteViewModel.prototype.cancel = function () {
+      // Close the modal without passing any result data.
+      this.modal.close();
   };
 
-  var whenModalResultCompleteThenHideUI = function (deferredModalResult, $ui) {
-      // When modal is closed (with or without a result)
-      // Then always hide the UI.
-      deferredModalResult.always(function () {
-          $ui.modal("hide");
-      });
-  };
-
-  var whenUIHiddenThenRemoveUI = function($ui) {
-      // Hiding the modal can result in an animation.
-      // The `hidden` event is raised after the animation finishes,
-      // so this is the right time to remove the UI element.
-      $ui.on("hidden", function() {
-          // Call ko.cleanNode before removal to prevent memory leaks.
-          $ui.each(function (index, element) { ko.cleanNode(element); });
-          $ui.remove();
-      });
-  };
-
-  var showModal = function(options) {
-      if (typeof options === "undefined") throw new Error("An options argument is required.");
-      if (typeof options.viewModel !== "object") throw new Error("options.viewModel is required.");
-
-      var viewModel = options.viewModel;
-      var template = options.template || viewModel.template;
-      var context = options.context;
-
-      if (!template) throw new Error("options.template or options.viewModel.template is required.");
-      console.log($);
-      return createModalElement(template, viewModel)
-          .pipe($) // jQueryify the DOM element
-          .pipe(function($ui) {
-            console.log($ui);
-              var deferredModalResult = $.Deferred();
-              addModalHelperToViewModel(viewModel, deferredModalResult, context);
-              showTwitterBootstrapModal($ui);
-              whenModalResultCompleteThenHideUI(deferredModalResult, $ui);
-              whenUIHiddenThenRemoveUI($ui);
-              return deferredModalResult;
-          });
-  };
-
-  function TestModalViewModel(route) {
-    this.showModal = function() {
-      console.log("showModal called!");
-      showModal({
-        template: "person-template",
-        viewModel: {},
-        context: {}
-      });
-    };
-  }
-
-  return { viewModel: TestModalViewModel, template: testModalTemplate };
+  return { viewModel: AppViewModel, template: testModalTemplate };
 
 });
