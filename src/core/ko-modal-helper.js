@@ -73,7 +73,7 @@ define(["knockout"], function(ko) {
       // Hiding the modal can result in an animation.
       // The `hidden` event is raised after the animation finishes,
       // so this is the right time to remove the UI element.
-      $ui.on("hidden", function() {
+      $ui.on("hidden.bs.modal", function() {
           // Call ko.cleanNode before removal to prevent memory leaks.
           $ui.each(function (index, element) { ko.cleanNode(element); });
           $ui.remove();

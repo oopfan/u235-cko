@@ -1,8 +1,8 @@
-define(['knockout', 'clipboard', 'vector3d', 'matrix3d', 'timekeeper', 'text!./lrgb-stack-balancer.html'], function(ko, ClipboardJS, Vector3D, Matrix3D, Timekeeper, templateMarkup) {
+define(['knockout', "ko-modal-helper", 'vector3d', 'matrix3d', 'timekeeper', 'text!./lrgb-stack-balancer.html'], function(ko, modalHelper, Vector3D, Matrix3D, Timekeeper, templateMarkup) {
 
   function LrgbStackBalancer(params) {
     $("#fileopen").val("");
-
+    /*
     var clipboard;
     $("#modal-export").on("shown.bs.modal", function() {
       var originalMessage = "Copy to clipboard";
@@ -38,6 +38,7 @@ define(['knockout', 'clipboard', 'vector3d', 'matrix3d', 'timekeeper', 'text!./l
     $("#modal-export").on("hidden.bs.modal", function() {
       clipboard.destroy();
     });
+    */
 
     // Red light Extinction Coefficients:
     var Rxc = [
@@ -336,11 +337,38 @@ define(['knockout', 'clipboard', 'vector3d', 'matrix3d', 'timekeeper', 'text!./l
 
       $("#fileopen").val("");
     }
+
     self.exportIt = function() {
-      $("#content-export").val("Working...");
-      $("#modal-export").modal();
+      modalHelper.showModal({
+        viewModel: new ExportViewModel(self.stagedFiles),
+        context: this // Set context so we don't need to bind the callback function
+      })
+      .done(function(result) {
+        console.log("Modal closed with result: ", result);
+      })
+      .fail(function() {
+        console.log("Modal cancelled");
+      });
+    };
+
+    function ExportViewModel(files) {
+      var self = this;
+      self.files = files;
+      self.template = "modal-export";
+      self.content = ko.observable("Working...");
+      self.buttonClick = function() {
+        var element = $('#content-export');
+        element.focus();
+        element.select();
+        document.execCommand('copy');
+        self.buttonText("Copied to clipboard!");
+      };
+      self.buttonText = ko.observable("Copy to clipboard");
+      self.cancel = function() {
+        self.modal.close();
+      };
       setTimeout(function() {
-        var sortedFiles = self.stagedFiles.sorted(function(left, right) {
+        var sortedFiles = self.files.sorted(function(left, right) {
           var result;
           if (left.filter() === right.filter()) {
             if (left.filename() === right.filename()) {
@@ -368,9 +396,10 @@ define(['knockout', 'clipboard', 'vector3d', 'matrix3d', 'timekeeper', 'text!./l
           var selected = sortedFiles[i].selected() ? "x" : "";
           content += filter + "," + filename + "," + selected + "\n";
         }
-        $("#content-export").val(content);
+        self.content(content);
       }, 1000);
     }
+
     function readAsFITS(theFile) {
       var f = new astro.FITS(theFile, function() {
         var header = this.getHeader();
