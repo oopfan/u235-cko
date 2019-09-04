@@ -8,7 +8,7 @@ var gulp = require('gulp'), rjs = require('gulp-requirejs-bundler'), concat = re
 // Config
 var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require.config.js') + '; require;');
     requireJsOptimizerConfig = merge(requireJsRuntimeConfig, {
-        out: 'scripts.js',
+        out: 'scriptsr.js',
         baseUrl: './src',
         name: 'app/startup',
         paths: {
@@ -21,7 +21,8 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
             'pages/home/home',
             'pages/about/about',
             'pages/g2v-star-database/g2v-star-database',
-            'pages/lrgb-exposure-calculator/lrgb-exposure-calculator'
+            'pages/lrgb-exposure-calculator/lrgb-exposure-calculator',
+            'pages/lrgb-stack-balancer/lrgb-stack-balancer'
         ],
         insertRequire: ['app/startup'],
         bundles: {
@@ -34,10 +35,27 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
     });
 
 // Discovers all AMD dependencies, concatenates together all required .js files, minifies them
+/*
 gulp.task('js', function () {
     return rjs(requireJsOptimizerConfig)
         .pipe(uglify({ preserveComments: 'some' }))
         .pipe(gulp.dest('./dist/'));
+});
+*/
+gulp.task('js', function() {
+  var uglifyOptions = { preserveComments: 'some' };
+  return gulp
+    .src([
+      './node_modules/jquery/dist/jquery.min.js',
+      './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
+      './node_modules/fitsjs/lib/fits.js'
+    ])
+    .pipe(uglify(uglifyOptions))
+    .pipe(concat('scripts1.js'))
+    .pipe(gulp.dest('./dist/'))
+    .pipe(rjs(requireJsOptimizerConfig)
+      .pipe(uglify(uglifyOptions))
+      .pipe(gulp.dest('./dist/')));
 });
 
     // Concatenates CSS files, rewrites relative paths to Bootstrap fonts
@@ -65,7 +83,8 @@ gulp.task('html', function() {
     return gulp.src('./src/index.html')
         .pipe(htmlreplace({
             'css': 'css.css?' + Date.now(),
-            'js': 'scripts.js?' + Date.now()
+            'js1': 'scripts1.js?' + Date.now(),
+            'jsr': 'scriptsr.js?' + Date.now()
         }))
         .pipe(gulp.dest('./dist/'));
 });

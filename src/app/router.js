@@ -14,7 +14,9 @@ define(["knockout", "crossroads", "hasher"], function(ko, crossroads, hasher) {
             { url: '',                          params: { page: 'home' } },
             { url: 'about',                     params: { page: 'about' } },
             { url: 'g2v-star-database',         params: { page: 'g2v-star-database' } },
-            { url: 'lrgb-exposure-calculator',  params: { page: 'lrgb-exposure-calculator' } }
+            { url: 'lrgb-exposure-calculator',  params: { page: 'lrgb-exposure-calculator' } },
+            { url: 'lrgb-stack-balancer',       params: { page: 'lrgb-stack-balancer' } },
+            { url: 'test-modal',                params: { page: 'test-modal' } }
         ]
     });
 

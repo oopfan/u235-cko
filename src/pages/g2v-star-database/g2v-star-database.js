@@ -1,11 +1,11 @@
-define(['knockout', 'jquery', 'text!./g2v-star-database.html'], function(ko, jquery, templateMarkup) {
+define(['knockout', 'text!./g2v-star-database.html'], function(ko, templateMarkup) {
 
   function G2vStarDatabase(params) {
     var self = this;
     self.g2v_north = ko.observableArray();
     self.g2v_south = ko.observableArray();
 
-    jquery.getJSON("/api/g2v/", function(data) {
+    $.getJSON("/api/g2v/", function(data) {
       var g2vN = [], g2vS = [];
       var size = 15;
       while (data.stars.length > 0) {
