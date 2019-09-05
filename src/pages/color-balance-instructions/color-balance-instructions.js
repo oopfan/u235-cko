@@ -1,7 +1,10 @@
-define(['knockout', 'text!./color-balance-instructions.html'], function(ko, templateMarkup) {
+define(['knockout', 'scroll-view', 'text!./color-balance-instructions.html'], function(ko, scrollView, templateMarkup) {
 
   function ColorBalanceInstructions() {
-    var self = this;
+    this.scrollTo = function(data, event) {
+      var id = $(event.target).attr('href');
+      scrollView(id);
+    }
   }
 
   ColorBalanceInstructions.prototype.dispose = function() {};

@@ -13,6 +13,7 @@ var require = {
         "timekeeper":                     "./core/timekeeper",
         "utility":                        "./core/utility",
         "ko-modal-helper":                "./core/ko-modal-helper",
-        "lrgb-exposure-calculator":       "./core/lrgb-exposure-calculator"
+        "lrgb-exposure-calculator":       "./core/lrgb-exposure-calculator",
+        "scroll-view":                    "./core/scroll-view"
     }
 };

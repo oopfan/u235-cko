@@ -1,1 +1,1613 @@
-<h5 class="pt-3">Color Balance Instructions</h5>
+<div class="row pt-3">
+  <div class="col-12">
+    <h4>Instruction by example:</h4>
+    <h5>Color Balancing an Atik 314E camera and Optolong LRGB filters using the star HIP-89474 and AstroImageJ</h5>
+  </div>
+</div>
+<hr />
+
+<section id="toc">
+  <div class="row">
+    <div class="col-12">
+      <h4>Table of Contents</h4>
+      <h5>Introduction:</h5>
+      <ul>
+        <li><a href="#why-color-balance" data-bind="click: scrollTo">Why Color Balance?</a></li>
+        <li><a href="#why-g2v" data-bind="click: scrollTo">Why HIP-89474?</a></li>
+        <li><a href="#why-aij" data-bind="click: scrollTo">Why AstroImageJ?</a></li>
+        <li><a href="#install-aij" data-bind="click: scrollTo">Install AstroImageJ</a></li>
+        <li><a href="#file-structure" data-bind="click: scrollTo">My File Structure vs Yours: Why is it important?</a></li>
+      </ul>
+      <h5>Preparation:</h5>
+      <ul>
+        <li><a href="#choose-star" data-bind="click: scrollTo">Choose a star</a></li>
+        <li><a href="#determine-exposure" data-bind="click: scrollTo">Determine exposure</a></li>
+        <li><a href="#final-checklist" data-bind="click: scrollTo">Final checklist</a></li>
+      </ul>
+      <h5>Launching:</h5>
+      <ul>
+        <li><a href="#launch" data-bind="click: scrollTo">Step 1: Launch AstroImageJ</a></li>
+      </ul>
+      <h5>Calibrating:</h5>
+      <ul>
+        <li><a href="#calibrate-reds" data-bind="click: scrollTo">Step 2: Calibrate Reds</a></li>
+        <li><a href="#calibrate-greens" data-bind="click: scrollTo">Step 3: Calibrate Greens</a></li>
+        <li><a href="#calibrate-blues" data-bind="click: scrollTo">Step 4: Calibrate Blues</a></li>
+      </ul>
+      <h5>Aligning:</h5>
+      <ul>
+        <li><a href="#align-reds" data-bind="click: scrollTo">Step 5: Align Reds</a></li>
+        <li><a href="#align-greens" data-bind="click: scrollTo">Step 6: Align Greens</a></li>
+        <li><a href="#align-blues" data-bind="click: scrollTo">Step 7: Align Blues</a></li>
+      </ul>
+      <h5>Stacking:</h5>
+      <ul>
+        <li><a href="#stack-reds" data-bind="click: scrollTo">Step 8: Stack Reds</a></li>
+        <li><a href="#stack-greens" data-bind="click: scrollTo">Step 9: Stack Greens</a></li>
+        <li><a href="#stack-blues" data-bind="click: scrollTo">Step 10: Stack Blues</a></li>
+      </ul>
+      <h5>Measuring:</h5>
+      <ul>
+        <li><a href="#measure-select-aperture" data-bind="click: scrollTo">Step 11: Select the Aperture</a></li>
+        <li><a href="#measure-red-star-brightness" data-bind="click: scrollTo">Step 12: Measure Star Brightness in Red</a></li>
+        <li><a href="#measure-green-star-brightness" data-bind="click: scrollTo">Step 13: Measure Star Brightness in Green</a></li>
+        <li><a href="#measure-blue-star-brightness" data-bind="click: scrollTo">Step 14: Measure Star Brightness in Blue</a></li>
+        <li><a href="#measure-create-spreadsheet" data-bind="click: scrollTo">Step 15: Create the spreadsheet</a></li>
+      </ul>
+      <h5>Analyzing:</h5>
+      <ul>
+        <li><a href="#calculate-color-balance" data-bind="click: scrollTo">Step 16: Using the U235 Color Balance Calculator</a></li>
+        <li><a href="#calculate-lrgb-exposure" data-bind="click: scrollTo">Step 17: Using the U235 LRGB Exposure Calculator</a></li>
+      </ul>
+      <h5>Addendum:</h5>
+      <ul>
+        <li><a href="#coordinate-converter" data-bind="click: scrollTo">How to use the DP Coordinate Converter</a></li>
+        <li><a href="#an-alternative" data-bind="click: scrollTo">An alternative to stacking</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<section id="why-color-balance">
+  <div class="row">
+    <div class="col-12">
+      <h4>Why Color Balance?</h4>
+      <p>
+        A picture is worth a thousand words, as they say:
+      </p>
+      <p>
+        <img class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-compare-rgb-stacks.png" alt="Image: Compare RGB stacks" />
+      </p>
+      <p>
+        The image in the center panel shows the most number of stars against a dark
+        background. The panels at either end look noisy and lack contrast. By following
+        the steps described in this document you will be able to determine that you
+        need to stack 17 frames of red and 14 frames of blue to achieve the appearance
+        of the center panel.
+      </p>
+      <p>
+        Why does the green stack require the fewest number of frames? It is due to the
+        spectral response of the CCD camera. The Atik 314E is most sensitive to green light
+        and least sensitive to red. On the other hand the Altair 290M is most sensitive  to red
+        and least sensitive to blue. This is the reason why you must rerun color balancing
+        for each camera and set of filters.
+      </p>
+      <p>
+        Why is this important? In astrophotography we strive to capture the
+        faintest wisps of nebulosity in our images. To accomplish this we must <em>stretch</em>
+        the image with software like Photoshop so that outer space is no longer black.
+        Properly exposed red, green, and blue images will show the color of space as it
+        truly is. Sometimes outer space is a dark shade of gray and other times it is a
+        murky red if the frame is within the Milky Way.
+      </p>
+      <p>
+        With regards to the three-panel image above, if we try to image a galaxy using
+        the same exposure for red, green, and blue, and stack the same number of frames
+        then space will have a magenta cast due to the large amount of noise in
+        the red and blue channels. This is why color balancing is important.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="why-g2v">
+  <div class="row">
+    <div class="col-12">
+      <h4>Why HIP-89474?</h4>
+      <p>
+        HIP-89474 is a Sun-like star in the constellation Lyra. It is a Main Sequence star
+        like our Sun having a spectral type of G1V. Our Sun is G2V. For all intents and
+        purposes HIP-89474 is the Sun but seen at a great distance.
+      </p>
+      <p>
+        What is the color of the Sun? Some say yellow but others say it is by definition
+        "white light". As astrophotographers we need to know which it is so that we can
+        calibrate our camera and filters. We agree with "white light".
+      </p>
+      <p>
+        HIP-89474 is only visible to northern hemisphere observers and for that matter for
+        only a few months a year. What we need is a catalog of Sun-like stars that can be
+        viewed year-round from anywhere on Earth. You can find a catalog
+        <a href="#g2v-star-database" target="_blank">here</a> at
+        the U235 Astrophotography website.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="why-aij">
+  <div class="row">
+    <div class="col-12">
+      <h4>Why AstroImageJ?</h4>
+      <p>
+        AstroImageJ (AIJ) builds upon the robust ImageJ framework providing
+        superb tools for astrophotographers and photometrists alike. It is the "go to" tool
+        for Exo-planet research.
+        AIJ is mature open source software led by Karen Collins, University of Louisville,
+        Kentucky. The online forum is active. Ms. Collins is quick to reply.
+      </p>
+      <p>
+        For our needs we have these requirements:
+        <ol>
+          <li>Calibration</li>
+          <li>Registration (AIJ's Alignment)</li>
+          <li>Stacking</li>
+          <li>Measurement of a star's brightness</li>
+        </ol>
+      </p>
+      <p>
+        As it is, calibration, registration, and stacking can be found in other software
+        from Deep Sky Stacker (free) to Astro Pixel Processor (paid) and
+        many others. But what stands out for me is AIJ's ability to align frames that
+        are noisy and have only one reference star. Don't try that with other software,
+        some which require a minimum of nine stars. Granted, AIJ will not perform frame
+        rotation but that is not an issue with the short sequences we capture.
+      </p>
+      <p>
+        The other positive is brightness measurement. Other software provides tools for
+        sampling a single pixel. AIJ provides an <em>aperture</em> over which photons are
+        counted. This yields a stable, accurate measurement not affected by atmospheric
+        turbulence.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="install-aij">
+  <div class="row">
+    <div class="col-12">
+      <h4>Installing AstroImageJ</h4>
+      <p>
+        Please go to the AstroImageJ website found
+        <a href="https://www.astro.louisville.edu/software/astroimagej/" target="_blank">here</a>.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="file-structure">
+  <div class="row">
+    <div class="col-12">
+      <h4>My File Structure vs Yours: Why is it important?</h4>
+      <p>
+        Several steps, especially those to do with Calibration, refer to file paths
+        into my file system. In this section I will describe its structure. Yours may be
+        different.
+      </p>
+      <p>
+        One important difference is that I do not mix different kinds of files in the same
+        folder. For example, I store Light Red files in its own folder, separated from Greens
+        and Blues. If your system mixes red, green, and blue files in the same folder then you
+        need to utilize the <em>Filename/Pattern</em> field. As you see my pattern is simple:
+        *.fits.
+      </p>
+      <p>
+        Please refer to the AstroImageJ User Guide for more information if needed.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h5>My image acquisition computer: RaspberryPi running Astroberry/INDI/Ekos. (See notes 1-4 below)</h5>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-12">
+      home/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-11 offset-1">
+      Pictures/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10 offset-2">
+      Bias/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Bias_0.001_secs_001.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      ...
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Bias_0.001_secs_100.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10 offset-2">
+      Dark/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Dark_1_secs_001.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      ...
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Dark_1_secs_050.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10 offset-2">
+      Flat/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Blue/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Flat_Blue_1.1_secs_001.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      ...
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Flat_Blue_1.1_secs_050.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Green/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Flat_Green_0.6_secs_001.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      ...
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Flat_Green_0.6_secs_050.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Red/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Flat_Red_1.5_secs_001.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      ...
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Flat_Red_1.5_secs_050.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10 offset-2">
+      Light/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Blue/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Light_Blue_1_secs_001.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      ...
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Light_Blue_1_secs_010.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Green/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Light_Green_1_secs_001.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      ...
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Light_Green_1_secs_010.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Red/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Light_Red_1_secs_001.fits
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      ...
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Light_Red_1_secs_010.fits
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-12">
+      <h5>My image processing computer: Linux laptop with AstroImageJ installed. (See notes 5-6 below)</h5>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-12">
+      home/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-11 offset-1">
+      astro2019/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10 offset-2">
+      G2V/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Atik-314E/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Optolong-LRGB/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2 offset-5">
+      HIP-89474/
+    </div>
+    <div class="col-4">
+      ! Folder created to contain this dataset:
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-1 offset-6">
+      Bias/
+    </div>
+    <div class="col-4">
+      ! Copied here from Image Acquisition Computer
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-1 offset-6">
+      Dark/
+    </div>
+    <div class="col-4">
+      ! Copied here from Image Acquisition Computer
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-1 offset-6">
+      Flat/
+    </div>
+    <div class="col-4">
+      ! Copied here from Image Acquisition Computer
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-1 offset-6">
+      Light/
+    </div>
+    <div class="col-4">
+      ! Copied here from Image Acquisition Computer
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-12">
+      <h5>After image processing using AstroImageJ (See note 7 below)</h5>
+    </div>
+  </div>
+  <div class="row pt-2">
+    <div class="col-12">
+      home/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-11 offset-1">
+      astro2019/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10 offset-2">
+      G2V/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9 offset-3">
+      Atik-314E/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-4">
+      Optolong-LRGB/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-7 offset-5">
+      HIP-89474/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-6">
+      <span class="bg-info">
+        mbias.fits
+      </span>
+    </div>
+    <div class="col-6 offset-6">
+      <span class="bg-info">
+        mdark.fits
+      </span>
+    </div>
+    <div class="col-6 offset-6">
+      <span class="bg-info">
+        mflat_blue.fits
+      </span>
+    </div>
+    <div class="col-6 offset-6">
+      <span class="bg-info">
+        mflat_green.fits
+      </span>
+    </div>
+    <div class="col-6 offset-6">
+      <span class="bg-info">
+        mflat_red.fits
+      </span>
+    </div>
+    <div class="col-6 offset-6">
+      <span class="bg-info">
+        stack_blue.fits
+      </span>
+    </div>
+    <div class="col-6 offset-6">
+      <span class="bg-info">
+        stack_green.fits
+      </span>
+    </div>
+    <div class="col-6 offset-6">
+      <span class="bg-info">
+        stack_red.fits
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-6">
+      Bias/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-6">
+      Dark/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-6">
+      Flat/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-6">
+      Light/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5 offset-7">
+      Blue/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 offset-8">
+      <span class="bg-info">
+        calib/
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 offset-9">
+      <span class="bg-info">
+        align/
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5 offset-7">
+      Green/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 offset-8">
+      <span class="bg-info">
+        calib/
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 offset-9">
+      <span class="bg-info">
+        align/
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-5 offset-7">
+      Red/
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 offset-8">
+      <span class="bg-info">
+        calib/
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 offset-9">
+      <span class="bg-info">
+        align/
+      </span>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-12">
+      <h5>Notes:</h5>
+      <p>
+        <sup>1</sup> Ekos stores files in home/Pictures by default. It stores bias frames in the Bias folder,
+        dark frames in the Dark folder, flat frames in the Flat folder, and light frames in the Light
+        folder. Generally speaking I like to capture 100 bias frames, 50-100 dark frames, and 50-100
+        flat frames. For Color Balancing 10 light frames is sufficient.
+      </p>
+      <p>
+        <sup>2</sup> The listed exposure times for flat frames are appropriate for my combination of telescope, camera,
+        filter, and electroluminescent panel. Your exposure times may differ. You should target
+        a mean pixel value of approximately 30,000-35,000 ADU for your flats.
+      </p>
+      <p>
+        <sup>3</sup> Note that I used an exposure of one second for lights and darks. The exposure
+        you choose may differ but once you make a decision you must use the same exposure for all
+        lights and darks. Ideally I like to adjust the exposure so that the peak pixel
+        value of the star reads approximately 30,000 ADU in the Green filter. For a 7th magnitude star
+        this is approximately 5 seconds.
+      </p>
+      <p>
+        <sup>4</sup> For the HIP-89474 dataset I chose a one second exposures for lights.
+        That resulted in a peak pixel value of less than 10,000 ADU. Why did I do that? I had poor polar
+        alignment and no periodic error correction (PEC) at the time. This is not ideal but usable. Also
+        note that I used 1x1 binning.
+      </p>
+      <p>
+        <sup>5</sup> Note that the top level folder under home is <em>astro&lt;YEAR&gt;</em>. Last year was
+        <em>astro2018</em> and next year will be <em>astro2020</em>. As you can see I can rip
+        through 1TB of storage on my laptop in just a few years. In order to manage this problem
+        I use cloud-based backup storage in which I create a storage bucket for each instance
+        of <em>astro&lt;YEAR&gt;</em>.
+      </p>
+      <p>
+        <sup>6</sup> As I write this the year is 2019, so I run the backup script on <em>astro2019</em>
+        several times a week. When 2019 transitions to 2020, the bulk of activity will move there
+        while 2019 activity fades away. When free disk space becomes an issue I can safely remove
+        <em>astro2019</em> from the laptop therefore freeing up a couple 100GB of disk. Note however
+        that the storage bucket for <em>astro2019</em> still lives in the cloud that I can retrieve
+        at any time.
+      </p>
+      <p>
+        <sup>7</sup> Blue highlights are used to bring attention to the files and folders that are created
+        through the process of calibrating, aligning, and stacking.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="choose-star">
+  <div class="row">
+    <div class="col-12">
+      <h4>Choose a star</h4>
+      <p>
+        Use the table below to choose the range of Right Ascension (RA) given the season. Refer to the
+        <a href="#g2v-star-database" target="_blank">G2V Star Database</a>
+        to find stars in that RA range. Data is grouped by northern hemisphere and southern hemisphere, and
+        then sorted by RA. Scrutinize the Declination (DEC) field. Observers in extreme
+        northern latitudes should favor highly positive DEC if possible. Observers in
+        extreme southern latitudes should favor highly negative DEC if possible.
+      </p>
+      <ul>
+        <li>
+          Northern Hemisphere observers:
+          <ul>
+            <li>Spring: RA from 9<sup>h</sup> to 15<sup>h</sup></li>
+            <li>Summer: RA from 15<sup>h</sup> to 21<sup>h</sup></li>
+            <li>Fall: RA from 21<sup>h</sup> to 3<sup>h</sup></li>
+            <li>Winter: RA from 3<sup>h</sup> to 9<sup>h</sup></li>
+          </ul>
+        </li>
+        <li>
+          Southern Hemisphere observers:
+          <ul>
+            <li>Spring: RA from 21<sup>h</sup> to 3<sup>h</sup></li>
+            <li>Summer: RA from 3<sup>h</sup> to 9<sup>h</sup></li>
+            <li>Fall: RA from 9<sup>h</sup> to 15<sup>h</sup></li>
+            <li>Winter: RA from 15<sup>h</sup> to 21<sup>h</sup></li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        Good planetarium software is an invaluable tool for visualizing a star
+        field. My personal favorite is
+        <a href="http://www.astrosurf.com/c2a/english/index.htm" target="_blank">C2A</a>.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="determine-exposure">
+  <div class="row">
+    <div class="col-12">
+      <h4>Determine exposure</h4>
+      <p>
+        Until you get to know your camera choose your green filter. Since most of the stars
+        in the G2V star database are quite bright start with a 5-second exposure.
+        Zoom in on the star and sample the pixels. If the maximum pixel value is
+        between 20,000 ADU and 40,000 ADU then this is ideal. Capture another frame or two
+        and sample again to verify. Increase exposure if the maximum pixel value is below
+        20,000 ADU. Decrease it if above 40,000 ADU.
+      </p>
+      <p>
+        Ideally your image acquisition software offers the ability to place a selection box
+        around a star from which you can discover the maximum pixel value. If that is
+        unavailable then most software allows you to hover over a star to read an
+        individual pixel value. If that is the case then be sure to zoom in so as to make
+        it easy to sample each pixel.
+      </p>
+      <p>
+        Be careful with software that reads out the maximum pixel value of the entire frame.
+        There may be <em>hot pixels</em> and/or brighter stars in the frame that mislead you.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="final-checklist">
+  <div class="row">
+    <div class="col-12">
+      <h4>Final checklist</h4>
+      <ol>
+        <li>Choose a star.</li>
+        <li>Slew to the star's coordinates.</li>
+        <li>Select 1x1 binning.</li>
+        <li>Determine exposure as described above.</li>
+        <li>Cover your telescope's objective and capture 50-100 dark frames at your pre-determined exposure.</li>
+        <li>Cover your telescope's objective and capture 50-100 bias frames at your camera's minimum exposure setting (see note 1.)</li>
+        <li>Uncover your telescope's objective.</li>
+        <li>Select your Red filter.</li>
+        <li>Focus.</li>
+        <li>Capture a minimum of 10 light red frames at your pre-determined exposure.</li>
+        <li>Cover your telescope's objective with your electroluminescent panel.</li>
+        <li>Capture 50-100 flat red frames (see note 2.)</li>
+        <li>Select your Green filter.</li>
+        <li>Focus.</li>
+        <li>Capture a minimum of 10 light green frames at your pre-determined exposure.</li>
+        <li>Cover your telescope's objective with your electroluminescent panel.</li>
+        <li>Capture 50-100 flat green frames (see note 2.)</li>
+        <li>Select your Blue filter.</li>
+        <li>Focus.</li>
+        <li>Capture a minimum of 10 light blue frames at your pre-determined exposure.</li>
+        <li>Cover your telescope's objective with your electroluminescent panel.</li>
+        <li>Capture 50-100 flat blue frames (see note 2.)</li>
+        <li>Copy all files to your image processing computer.</li>
+        <li>Process with AstroImageJ as described in this document (see note 3.)</li>
+      </ol>
+      <h5>Notes:</h5>
+      <p>
+        <sup>1</sup> For bias frames I use a 1-millisecond exposure.
+      </p>
+      <p>
+        <sup>2</sup> Flat frame exposure times vary from one filter to the next.
+        Adjust the exposure so that the mean pixel value is 30,000 ADU to 40,000 ADU.
+      </p>
+      <p>
+        <sup>3</sup> IMPORTANT: Your red, green, and blue stacks must contain the
+        same number of frames. You may capture more frames but when stacking choose
+        a number and be consistent.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="launch">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 1</h4>
+      <h5>Launch AstroImageJ</h5>
+      <p>
+        AstroImageJ (AIJ) is a multi-platform Java application. How to launch it depends on your operating system
+        and how savvy you are at creating shortcuts.
+      </p>
+      <p>
+        On my Linux laptop I press Ctrl-Alt-T to bring up a Terminal Window and type <code>aij</code> then Enter.
+        On Windows I launch Windows Explorer and navigate to a specific folder and then double-click the executable.
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#launch-img1')">
+          <img id="launch-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/AIJ-Main-Window.png" alt="Image: Main Window" width="300" />
+        </a>
+        <p>
+          The <em>Main Window</em>.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="calibrate-reds">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 2</h4>
+      <h5>Calibrate Reds</h5>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#calibrate-reds-img1')">
+          <img id="calibrate-reds-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/AIJ-DP-Coordinate-Converter.png" alt="Image: DP Coordinate Converter" width="300" />
+        </a>
+        <p>
+          From the Main Window <u>click the <strong>DP</strong> button</u> on the toolbar.
+        </p>
+        <p>
+          The <em>DP Coordinate Converter</em> may show first (seen here to the left).
+        </p>
+        <p>
+          <u>Close it</u>. We will talk more about it later.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#calibrate-reds-img2')">
+          <img id="calibrate-reds-img2" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/AIJ-DP-Reds.png" alt="Image: CCD Data Processor" width="400" />
+        </a>
+        <p>
+          The <em>CCD Data Processor</em>.
+        </p>
+        <p>
+          We will invoke it three times for red, green, and blue. In this step we will ask
+          AIJ to also create the master bias and master dark files which will simplify the next two steps.
+        </p>
+        <p>
+          The yellow highlighted fields warrant your attention. Be careful with the paths to the various
+          image files particularly if your folder structure is different from mine.
+        </p>
+        <p>
+          <u>Click the Start button</u>. The Log window will show progress. Finally the Image window
+          will pop up to show the calibrated images as they are processed.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="calibrate-greens">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 3</h4>
+      <h5>Calibrate Greens</h5>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#calibrate-greens-img1')">
+          <img id="calibrate-greens-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/AIJ-DP-Greens.png" alt="Image: CCD Data Processor" width="400" />
+        </a>
+        <p>
+          The <em>CCD Data Processor</em>.
+        </p>
+        <p>
+          Things become much easier after running Reds calibration. Now we can disable the building
+          of the master bias and master dark files.
+        </p>
+        <p>
+          Take a look at the yellow highlighted fields. In a nutshell there are only three fields
+          to change: the path to the <em>Science Images</em> which are your lights, the path to the green
+          flats, and the name of the master flat file.
+        </p>
+        <p>
+          <u>Click the Start button</u>. The Log window will show progress, and the Image window
+          will show the calibrated images as they are processed.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="calibrate-blues">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 4</h4>
+      <h5>Calibrate Blues</h5>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#calibrate-blues-img1')">
+          <img id="calibrate-blues-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/AIJ-DP-Blues.png" alt="Image: CCD Data Processor" width="400" />
+        </a>
+        <p>
+          The <em>CCD Data Processor</em>.
+        </p>
+        <p>
+          This is getting too easy.
+        </p>
+        <p>
+          Only three fields need to change: the path to the blue lights, the path to the blue
+          flats, and the name of the master flat file.
+        </p>
+        <p>
+          <u>Click the Start button</u>. The Log window will show progress, and the Image window
+          will show the calibrated images as they are processed.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="align-reds">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 5</h4>
+      <h5>Align Reds</h5>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#align-reds-img1')">
+          <img id="align-reds-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/AIJ-Main-Window.png" alt="Image: Main Window" width="300" />
+        </a>
+        <p>
+          The <em>Main Window</em>.
+        </p>
+        <p>
+          From the menu click <u>File &gt; Import &gt; Image Sequence...</u>
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#align-reds-img2')">
+          <img id="align-reds-img2" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-import-image-sequence-1.png" alt="Image: Open Image Sequence" width="400" />
+        </a>
+        <p>
+          The <em>Open Image Sequence</em> dialog.
+        </p>
+        <p>
+          Drill down into the calibration folder for light reds.
+        </p>
+        <p>
+          <u>Click the Open button</u>.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#align-reds-img3')">
+          <img id="align-reds-img3" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-import-image-sequence-2.png" alt="Image: Sequence Options" width="150" />
+        </a>
+        <p>
+          The <em>Image Sequence Options</em> dialog.
+        </p>
+        <p>
+          <u>Check the box: Use virtual stack</u>. This saves the aligned images in the
+          <em>aligned</em> folder which is necessary for stacking.
+        </p>
+        <p>
+          <u>Click the OK button</u>.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#align-reds-img4')">
+          <img id="align-reds-img4" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-import-image-sequence-3.png" alt="Image: Image Window" width="300" />
+        </a>
+        <p>
+          The <em>Image Window</em> shows the first image in the sequence.
+        </p>
+        <p>
+          From the menu click <u>Process &gt; Align stack using WCS or apertures...</u>
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#align-reds-img5')">
+          <img id="align-reds-img5" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-import-image-sequence-4.png" alt="Image: Stack Aligner" width="300" />
+        </a>
+        <p>
+          The <em>Stack Aligner</em> dialog.
+        </p>
+        <p>
+          As shown, set:
+          <ul>
+            <li><em>Radius of Object Aperture</em> to 20.</li>
+            <li><em>Inner Radius of Background Annulus</em> to 40.</li>
+            <li><em>Outer Radius of Background Annulus</em> to 80.</li>
+          </ul>
+        </p>
+        <p>
+          Ensure that the same checkboxes are checked.
+        </p>
+        <p>
+          <u>Click the OK button</u>.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#align-reds-img6')">
+          <img id="align-reds-img6" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-import-image-sequence-3.png" alt="Image: Image Window" width="300" />
+        </a>
+        <p>
+          Focus returns to the <em>Image Window</em>.
+        </p>
+        <p>
+          Move the mouse pointer on top of the G2V star. Precise positioning is not required just
+          as long as the star is inside the <em>Object Aperture</em>. If unsure then use the toolbar
+          to zoom in or use the mouse's scroll wheel.
+        </p>
+        <p>
+          <u>Click the left mouse button</u>.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#align-reds-img7')">
+          <img id="align-reds-img7" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-import-image-sequence-5.png" alt="Image: Image Window" width="300" />
+        </a>
+        <p>
+          The <em>Image Window</em> now shows the aperture centered on the G2V star.
+        </p>
+        <p>
+          <u>Press the Enter key</u> or <u>Click the right mouse button</u> to begin alignment of
+          all images in the sequence.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#align-reds-img8')">
+          <img id="align-reds-img8" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-import-image-sequence-6.png" alt="Image: Message" width="300" />
+        </a>
+        <p>
+          The alignment of red image files is now complete!
+        </p>
+        <p>
+          <u>Click the OK button</u>.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="align-greens">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 6</h4>
+      <h5>Align Greens</h5>
+      <p>
+        Follow the same procedure in Step 5 used for aligning Reds except now
+        select the Light Green <em>calib</em> folder.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="align-blues">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 7</h4>
+      <h5>Align Blues</h5>
+      <p>
+        Follow the same procedure in Step 5 used for aligning Reds except now
+        select the Light Blue <em>calib</em> folder.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="stack-reds">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 8</h4>
+      <h5>Stack Reds</h5>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#stack-reds-img1')">
+          <img id="stack-reds-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/AIJ-Main-Window.png" alt="Image: Main Window" width="300" />
+        </a>
+        <p>
+          The <em>Main Window</em>.
+        </p>
+        <p>
+          From the menu click <u>File &gt; Import &gt; Image Sequence...</u>
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#stack-reds-img2')">
+          <img id="stack-reds-img2" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-stack-red-1.png" alt="Image: Open Image Sequence" width="400" />
+        </a>
+        <p>
+          The <em>Open Image Sequence</em> dialog.
+        </p>
+        <p>
+          Drill down into the <em>aligned</em> folder for light reds.
+        </p>
+        <p>
+          <u>Click the Open button</u>.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#stack-reds-img3')">
+          <img id="stack-reds-img3" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-stack-red-2.png" alt="Image: Sequence Options" width="150" />
+        </a>
+        <p>
+          The <em>Image Sequence Options</em> dialog.
+        </p>
+        <p>
+          <u>Uncheck the box: Use virtual stack</u>.
+        </p>
+        <p>
+          <u>Click the OK button</u>.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#stack-reds-img4')">
+          <img id="stack-reds-img4" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-stack-red-3.png" alt="Image: Image Window" width="300" />
+        </a>
+        <p>
+          The <em>Image Window</em> shows the first image in the sequence.
+        </p>
+        <p>
+          <strong>Note</strong>: Before proceeding it is a good idea to check the images for good
+          alignment. Zoom in on the star using the mouse's scroll wheel or the toolbar. Next, drag
+          the horizontal scroll bar attached to the bottom of the image frame from left to right
+          and back again. If you see any issues then go back and repeat Step 5 but this time
+          use a larger value for <em>Object Aperture</em>. But first be sure to delete the
+          <em>aligned</em> folder for light reds.
+        </p>
+        <p>
+          From the MAIN MENU click <u>Image &gt; Stacks &gt; Z Project...</u>
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#stack-reds-img5')">
+          <img id="stack-reds-img5" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-stack-red-4.png" alt="Image: ZProjection" width="150" />
+        </a>
+        <p>
+          The <em>ZProjection Options</em> dialog.
+        </p>
+        <p>
+          <u>Set <em>Projection Type</em> to <em>Median</em></u>.
+        </p>
+        <p>
+          <u>Click the OK button</u>.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#stack-reds-img6')">
+          <img id="stack-reds-img6" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-10x1s-stacked-red.png" alt="Image: Image Window" width="300" />
+        </a>
+        <p>
+          The <em>Image Window</em> shows the stacked image sequence.
+        </p>
+        <p>
+          Notice how many more stars can be seen as a result.
+        </p>
+        <p>
+          From the menu click <u>File &gt; Save Image/Slice as FITS...</u>
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#stack-reds-img7')">
+          <img id="stack-reds-img7" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-stack-red-5.png" alt="Image: Save as FITS" width="400" />
+        </a>
+        <p>
+          The <em>Save as FITS</em> dialog.
+        </p>
+        <p>
+          Select the folder that contains the master bias and master dark files.
+        </p>
+        <p>
+          Name the file: <em>stack_red.fits</em>.
+        </p>
+        <p>
+          <u>Click the Save button</u>.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="stack-greens">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 9</h4>
+      <h5>Stack Greens</h5>
+      <p>
+        Follow the same procedure in Step 8 used for stacking Reds except now select the Light Green
+        <em>aligned</em> folder and remember to save the file as <em>stack_green.fits</em>.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="stack-blues">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 10</h4>
+      <h5>Stack Blues</h5>
+      <p>
+        Follow the same procedure in Step 8 used for stacking Reds except now select the Light Blue
+        <em>aligned</em> folder and remember to save the file as <em>stack_blue.fits</em>.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="measure-select-aperture">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 11</h4>
+      <h5>Select the Aperture</h5>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#measure-select-aperture-img1')">
+          <img id="measure-select-aperture-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-measure-set-aperture-20-40-80.png" alt="Image: Aperture 20-40-80" width="400" />
+        </a>
+        <p>
+          The aperture has three parts: the inner aperture, the inner annulus, and the outer annulus.
+          The inner annulus is sort of a <em>dead zone</em> which simply separates the other parts.
+          The inner aperture contains the star you want to measure. (Don't make it too small or else
+          photons will fall into the dead zone and be discarded.) The outer annulus contains the
+          sky background. The star's brightness is calculated as the sum of all the pixels in the
+          inner aperture minus the sum of all the pixels in the outer annulus. AIJ calls this
+          <em>Source - Sky</em> in the Measurements table.
+        </p>
+        <p>
+          The dimensions of the aperture in this screenshot is 20-40-80. (That is the aperture we
+          used for Alignment.) Notice that the outer annulus contains a nearby star that will skew
+          the results. Granted, its effects are minor but you may run into cases where your G2V star
+          is in a crowded space. Refer to the next screenshot.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#measure-select-aperture-img2')">
+          <img id="measure-select-aperture-img2" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-measure-set-aperture-15-30-60.png" alt="Image: Aperture 15-30-60" width="400" />
+        </a>
+        <p>
+          The dimensions of the aperture is now 15-30-60. As you can see the nearby star no
+          longer affects the outer annulus and the G2V star is fully contained by the inner aperture.
+          We can proceed.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="measure-red-star-brightness">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 12</h4>
+      <h5>Measure Star Brightness in Red</h5>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#measure-red-star-brightness-img1')">
+          <img id="measure-red-star-brightness-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/AIJ-Main-Window.png" alt="Image: Main Window" width="300" />
+        </a>
+        <p>
+          From the <em>Main Window</em> click <u>File &gt; Open...</u>
+        </p>
+        <p>
+          In the <em>Open File</em> dialog select <em>stack_red.fits</em>
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#measure-red-star-brightness-img2')">
+          <img id="measure-red-star-brightness-img2" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-measure-star-brightness-1.png" alt="Image: Image Window" width="400" />
+        </a>
+        <p>
+          From the <em>Image Window</em> click the toolbar icon to set the aperture (highlighted
+          in yellow)
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#measure-red-star-brightness-img3')">
+          <img id="measure-red-star-brightness-img3" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-measure-star-brightness-2.png" alt="Image: Aperture Settings" width="400" />
+        </a>
+        <p>
+          Set:
+          <ul>
+            <li><em>Radius of Object Aperture</em> to 15.</li>
+            <li><em>Inner Radius of Background Annulus</em> to 30.</li>
+            <li><em>Outer Radius of Background Annulus</em> to 60.</li>
+          </ul>
+          These were the settings you determined in the <em>Select Aperture</em> step.
+        </p>
+        <p>
+          <u>Click the OK button</u> to return to the <em>Image Window</em>.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#measure-red-star-brightness-img4')">
+          <img id="measure-red-star-brightness-img4" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-measure-star-brightness-1.png" alt="Image: Image Window" width="400" />
+        </a>
+        <p>
+          As a precaution click the toolbar button to <em>clear apertures</em>.
+          (The button should be two buttons to the right of the <em>set aperture</em> button.)
+        </p>
+        <p>
+          Next, click the toolbar button to <em>clear the measurements table</em>.
+          (That button should be one more to the right.)
+        </p>
+        <p>
+          Now we are ready.
+        </p>
+        <p>
+          Move the mouse pointer on top of the G2V star. Precise positioning is not required
+          just as long as the star is inside the inner aperture. If unsure then use the toolbar
+          to zoom in or use the mouse's scroll wheel.
+        </p>
+        <p>
+          <u>Depress the Shift key and then click the left mouse button</u>
+        </p>
+        <p>
+          The Measurements table should pop up and contain one row of data.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="measure-green-star-brightness">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 13</h4>
+      <h5>Measure Star Brightness in Green</h5>
+      <p>
+        Follow the same procedure in Step 12 used for measuring Red except now select
+        <em>stack_green.fits</em>. Remember that the aperture is now set so don't
+        repeat it.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="measure-blue-star-brightness">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 14</h4>
+      <h5>Measure Star Brightness in Blue</h5>
+      <p>
+        Follow the same procedure in Step 12 used for measuring Red except now select
+        <em>stack_blue.fits</em>. Remember that the aperture is now set so don't
+        repeat it.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="measure-create-spreadsheet">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 15</h4>
+      <h5>Create the spreadsheet</h5>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#measure-create-spreadsheet-img1')">
+          <img id="measure-create-spreadsheet-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-measure-star-brightness-3.png" alt="Image: Measurements Window" width="400" />
+        </a>
+        <p>
+          The <em>Measurements Window</em> should now contain three rows for red, green, and blue.
+        </p>
+        <p>
+          <u>Click File &gt; Save As...</u>
+          and place it in the same folder as your other
+          artifacts that include the master bias file, etc.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#measure-create-spreadsheet-img2')">
+          <img id="measure-create-spreadsheet-img2" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-measure-star-brightness-4.png" alt="Image: Measurements Spreadsheet" width="350" />
+        </a>
+        <p>
+          Open the spreadsheet.
+        </p>
+        <p>
+          Many of the columns we do not need. Delete all but <em>Label</em>, <em>ALT_OBJ</em>,
+          and <em>Source-Sky</em> as shown in the screenshot.
+        </p>
+        <p>
+          Notice that <em>ALT_OBJ</em> contains <em>NaN</em> which means <em>Not a Number</em>.
+          Not to worry. Our calibration frames have this information.
+        </p>
+        <p>
+          From the <em>Main Window</em> click <u>File &gt; Open...</u> and select the
+          first calibration file in the Light Reds <em>calib</em> folder.
+        </p>
+        <p>
+          In the <em>Image Window</em> click the toolbar icon that looks like a spreadsheet.
+          Hover over it. The tooltip should say <em>display fits header</em>.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#measure-create-spreadsheet-img3')">
+          <img id="measure-create-spreadsheet-img3" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-measure-star-brightness-5.png" alt="Image: FITS Header" width="400" />
+        </a>
+        <p>
+          Scroll down until you find a property called <em>ALT_OBJ</em>. We are concerned with
+          one decimal point of precision. Remember it, for example <em>47.3</em>
+        </p>
+        <p>
+          Switch to your spreadsheet and type in the value.
+        </p>
+        <p>
+          Repeat these steps for greens and blues. Update the spreadsheet at each stage.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#measure-create-spreadsheet-img4')">
+          <img id="measure-create-spreadsheet-img4" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-measurements-2.png" alt="Image: Measurements Spreadsheet" width="250" />
+        </a>
+        <p>
+          This is what you should end up with.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="calculate-color-balance">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 16</h4>
+      <h5>Using the U235 Color Balance Calculator</h5>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#calculate-color-balance-img1')">
+          <img id="calculate-color-balance-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-measurements-2.png" alt="Image: Measurements Spreadsheet" width="250" />
+        </a>
+        <p>
+          In a previous step we gathered all necessary information in a spreadsheet.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#calculate-color-balance-img2')">
+          <img id="calculate-color-balance-img2" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/u235-color-balance-calculator.png" alt="Image: Color Balance Calculator" width="400" />
+        </a>
+        <p>
+          The next step is to calculate the color balance ratios.
+        </p>
+        <p>
+          Launch the
+          <a href="#color-balance" target="_blank">U235 Color Balance Calculator</a>.
+        </p>
+        <p>
+          Copy and paste values from the spreadsheet to the calculator as shown in this screenshot.
+        </p>
+        <p>
+          The result: RGB ratios 1.69&nbsp;:&nbsp;1&nbsp;:&nbsp;1.38
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="calculate-lrgb-exposure">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 17</h4>
+      <h5>Using the U235 LRGB Exposure Calculator</h5>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#calculate-lrgb-exposure-img1')">
+          <img id="calculate-lrgb-exposure-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/u235-lrgb-exposure-calculator.png" alt="Image: LRGB Exposure Calculator" width="400" />
+        </a>
+        <p>
+          Launch the
+          <a href="#lrgb-exposure" target="_blank">U235 LRGB Exposure Calculator</a>.
+        </p>
+        <p>
+          Plug in the ratios as shown.
+        </p>
+        <p>
+          Astrophotography is a never-ending learning experience filled with many opportunities
+          for experimentation. Many times we push our equipment and seeing conditions to reveal
+          the faintest wisps of nebulosity. Manipulating exposure is proven to be the best lever.
+          Notice if you change the exposure of the luminance filter that the calculator automatically
+          updates the exposures for red, green, and blue. It is important to follow these RGB values
+          but know that you can always capture more luminance frames without upsetting the color
+          balance.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="coordinate-converter">
+  <div class="row">
+    <div class="col-12">
+      <h4>How to use the DP Coordinate Converter</h4>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#coordinate-converter-img1')">
+          <img id="coordinate-converter-img1" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/AIJ-DP-Coordinate-Converter.png" alt="Image: DP Coordinate Converter" width="300" />
+        </a>
+        <p>
+          In <u>Step 2: Calibrate Reds</u> the screenshot of the
+          <em>DP Coordinate Converter</em>, reproduced here, has all inputs disabled.
+          That is due to the choice of settings in the <em>CCD Data Processor</em>
+        </p>
+        <p>
+          Refer to the next screenshot.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#coordinate-converter-img2')">
+          <img id="coordinate-converter-img2" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/AIJ-DP-Reds.png" alt="Image: CCD Data Processor" width="400" />
+        </a>
+        <p>
+          Locate the groupbox entitled <em>FITS Header Updates</em>. Make sure that the checkbox for
+          <em>General</em> is checked.
+        </p>
+        <p>
+          There are two dropdown boxes:
+          <em>Target Coordinate Source</em> and <em>Observatory Location Source</em>. They are set
+          to <em>FITS header target RA/DEC (J2000)</em> and <em>FITS header latitude and longitude</em>,
+          respectively.
+        </p>
+        <p>
+          One of the dropdown choices is <em>Coordinate Converter manual entry</em>.
+          The purpose of manual entry is to override certain FITS header data that is missing or incorrect.
+          In my case for this dataset of HIP-89474 it contained an incorrect value for Right
+          Ascension (RA).
+        </p>
+        <p>
+          Refer to the next screenshot.
+        </p>
+      </div>
+      <div class="clearfix">
+        <a class="float-left" href="javascript: return false" onclick="launchModal('#coordinate-converter-img3')">
+          <img id="coordinate-converter-img3" class="mr-2 mb-2" src="https://s3.wasabisys.com/u235/images/aij-coordinate-converter-2.png" alt="Image: DP Coordinate Converter" width="300" />
+        </a>
+        <p>
+          After selecting manual entry the input controls become enabled.
+        </p>
+        <p>
+          This screenshot shows that I typed <em>HIP 89474</em> in the <em>SIMBAD Object ID</em> field.
+          After pressing ENTER other fields updated including the Right Ascension.
+        </p>
+        <p>
+          Now as we proceed with calibration these coordinates will replace the faulty coordinates
+          in the image FITS header. This is critical for the accurate calculation of <em>Zenith Angle</em>.
+          The <em>U235 Color Balance Calculator</em> relies on this information to correct for the effects of
+          atmospheric scattering of light, also known as <em>Extinction</em>.
+        </p>
+        <p>
+          <em>Extinction</em> is a function of Right Ascension, Declination, Universal Coordinated Time (UTC),
+          Latitude, and Longitude. Your image acquisition software should fill in this data for you
+          but be proactive and examine the FITS header of at least one of your image files to ensure
+          that this information is accurate.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
+
+<section id="an-alternative">
+  <div class="row">
+    <div class="col-12">
+      <h4>An alternative to stacking</h4>
+      <p>
+        It may be possible to eliminate Aligning and Stacking (steps 5 through 10)
+        but only if you capture well-exposed red, green, and blue images.
+        By well-exposed I mean a maximum pixel value of 30,000 ADU to 50,000 ADU
+        in your camera's most sensitive channel (mine is green.)
+      </p>
+      <p>
+        Be sure to measure the brightness of the G2V star in at least three of the
+        calibrated frames for each color. This diminishes the effect of Shot Noise.
+        The <a href="#color-balance" target="_blank">U235 Color Balance Calculator</a>
+        enables you to create any number of samples by clicking the <em>New Button</em>.
+      </p>
+      <p>
+        As always, experiment.
+      </p>
+    </div>
+  </div>
+  <a href="#toc" data-bind="click: scrollTo">Return to the Table of Contents</a>
+  <hr />
+</section>
