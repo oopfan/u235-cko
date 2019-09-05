@@ -5,9 +5,11 @@
         { name: 'home', path: 'pages/home/home' },
         { name: 'about', path: 'pages/about/about' },
         { name: 'g2v-star-database', path: 'pages/g2v-star-database/g2v-star-database' },
-        { name: 'lrgb-exposure-calculator', path: 'pages/lrgb-exposure-calculator/lrgb-exposure-calculator' },
-        { name: 'lrgb-stack-balancer', path: 'pages/lrgb-stack-balancer/lrgb-stack-balancer' },
-        { name: 'test-modal', path: 'pages/test-modal/test-modal' }
+        { name: 'lrgb-exposure', path: 'pages/lrgb-exposure/lrgb-exposure' },
+        { name: 'lrgb-stack-balance', path: 'pages/lrgb-stack-balance/lrgb-stack-balance' },
+        { name: 'test-modal', path: 'pages/test-modal/test-modal' },
+        { name: 'color-balance', path: 'pages/color-balance/color-balance' },
+        { name: 'color-balance-instructions', path: 'pages/color-balance-instructions/color-balance-instructions' }
     ],
     // Components - knockout components intended as parts of pages, a.k.a. components
     components: [

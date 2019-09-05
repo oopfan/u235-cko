@@ -21,8 +21,10 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
             'pages/home/home',
             'pages/about/about',
             'pages/g2v-star-database/g2v-star-database',
-            'pages/lrgb-exposure-calculator/lrgb-exposure-calculator',
-            'pages/lrgb-stack-balancer/lrgb-stack-balancer',
+            'pages/lrgb-exposure/lrgb-exposure',
+            'pages/lrgb-stack-balance/lrgb-stack-balance',
+            'pages/color-balance/color-balance',
+            'pages/color-balance-instructions/color-balance-instructions',
             'pages/test-modal/test-modal'
         ],
         insertRequire: ['app/startup'],

@@ -11,12 +11,14 @@ define(["knockout", "crossroads", "hasher"], function(ko, crossroads, hasher) {
 
     return new Router({
         routes: [
-            { url: '',                          params: { page: 'home' } },
-            { url: 'about',                     params: { page: 'about' } },
-            { url: 'g2v-star-database',         params: { page: 'g2v-star-database' } },
-            { url: 'lrgb-exposure-calculator',  params: { page: 'lrgb-exposure-calculator' } },
-            { url: 'lrgb-stack-balancer',       params: { page: 'lrgb-stack-balancer' } },
-            { url: 'test-modal',                params: { page: 'test-modal' } }
+            { url: '',                            params: { page: 'home' } },
+            { url: 'about',                       params: { page: 'about' } },
+            { url: 'g2v-star-database',           params: { page: 'g2v-star-database' } },
+            { url: 'lrgb-exposure',               params: { page: 'lrgb-exposure' } },
+            { url: 'lrgb-stack-balance',          params: { page: 'lrgb-stack-balance' } },
+            { url: 'color-balance',               params: { page: 'color-balance' } },
+            { url: 'color-balance-instructions',  params: { page: 'color-balance-instructions' } },
+            { url: 'test-modal',                  params: { page: 'test-modal' } }
         ]
     });
 

@@ -1,4 +1,4 @@
-define(['knockout', 'core-lrgb-exposure-calculator', 'text!./lrgb-exposure-calculator.html'], function(ko, Calculator, templateMarkup) {
+define(['knockout', 'lrgb-exposure-calculator', 'text!./lrgb-exposure.html'], function(ko, Calculator, templateMarkup) {
 
   var calc = new Calculator();
   calc.rgbBinning = 2;

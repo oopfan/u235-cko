@@ -1,4 +1,4 @@
-define(['knockout', "ko-modal-helper", 'vector3d', 'matrix3d', 'timekeeper', 'text!./lrgb-stack-balancer.html'], function(ko, modalHelper, Vector3D, Matrix3D, Timekeeper, templateMarkup) {
+define(['knockout', "ko-modal-helper", 'vector3d', 'matrix3d', 'timekeeper', 'text!./lrgb-stack-balance.html'], function(ko, modalHelper, Vector3D, Matrix3D, Timekeeper, templateMarkup) {
 
   function LrgbStackBalancer(params) {
     $("#fileopen").val("");
