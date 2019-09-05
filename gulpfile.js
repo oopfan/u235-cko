@@ -104,7 +104,13 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
-gulp.task('build', ['html', 'js', 'css', 'fonts', 'server'], function(callback) {
+gulp.task('images', function() {
+    return gulp
+        .src('./src/images/*')
+        .pipe(gulp.dest('./dist/images/'));
+});
+
+gulp.task('build', ['html', 'js', 'css', 'fonts', 'images', 'server'], function(callback) {
     callback();
     console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
 });
