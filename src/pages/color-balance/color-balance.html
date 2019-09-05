@@ -1,1 +1,246 @@
 <h5 class="pt-3">Color Balance</h5>
+<div class="row pt-3">
+  <div class="col-md-12">
+    <div class="card border-primary">
+      <div class="card-header">What does it do?</div>
+      <div class="card-body">
+        <p class="card-text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo voluptate, placeat ducimus!
+          Earum tempora sunt voluptas unde architecto nostrum, veniam vel temporibus, facere aliquid
+          dolore aliquam. Enim cum eligendi repellat omnis, reprehenderit quam ab assumenda. Magni
+          sint voluptatem accusantium placeat velit neque molestias quae iste, dolor beatae architecto
+          vitae commodi.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-10">
+    <h5>Red filter</h5>
+    <table class="table table-sm table-danger">
+      <thead>
+        <tr class="table-light">
+          <th>Flux (uncorrected)</th>
+          <th>Altitude</th>
+          <th>Extinction</th>
+          <th>Flux (corrected)</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: redMeasurements">
+        <tr>
+          <td><input type="text" class="form-control" data-bind="value: FluxUncorrected, valueUpdate: 'input'"></td>
+          <td><input type="text" class="form-control" data-bind="value: Altitude, valueUpdate: 'input'"></td>
+          <td><input type="text" readonly class="form-control-plaintext" data-bind="value: ExtinctionFmt"></td>
+          <td><input type="text" readonly class="form-control-plaintext" data-bind="value: FluxCorrectedFmt"></td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-light" data-bind="click: $component.deleteRed">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr class="active">
+          <td><input type="text" class="form-control" data-bind="value: newRedMeasurement.FluxUncorrected"></td>
+          <td><input type="text" class="form-control" data-bind="value: newRedMeasurement.Altitude"></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-light" data-bind="click: saveNewRed">New</button>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-10">
+    <h5>Green filter</h5>
+    <table class="table table-sm table-success">
+      <thead>
+        <tr class="table-light">
+          <th>Flux (uncorrected)</th>
+          <th>Altitude</th>
+          <th>Extinction</th>
+          <th>Flux (corrected)</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: greenMeasurements">
+        <tr>
+          <td><input type="text" class="form-control" data-bind="value: FluxUncorrected, valueUpdate: 'input'"></td>
+          <td><input type="text" class="form-control" data-bind="value: Altitude, valueUpdate: 'input'"></td>
+          <td><input type="text" readonly class="form-control-plaintext" data-bind="value: ExtinctionFmt"></td>
+          <td><input type="text" readonly class="form-control-plaintext" data-bind="value: FluxCorrectedFmt"></td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-light" data-bind="click: $component.deleteGreen">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr class="active">
+          <td><input type="text" class="form-control" data-bind="value: newGreenMeasurement.FluxUncorrected"></td>
+          <td><input type="text" class="form-control" data-bind="value: newGreenMeasurement.Altitude"></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-light" data-bind="click: saveNewGreen">New</button>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-10">
+    <h5>Blue filter</h5>
+    <div class="table-responsive">
+      <table class="table table-sm table-info">
+        <thead>
+          <tr class="table-light">
+            <th>Flux (uncorrected)</th>
+            <th>Altitude</th>
+            <th>Extinction</th>
+            <th>Flux (corrected)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: blueMeasurements">
+          <tr>
+            <td><input type="text" class="form-control" data-bind="value: FluxUncorrected, valueUpdate: 'input'"></td>
+            <td><input type="text" class="form-control" data-bind="value: Altitude, valueUpdate: 'input'"></td>
+            <td><input type="text" readonly class="form-control-plaintext" data-bind="value: ExtinctionFmt"></td>
+            <td><input type="text" readonly class="form-control-plaintext" data-bind="value: FluxCorrectedFmt"></td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-light" data-bind="click: $component.deleteBlue">Delete</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="active">
+            <td><input type="text" class="form-control" data-bind="value: newBlueMeasurement.FluxUncorrected"></td>
+            <td><input type="text" class="form-control" data-bind="value: newBlueMeasurement.Altitude"></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-light" data-bind="click: saveNewBlue">New</button>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-6">
+    <h5>Color Balance Results</h5>
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <thead>
+          <tr class="table-light">
+            <th style="width:30%">Filter</th>
+            <th style="width:40%">Avg. Flux (corrected)</th>
+            <th style="width:30%">Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-danger">
+            <td>Red</td>
+            <td><span data-bind="text: resultRedAverageFlux"></span></td>
+            <td><span data-bind="text: resultRedRatio"></span></td>
+          </tr>
+          <tr class="bg-success">
+            <td>Green</td>
+            <td><span data-bind="text: resultGreenAverageFlux"></span></td>
+            <td><span data-bind="text: resultGreenRatio"></span></td>
+          </tr>
+          <tr class="bg-info">
+            <td>Blue</td>
+            <td><span data-bind="text: resultBlueAverageFlux"></span></td>
+            <td><span data-bind="text: resultBlueRatio"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-12">
+    <div class="card border-primary">
+      <div class="card-header">Motivation</div>
+      <div class="card-body">
+        <p class="card-text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus aliquam laboriosam,
+          sapiente obcaecati id assumenda atque excepturi iusto, quis tenetur quisquam dolorum
+          minima corporis cupiditate esse soluta dolores sequi? Provident tempora assumenda fuga
+          eaque inventore. Animi hic blanditiis dolorum totam molestias distinctio? Architecto
+          voluptatibus minus ut, officia dolore eveniet quae.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-12">
+    <div class="card border-primary">
+      <div class="card-header">Theory of Operation</div>
+      <div class="card-body">
+        <p class="card-text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium cumque iste ut dolorum
+          quo corrupti, culpa eaque non labore eius sequi quibusdam atque, consequatur mollitia! Et
+          molestias illum autem, nihil reiciendis maxime dolore similique ea.
+        </p>
+        <p class="card-text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus mollitia illo molestiae
+          dignissimos. Voluptatibus, suscipit soluta mollitia architecto deserunt odio, aliquid labore
+          nesciunt. Dolores unde corporis exercitationem excepturi laborum, qui necessitatibus rerum
+          magni deleniti. Dolorem quam eligendi eius, mollitia nisi ducimus tenetur ut aperiam id!
+        </p>
+        <p class="card-text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa architecto nostrum deserunt et
+          suscipit accusamus, ex inventore repellat at! Atque impedit ea odit eius excepturi, libero magni
+          nemo! Sapiente sit recusandae, porro voluptatibus esse cum non a quaerat perferendis quos.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-12">
+    <div class="card border-primary">
+      <div class="card-header">Disclaimer</div>
+      <div class="card-body">
+        <p class="card-text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est ex, earum vel itaque distinctio,
+          ullam excepturi repellat! Cupiditate, enim, voluptatem.
+        </p>
+        <p class="card-text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro esse eligendi beatae autem at,
+          magnam ipsam. Quisquam optio praesentium, cupiditate voluptatem incidunt velit alias culpa.
+          Doloribus nostrum, illum earum quaerat?
+        </p>
+        <p class="card-text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium nemo, atque asperiores ad,
+          libero corporis enim ducimus dicta eveniet architecto quaerat soluta sed possimus blanditiis id
+          dolorem quae veniam aspernatur ullam quibusdam natus debitis sequi quo. Eum quod placeat corrupti.
+        </p>
+        <p class="card-text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis obcaecati sit, maiores eum
+          ratione! Libero impedit amet alias nam aliquam exercitationem consequuntur repellendus, ipsum laborum.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
