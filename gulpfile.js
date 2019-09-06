@@ -24,8 +24,7 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
             'pages/lrgb-exposure/lrgb-exposure',
             'pages/lrgb-stack-balance/lrgb-stack-balance',
             'pages/color-balance/color-balance',
-            'pages/color-balance-instructions/color-balance-instructions',
-            'pages/test-modal/test-modal'
+            'pages/color-balance-instructions/color-balance-instructions'
         ],
         insertRequire: ['app/startup'],
         bundles: {

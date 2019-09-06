@@ -113,9 +113,14 @@ define(['knockout', 'lrgb-exposure-calculator', 'text!./lrgb-exposure.html'], fu
     updateAll();
   }
 
-  // This runs when the component is torn down. Put here any logic necessary to clean up,
-  // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
-  LrgbExposureCalculator.prototype.dispose = function() { };
+  LrgbExposureCalculator.prototype.dispose = function() {
+    this.luminanceIntegrationTime.dispose();
+    this.redIntegrationTime.dispose();
+    this.greenIntegrationTime.dispose();
+    this.blueIntegrationTime.dispose();
+    this.totalIntegrationTime.dispose();
+    this.modeStatus.dispose();
+  };
 
   return { viewModel: LrgbExposureCalculator, template: templateMarkup };
 

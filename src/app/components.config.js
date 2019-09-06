@@ -7,7 +7,6 @@
         { name: 'g2v-star-database', path: 'pages/g2v-star-database/g2v-star-database' },
         { name: 'lrgb-exposure', path: 'pages/lrgb-exposure/lrgb-exposure' },
         { name: 'lrgb-stack-balance', path: 'pages/lrgb-stack-balance/lrgb-stack-balance' },
-        { name: 'test-modal', path: 'pages/test-modal/test-modal' },
         { name: 'color-balance', path: 'pages/color-balance/color-balance' },
         { name: 'color-balance-instructions', path: 'pages/color-balance-instructions/color-balance-instructions' }
     ],

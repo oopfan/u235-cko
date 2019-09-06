@@ -53,10 +53,10 @@ define(['knockout', "ko-modal-helper", 'vector3d', 'matrix3d', 'timekeeper', 'ut
         context: this // Set context so we don't need to bind the callback function
       })
       .done(function(result) {
-        console.log("Modal closed with result: ", result);
+        //console.log("Modal closed with result: ", result);
       })
       .fail(function() {
-        console.log("Modal cancelled");
+        //console.log("Modal cancelled");
       });
     };
 
@@ -336,9 +336,20 @@ define(['knockout', "ko-modal-helper", 'vector3d', 'matrix3d', 'timekeeper', 'ut
     return filterNormal;
   }
 
-  // This runs when the component is torn down. Put here any logic necessary to clean up,
-  // for example cancelling setTimeouts or disposing Knockout subscriptions/computeds.
-  LrgbStackBalance.prototype.dispose = function() { };
+  LrgbStackBalance.prototype.dispose = function() {
+    this.colorViolation.dispose();
+  };
+
+  StagedFile.prototype.dispose = function() {
+    this.altitude.dispose();
+    this.zenithAngle.dispose();
+    this.altitudeFmt.dispose();
+    this.airmass.dispose();
+    this.airmassFmt.dispose();
+    this.extinction.dispose();
+    this.extinctionFmt.dispose();
+    this.extinctionAdjustedExpTime.dispose();
+  };
 
   return { viewModel: LrgbStackBalance, template: templateMarkup };
 

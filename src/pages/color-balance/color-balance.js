@@ -125,7 +125,22 @@ define(['knockout', 'utility', 'text!./color-balance.html'], function(ko, utilit
     }, this);
   };
 
-  ColorBalance.prototype.dispose = function() {};
+  ColorBalance.prototype.dispose = function() {
+    this.resultRedAverageFlux.dispose();
+    this.resultGreenAverageFlux.dispose();
+    this.resultBlueAverageFlux.dispose();
+    this.maxAverageFlux.dispose();
+    this.resultRedRatio.dispose();
+    this.resultGreenRatio.dispose();
+    this.resultBlueRatio.dispose();
+  };
+
+  Measurement.prototype.dispose = function() {
+    this.Extinction.dispose();
+    this.ExtinctionFmt.dispose();
+    this.FluxCorrected.dispose();
+    this.FluxCorrectedFmt.dispose();
+  };
 
   return { viewModel: ColorBalance, template: templateMarkup };
 });

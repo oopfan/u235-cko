@@ -17,8 +17,7 @@ define(["knockout", "crossroads", "hasher"], function(ko, crossroads, hasher) {
             { url: 'lrgb-exposure',               params: { page: 'lrgb-exposure' } },
             { url: 'lrgb-stack-balance',          params: { page: 'lrgb-stack-balance' } },
             { url: 'color-balance',               params: { page: 'color-balance' } },
-            { url: 'color-balance-instructions',  params: { page: 'color-balance-instructions' } },
-            { url: 'test-modal',                  params: { page: 'test-modal' } }
+            { url: 'color-balance-instructions',  params: { page: 'color-balance-instructions' } }
         ]
     });
 
