@@ -39,5 +39,8 @@
     "knockout": "^3.5.0",
     "requirejs": "^2.3.2",
     "requirejs-text": "^2.0.12"
+  },
+  "engines": {
+    "node": "10.16.0"
   }
 }
