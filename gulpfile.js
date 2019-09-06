@@ -91,6 +91,12 @@ gulp.task('html', function() {
         .pipe(gulp.dest('./dist/'));
 });
 
+// Copies favicon
+gulp.task('favicon', function() {
+  return gulp.src('./src/favicon.ico')
+    .pipe(gulp.dest('./dist/'));
+});
+
 // Copies server files
 gulp.task('server', function() {
     return gulp.src('./src/server/**/*')
@@ -109,7 +115,7 @@ gulp.task('images', function() {
         .pipe(gulp.dest('./dist/images/'));
 });
 
-gulp.task('build', ['html', 'js', 'css', 'fonts', 'images', 'server'], function(callback) {
+gulp.task('build', ['html', 'favicon', 'js', 'css', 'fonts', 'images', 'server'], function(callback) {
     callback();
     console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
 });
