@@ -1,6 +1,46 @@
 <h5 class="pt-3">LRGB Stack Balance</h5>
 
 <div class="row pt-3">
+  <div class="col-md-12">
+    <div class="card border-primary">
+      <div class="card-header">What does it do?</div>
+      <div class="card-body">
+        <p class="card-text">
+          This tool is helpful after you capture image data. Questions you can ask are:
+          <ul>
+            <li>
+              How much color integration time do I really need?
+            </li>
+            <li>
+              How different would my astrophotograph look if I used different color balance ratios?
+            </li>
+            <li>
+              I am creating a mosaic and I've captured a lot of images. How do I balance the signal
+              across all panels?
+            </li>
+          </ul>
+        </p>
+        <p class="card-text">
+          <span class="text-warning">Caution:</span> This tool is in an early stage of development.
+          The <em>Browse</em> button allows you to select FITS files. Those files must be
+          your <span class="text-warning">LRGB LIGHTS</span>. The program reads each file's FITS header,
+          specifically SITELAT, SITELONG, DATE-OBS, OBJECT, OBJCTRA, OBJCTDEC, EXPTIME, FILTER, and INSTRUME.
+          It expects those to be present and of the requisite format. You will know if there is a problem if
+          the <span class="text-warning">computed Altitude field</span> is missing or is an insane value.
+          If all appears nominal then you can play with the luminance and color <em>Total Integration Time</em>
+          inputs. In the list of image files those highlighted in <span class="bg-primary">blue</span> have
+          the highest signal-to-noise ratio and contribute to the overall sum of total integration time. You
+          can then click the <em>Export</em> button to copy the results to your clipboard.
+        </p>
+        <p class="card-text">
+          <span class="text-success">Update:</span> This tool works with FITS files captured with INDI/Ekos.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row pt-3">
   <div class="col">
     <input id="fileopen" type="file" data-bind="event: { change: readFiles }" accept=".fits,.fit,.fts" multiple>
   </div>

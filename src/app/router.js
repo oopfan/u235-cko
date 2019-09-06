@@ -13,6 +13,7 @@ define(["knockout", "crossroads", "hasher"], function(ko, crossroads, hasher) {
         routes: [
             { url: '',                            params: { page: 'home' } },
             { url: 'about',                       params: { page: 'about' } },
+            { url: 'privacy',                     params: { page: 'privacy' } },
             { url: 'g2v-star-database',           params: { page: 'g2v-star-database' } },
             { url: 'lrgb-exposure',               params: { page: 'lrgb-exposure' } },
             { url: 'lrgb-stack-balance',          params: { page: 'lrgb-stack-balance' } },

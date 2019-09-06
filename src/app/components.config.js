@@ -4,6 +4,7 @@
         // [Scaffolded pages will be inserted here. To retain this feature, don't remove this comment.]
         { name: 'home', path: 'pages/home/home' },
         { name: 'about', path: 'pages/about/about' },
+        { name: 'privacy', path: 'pages/privacy/privacy' },
         { name: 'g2v-star-database', path: 'pages/g2v-star-database/g2v-star-database' },
         { name: 'lrgb-exposure', path: 'pages/lrgb-exposure/lrgb-exposure' },
         { name: 'lrgb-stack-balance', path: 'pages/lrgb-stack-balance/lrgb-stack-balance' },
