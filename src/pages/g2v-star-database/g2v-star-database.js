@@ -2,12 +2,18 @@ define(['knockout', 'text!./g2v-star-database.html'], function(ko, templateMarku
 
   function G2vStarDatabase(params) {
     var self = this;
-    self.g2v_north = ko.observableArray();
-    self.g2v_south = ko.observableArray();
-
+    self.hemispheres = ko.observableArray([
+      {
+        title: "Northern Hemisphere",
+        tables: ko.observableArray()
+      },
+      {
+        title: "Southern Hemisphere",
+        tables: ko.observableArray()
+      }
+    ]);
     $.getJSON("/api/g2v/", function(data) {
       var g2vN = [], g2vS = [];
-      var size = 15;
       while (data.stars.length > 0) {
         var star = data.stars.splice(0, 1)[0];
         if (star.de.charAt(0) === '-') {
@@ -17,11 +23,24 @@ define(['knockout', 'text!./g2v-star-database.html'], function(ko, templateMarku
           g2vN.push(star);
         }
       }
+      var size = 15;
+      var ntables = Math.ceil(g2vN.length / size);
       while (g2vN.length > 0) {
-        self.g2v_north.push(g2vN.splice(0, size));
+        self.hemispheres()[0].tables.push(
+          {
+            stars: ko.observableArray(g2vN.splice(0, size)),
+            ntables: ko.observable(ntables)
+          }
+        );
       }
+      ntables = Math.ceil(g2vS.length / size);
       while (g2vS.length > 0) {
-        self.g2v_south.push(g2vS.splice(0, size));
+        self.hemispheres()[1].tables.push(
+          {
+            stars: ko.observableArray(g2vS.splice(0, size)),
+            ntables: ko.observable(ntables)
+          }
+        );
       }
     });
   }
