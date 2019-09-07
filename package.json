@@ -17,6 +17,7 @@
     "chalk": "^2.4.2",
     "deeply": "^3.1.0",
     "event-stream": "^4.0.1",
+    "fitsjs": "^0.6.6",
     "intern": "^4.4.3"
   },
   "dependencies": {
@@ -24,7 +25,6 @@
     "bootswatch": "^4.3.1",
     "crossroads": "^0.12.2",
     "express": "^4.17.1",
-    "fitsjs": "^0.6.6",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
