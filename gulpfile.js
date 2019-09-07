@@ -1,9 +1,15 @@
-// Node modules
-var fs = require('fs'), vm = require('vm'), merge = require('deeply'), chalk = require('chalk'), es = require('event-stream'), child = require('child_process');
-
-// Gulp and plugins
-var gulp = require('gulp'), rjs = require('gulp-requirejs-bundler'), concat = require('gulp-concat'), clean = require('gulp-clean'),
-    replace = require('gulp-replace'), uglify = require('gulp-uglify'), htmlreplace = require('gulp-html-replace'), webserver = require('gulp-webserver');
+const { src, dest, series } = require('gulp');
+const cleanup = require('gulp-clean');
+const htmlreplace = require('gulp-html-replace');
+const concat = require('gulp-concat');
+const es = require('event-stream');
+const replace = require('gulp-replace');
+const uglify = require('gulp-uglify');
+const order = require('gulp-order');
+const rjs = require('gulp-requirejs');
+const fs = require('fs');
+const vm = require('vm');
+const merge = require('deeply');
 
 // Config
 var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require.config.js') + '; require;');
@@ -37,133 +43,73 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
         }
     });
 
+// Removes all files from ./dist/
+var clean = function() {
+  return src('./dist/', { read: false, allowEmpty: true })
+    .pipe(cleanup());
+};
+
 // Discovers all AMD dependencies, concatenates together all required .js files, minifies them
-/*
-gulp.task('js', function () {
-    return rjs(requireJsOptimizerConfig)
-        .pipe(uglify({ preserveComments: 'some' }))
-        .pipe(gulp.dest('./dist/'));
-});
-*/
-gulp.task('js', function() {
-  var uglifyOptions = { preserveComments: 'some' };
-  return gulp
-    .src([
-      './node_modules/jquery/dist/jquery.min.js',
-      './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
-      './node_modules/fitsjs/lib/fits.js'
+var js = function() {
+  var part1 = src([
+    './node_modules/jquery/dist/jquery.min.js',
+    './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
     ])
-    .pipe(uglify(uglifyOptions))
+    .pipe(concat('part1.js'));
+  var part2 = src([
+    './node_modules/fitsjs/lib/fits.js'
+    ])
+    .pipe(uglify())
+    .pipe(concat('part2.js'));
+  return es.concat(part1, part2)
+    .pipe(order([
+      'part1.js',
+      'part2.js'
+    ]))
     .pipe(concat('scripts1.js'))
-    .pipe(gulp.dest('./dist/'))
+    .pipe(dest('./dist/'))
     .pipe(rjs(requireJsOptimizerConfig)
-      .pipe(uglify(uglifyOptions))
-      .pipe(gulp.dest('./dist/')));
-});
-
-    // Concatenates CSS files, rewrites relative paths to Bootstrap fonts
-gulp.task('css', function () {
-    //Array of all CSS files needed
-    var appCss = gulp.src([
-        './node_modules/bootswatch/dist/darkly/bootstrap.min.css',
-        './src/css/*.css'
-    ])
-    .pipe(replace(/url\((')?\.\.\/fonts\//g, 'url($1fonts/'));
-    var combinedCss = es.concat(appCss).pipe(concat('css.css'));
-    return es.concat(combinedCss)
-        .pipe(gulp.dest('./dist/'));
-});
-
-
-// Moves the bootstrap fonts to the dist-folder
-gulp.task('fonts', function(){
-   return gulp.src('./node_modules/bootstrap/fonts/*', { base: './node_modules/bootstrap/components-bootstrap/' })
-       .pipe(gulp.dest('./dist/fonts'));
-});
+      .pipe(uglify())
+      .on('error', function (error) {
+        console.log(error);
+      })
+      .pipe(dest('./dist/')));
+};
 
 // Copies index.html, replacing <script> and <link> tags to reference production URLs
-gulp.task('html', function() {
-    return gulp.src('./src/index.html')
-        .pipe(htmlreplace({
-            'css': 'css.css?' + Date.now(),
-            'js1': 'scripts1.js?' + Date.now(),
-            'jsr': 'scriptsr.js?' + Date.now()
-        }))
-        .pipe(gulp.dest('./dist/'));
-});
+var html = function() {
+  return src('./src/index.html')
+    .pipe(htmlreplace({
+      'css': 'css.css?' + Date.now(),
+      'js1': 'scripts1.js?' + Date.now(),
+      'jsr': 'scriptsr.js?' + Date.now()
+    }))
+    .pipe(src('./src/favicon.ico'))
+    .pipe(src('./src/server/**/*'))
+    .pipe(dest('./dist/'));
+};
 
-// Copies favicon
-gulp.task('favicon', function() {
-  return gulp.src('./src/favicon.ico')
-    .pipe(gulp.dest('./dist/'));
-});
+var images = function() {
+  return src('./src/images/*')
+    .pipe(dest('./dist/images/'));
+};
 
-// Copies server files
-gulp.task('server', function() {
-    return gulp.src('./src/server/**/*')
-        .pipe(gulp.dest('./dist/'));
-});
+// Concatenates CSS files, rewrites relative paths to Bootstrap fonts
+var css = function() {
+  // Array of all CSS files needed
+  var appCss = src([
+    './node_modules/bootswatch/dist/darkly/bootstrap.min.css',
+    './src/css/*.css'
+  ])
+  .pipe(replace(/url\((')?\.\.\/fonts\//g, 'url($1fonts/'));
+  var combinedCss = es.concat(appCss).pipe(concat('css.css'));
+  return es.concat(combinedCss)
+    .pipe(dest('./dist/'));
+};
 
-// Removes all files from ./dist/
-gulp.task('clean', function() {
-    return gulp.src('./dist/', { read: false })
-        .pipe(clean());
-});
-
-gulp.task('images', function() {
-    return gulp
-        .src('./src/images/*')
-        .pipe(gulp.dest('./dist/images/'));
-});
-
-gulp.task('build', ['html', 'favicon', 'js', 'css', 'fonts', 'images', 'server'], function(callback) {
-    callback();
-    console.log('\nPlaced optimized files in ' + chalk.magenta('dist/\n'));
-});
-
-// Sets up a webserver with live reload for development
-gulp.task('webserver', function () {
-    gulp.src('')
-        .pipe(webserver({
-            livereload : true,
-            port : 8050,
-            directoryListing : true,
-            open : 'http://localhost:8050/src/index.html'
-        }));
-});
-
-// Runs the intern client, that runs through all unit tests
-gulp.task('intern', function (done) {
-    var command = [
-            './node_modules/intern/client.js',
-            'config=intern'
-    ],
-        process = child.spawn('node', command, {
-            stdio : 'inherit'
-        });
-
-    process.on('close', function (code) {
-        if (code) {
-            done(new Error('Intern exited with code ' + code));
-        }
-        else {
-            done();
-        }
-    });
-});
-
-// Watches all source and test files and runs intern every time a file is saved
-gulp.task('test', ['intern'], function () {
-    gulp.watch(['./src/**/*', './test/**/*'], ['intern']);
-});
-
-// Fires up the intern web-client in your browser. NB! BEWARE OF BROWSER CACHING
-gulp.task('intern-web', function () {
-    gulp.src('')
-        .pipe(webserver({
-            livereload: true,
-            port: 8080,
-            directoryListing: true,
-            open: 'http://localhost:8080/node_modules/intern/client.html?config=intern'
-        }));
-});
+exports.clean = clean;
+exports.html = html;
+exports.js = js;
+exports.css = css;
+exports.images = images;
+exports.build = series(html, js, css, images);
