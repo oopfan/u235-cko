@@ -1,9 +1,130 @@
 <h5 class="pt-3">About</h5>
 
 <p>
-  Hi, my name is Brian Morgan, and this is a labor of love. In an alternate universe
-  I am a professional astronomer. Absent that, I pursue my passion with
+  Hello, my name is Brian Morgan, and this is a labor of love. In an alternate universe
+  I am a professional astronomer. In this universe I pursue my passion with
   <a href="https://astrotuna.com/my-gear/" target="_blank">my telescope</a>.
-  I am a math geek and a software developer by trade. This site is the product of all
-  those. I hope you find my work helpful.
+  I am a software developer in the New York City area. <strong>U235 Astrophotography</strong>
+  is the latest in a series of what I believe are useful tools for astronomy enthusiasts.
+  Here is a list of my most memorable:
 </p>
+
+<h5>Space-Time Pioneer</h5>
+
+<div class="clearfix">
+  <img class="mr-2 mb-2 float-left" src="images/space-time-pioneer.jpg" alt="Image: Space-Time Pioneer" />
+  <p>
+    This dates back to 2008.
+    Space-Time Pioneer is an electronic clock that displays the position of the Sun, Moon,
+    and naked-eye planets Mercury through Saturn. Wake-up alarms can be set on any rise/set
+    event as well as a specific time like a conventional clock.
+  </p>
+  <p>
+    Space-Time Pioneer is a gadget comprised of software and hardware that I designed. It
+    is based on the Microchip Technology PIC18F2685 microprocessor with 96K bytes of flash
+    memory of which I used 99.9%. Due to the vast amount of available information the data
+    is displayed in a consistent format. The attached photo shows several such screens:
+  </p>
+</div>
+
+<div class="clearfix">
+  <img class="ml-2 mb-2 float-right" src="images/space-time-pioneer-screenshots.jpg" alt="Image: Space-Time Pioneer screenshots" />
+  <p>
+    The top line of the LCD display shows body name, azimuth expressed as points on a compass,
+    altitude above horizon, and the name of the constellation it is in.
+  </p>
+  <p>
+    The bottom line shows ancillary information: for the Moon it's phase and percent
+    illumination, for all bodies the rise/set times and which direction to face.
+  </p>
+  <p>
+    A special set of screens shows the relationship between the body and the Sun and
+    Moon, and how many degrees separate them.
+  </p>
+</div>
+
+<h5>Hammerharden</h5>
+
+<div class="clearfix">
+  <img class="mr-2 mb-2 float-left" src="images/hammerharden.jpg" alt="Image: Hammerharden" />
+  <p>
+    Building on the success of Space-Time Pioneer I wanted a web-based version that was not
+    constrained by the limitations of a small LCD panel.
+    <a href="https://hammerharden.herokuapp.com/app.html#/viewer/339/0" target="_blank">Hammerharden</a>
+    was my first Single Page Application (SPA) written in AngularJS.
+    I ported the same computing engine in Space-Time Pioneer from C to JavaScript.
+  </p>
+  <p>
+     That link takes you to Central Park, New York City. In the <em>Search Sites</em> input control you
+     can type the name of a new site or you can click on the link to <em>Standard Sites</em> to view the
+     entire database of sites and visualize with integrated Google Maps. Alternatively you can create
+     Custom Sites that will be stored in a cookie.
+  </p>
+  <p>
+    Hammerharden works well in Firefox and Chrome but my apologies to users of Internet Explorer. At the
+    time of its writing the version of AngularJS had issues with cookies for that browser. If you use IE
+    you will see several warning messages. (Perhaps it is time for me to migrate to a new version of Angular.
+    This dates back to 2016.)
+  </p>
+</div>
+
+<h5 class="pt-3">The Flatinator</h5>
+
+<div class="clearfix">
+  <img class="ml-2 mb-2 float-right" src="images/flatinator.jpg" alt="Image: Flatinator" />
+  <p>
+    Building on my increasing interest in astrophotography I needed a convenient way of capturing a
+    type of calibration frame called a <em>Flat</em>. A flat frame is captured by flooding the optical
+    path of the telescope with light. Any obstruction like dust or fingerprints on optical surfaces
+    will be recorded. Later, during image processing the flat is subtracted from the image of
+    the galaxy you took.
+  </p>
+  <p>
+    These days a lot of astrophotographers use electroluminescent (EL) panels but there are other
+    solutions. Some people use a tee-shirt and the daytime sky, and others use a computer monitor.
+    By far more people are making the transition to EL panels.
+  </p>
+  <p>
+    My first solution used a commercially available EL panel and battery-powered inverter. I
+    attached the panel and inverter to a balsa wood board and then inserted two large nylon bolts with
+    rubber grommets. The grommets enabled me to cover my telescope's objective lens with the EL
+    panel. This worked well but there were two problems: the first is that the batteries, even fresh
+    ones, would soon discharge. The second and most important is that it required me to reach up high
+    to cover the telescope without disturbing the mount. I was always concerned with losing polar alignment.
+    It was even more precarious during winter months with ice and snow on the ground.
+  </p>
+  <p>
+    What I really wanted was a solution that I could control remotely from the comfort of my office.
+    There are other solutions, most notably a product called <em>Flip-Flap</em>. I researched it but I did
+    not like how Flip-Flat was attached to the telescope. It uses a strap which looks quite
+    difficult to take on and off when you travel with the scope. I found videos of what other
+    people were doing but all used the same strap method. Having video was important to me in that
+    it revealed a flaw. The strap does not guarantee that the unit is fixed. It can shift due to
+    thermal expansion thereby causing the panel to not close properly.
+  </p>
+</div>
+<div class="clearfix">
+  <img class="mr-2 mb-2 float-left" src="images/flatinator-pcb-top.jpg" alt="Image: Flatinator PCB top" />
+  <p>
+    My solution ensures that the unit can be taken on and off with ease as simply as a dust cap,
+    and that the EL panel consistently closes tightly. I accomplished this by substituting the
+    strap with a 3D-printed frame that holds the entire mechanism and electronics. It can slide
+    on and off the telescope's dew shield as easily as a dust cap.
+  </p>
+  <p>
+    I have been using the Flatinator for nearly a year with no failures. What's nice is that it
+    also acts as a dust cap! When the telescope is indoors I leave the unit on with the flap closed,
+    that way the objective lens remains dust free.
+  </p>
+</div>
+<div class="clearfix">
+  <img class="ml-2 mb-2 float-right" src="images/flatinator-pcb-bottom.jpg" alt="Image: Flatinator PCB bottom" />
+  <p>
+    I am still debating how to make the Flatinator available. Most people have 3D printers or have
+    access to one. It takes about 24 hours for all the parts to be printed. The EL panel and servo
+    motor are available through vendors. The few machine nuts and bolts are available at your
+    neighborhood hardware store. The only impediment to a complete DIY solution is the electronics.
+    The circuit board that I designed is quite small and soldering the surface-mount components are
+    beyond the ability of most people.
+  </p>
+</div>
