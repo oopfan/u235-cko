@@ -109,20 +109,26 @@ define(function() {
     },
 
     _updateDependencies: function() {
-      const rgbExposure = 3 / this._rgbBinning / this._rgbBinning * this._luminanceExposure;
+      var rgbExposure = this._luminanceExposure * 3 / this._rgbBinning / this._rgbBinning;
+      var rExp = rgbExposure * this._redBalance;
+      var gExp = rgbExposure * this._greenBalance;
+      var bExp = rgbExposure * this._blueBalance;
+      var rCnt = this._luminanceFrameCount / 3;
+      var gCnt = this._luminanceFrameCount / 3;
+      var bCnt = this._luminanceFrameCount / 3;
 
       if (this._commonFrameCountMode) {
-        this._redFrameCount = this._luminanceFrameCount;
-        this._greenFrameCount = this._luminanceFrameCount;
-        this._blueFrameCount = this._luminanceFrameCount;
-        this._redExposure = rgbExposure * this._redBalance;
-        this._greenExposure = rgbExposure * this._greenBalance;
-        this._blueExposure = rgbExposure * this._blueBalance;
+        this._redExposure = rExp;
+        this._greenExposure = gExp;
+        this._blueExposure = bExp;
+        this._redFrameCount = rCnt;
+        this._greenFrameCount = gCnt;
+        this._blueFrameCount = bCnt;
       }
       else {
-        this._redFrameCount = rgbExposure * this._redBalance / this._redExposure * this._luminanceFrameCount;
-        this._greenFrameCount = rgbExposure * this._greenBalance / this._greenExposure * this._luminanceFrameCount;
-        this._blueFrameCount = rgbExposure * this._blueBalance / this._blueExposure * this._luminanceFrameCount;
+        this._redFrameCount = this._redExposure > 0 ? (rExp * rCnt / this._redExposure) : 0;
+        this._greenFrameCount = this._greenExposure > 0 ? (gExp * gCnt / this._greenExposure) : 0;
+        this._blueFrameCount = this._blueExposure > 0 ? (bExp * bCnt / this._blueExposure) : 0;
       }
     }
   };
