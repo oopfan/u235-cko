@@ -109,6 +109,30 @@ define(function() {
     },
 
     _updateDependencies: function() {
+      var rRate = 1 / this._redBalance;
+      var gRate = 1 / this._greenBalance;
+      var bRate = 1 / this._blueBalance;
+      var lRate = rRate + gRate + bRate;
+      var lFlux = lRate * this._luminanceExposure * this._luminanceFrameCount;
+      var rgbFlux = lFlux / 3 / this._rgbBinning / this._rgbBinning;
+
+      if (this._commonFrameCountMode) {
+        var rgbFrames = this._luminanceFrameCount / 3;
+        this._redExposure = rgbFlux / rRate / rgbFrames;
+        this._greenExposure = rgbFlux / gRate / rgbFrames;
+        this._blueExposure = rgbFlux / bRate / rgbFrames;
+        this._redFrameCount = rgbFrames;
+        this._greenFrameCount = rgbFrames;
+        this._blueFrameCount = rgbFrames;
+      }
+      else {
+        this._redFrameCount = rgbFlux / rRate / this._redExposure;
+        this._greenFrameCount = rgbFlux / gRate / this._greenExposure;
+        this._blueFrameCount = rgbFlux / bRate / this._blueExposure;
+      }
+    }
+/*
+    _updateDependencies: function() {
       var rgbExposure = this._luminanceExposure * 3 / this._rgbBinning / this._rgbBinning;
       var rExp = rgbExposure * this._redBalance;
       var gExp = rgbExposure * this._greenBalance;
@@ -131,7 +155,7 @@ define(function() {
         this._blueFrameCount = this._blueExposure > 0 ? (bExp * bCnt / this._blueExposure) : 0;
       }
     }
+    */
   };
-
   return LrgbExposureCalculator;
 });

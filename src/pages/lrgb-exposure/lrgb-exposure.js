@@ -67,35 +67,35 @@ define(['knockout', 'lrgb-exposure-calculator', 'text!./lrgb-exposure.html'], fu
       updateAll();
     });
     self.redBalance.subscribe(function(newValue) {
-      calc.redBalance = validateNumber(newValue);
+      calc.redBalance = validateNumber(newValue, 1);
       updateAll();
     });
     self.greenBalance.subscribe(function(newValue) {
-      calc.greenBalance = validateNumber(newValue);
+      calc.greenBalance = validateNumber(newValue, 1);
       updateAll();
     });
     self.blueBalance.subscribe(function(newValue) {
-      calc.blueBalance = validateNumber(newValue);
+      calc.blueBalance = validateNumber(newValue, 1);
       updateAll();
     });
     self.luminanceFrameCount.subscribe(function(newValue) {
-      calc.luminanceFrameCount = validateNumber(newValue);
+      calc.luminanceFrameCount = validateNumber(newValue, 0);
       updateAll();
     });
     self.luminanceExposure.subscribe(function(newValue) {
-      calc.luminanceExposure = validateNumber(newValue);
+      calc.luminanceExposure = validateNumber(newValue, 0);
       updateAll();
     });
     self.redExposure.subscribe(function(newValue) {
-      calc.redExposure = validateNumber(newValue);
+      calc.redExposure = validateNumber(newValue, 0);
       updateAll();
     });
     self.greenExposure.subscribe(function(newValue) {
-      calc.greenExposure = validateNumber(newValue);
+      calc.greenExposure = validateNumber(newValue, 0);
       updateAll();
     });
     self.blueExposure.subscribe(function(newValue) {
-      calc.blueExposure = validateNumber(newValue);
+      calc.blueExposure = validateNumber(newValue, 0);
       updateAll();
     });
     self.frameCountMode.subscribe(function(newValue) {
@@ -105,10 +105,10 @@ define(['knockout', 'lrgb-exposure-calculator', 'text!./lrgb-exposure.html'], fu
     updateAll();
   }
 
-  function validateNumber(newValue) {
+  function validateNumber(newValue, defaultValue) {
     var value = Number.parseFloat(newValue);
     if (Number.isNaN(value)) {
-      return 0;
+      return defaultValue;
     }
     return value;
   };
