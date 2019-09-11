@@ -114,11 +114,6 @@ define(['knockout', 'lrgb-exposure-calculator', 'text!./lrgb-exposure.html'], fu
   };
 
   LrgbExposureCalculator.prototype.dispose = function() {
-    this.luminanceIntegrationTime.dispose();
-    this.redIntegrationTime.dispose();
-    this.greenIntegrationTime.dispose();
-    this.blueIntegrationTime.dispose();
-    this.totalIntegrationTime.dispose();
     this.modeStatus.dispose();
   };
 
