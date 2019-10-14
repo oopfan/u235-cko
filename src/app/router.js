@@ -18,7 +18,9 @@ define(["knockout", "crossroads", "hasher"], function(ko, crossroads, hasher) {
             { url: 'lrgb-exposure',               params: { page: 'lrgb-exposure' } },
             { url: 'lrgb-stack-balance',          params: { page: 'lrgb-stack-balance' } },
             { url: 'color-balance',               params: { page: 'color-balance' } },
-            { url: 'color-balance-instructions',  params: { page: 'color-balance-instructions' } }
+            { url: 'color-balance-instructions',  params: { page: 'color-balance-instructions' } },
+            { url: 'astrocalc-v1',                params: { page: 'astrocalc-v1' } },
+            { url: 'astrocalc-v1-instructions',   params: { page: 'astrocalc-v1-instructions' } },
         ]
     });
 

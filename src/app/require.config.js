@@ -14,6 +14,18 @@ var require = {
         "utility":                        "./core/utility",
         "ko-modal-helper":                "./core/ko-modal-helper",
         "lrgb-exposure-calculator":       "./core/lrgb-exposure-calculator",
-        "scroll-view":                    "./core/scroll-view"
+        "scroll-view":                    "./core/scroll-view",
+        "astrocalc-v1-accumulator":       "./core/astrocalc-v1-accumulator",
+        "astrocalc-v1-memory":            "./core/astrocalc-v1-memory",
+        "astrocalc-v1-engine":            "./core/astrocalc-v1-engine",
+        "astrocalc-v1-observatory":       "./core/astrocalc-v1-observatory",
+        "astrocalc-v1-store":             "./core/astrocalc-v1-store",
+        "astrocalc-v1-load":              "./core/astrocalc-v1-load",
+        "astrocalc-v1-universal-time":    "./core/astrocalc-v1-universal-time",
+        "astrocalc-v1-local-time":        "./core/astrocalc-v1-local-time",
+        "astrocalc-v1-coordinates":       "./core/astrocalc-v1-coordinates",
+        "astrocalc-v1-precession":        "./core/astrocalc-v1-precession",
+        "astrocalc-v1-transformation":    "./core/astrocalc-v1-transformation",
+        "astrocalc-v1-clear-all":         "./core/astrocalc-v1-clear-all"
     }
 };

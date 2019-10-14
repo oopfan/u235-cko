@@ -9,7 +9,9 @@
         { name: 'lrgb-exposure', path: 'pages/lrgb-exposure/lrgb-exposure' },
         { name: 'lrgb-stack-balance', path: 'pages/lrgb-stack-balance/lrgb-stack-balance' },
         { name: 'color-balance', path: 'pages/color-balance/color-balance' },
-        { name: 'color-balance-instructions', path: 'pages/color-balance-instructions/color-balance-instructions' }
+        { name: 'color-balance-instructions', path: 'pages/color-balance-instructions/color-balance-instructions' },
+        { name: 'astrocalc-v1', path: 'pages/astrocalc-v1/astrocalc-v1' },
+        { name: 'astrocalc-v1-instructions', path: 'pages/astrocalc-v1-instructions/astrocalc-v1-instructions' }
     ],
     // Components - knockout components intended as parts of pages, a.k.a. components
     components: [

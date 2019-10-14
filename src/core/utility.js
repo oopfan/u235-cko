@@ -156,8 +156,8 @@ define(function() {
       temp = '0' + minute.toFixed(0);
       str += temp.substr(temp.length - 2, 2);
       str += ':';
-      temp = '0' + second.toFixed(2);
-      str += temp.substr(temp.length - 5, 5);
+      temp = '0' + second.toFixed(0);
+      str += temp.substr(temp.length - 2, 2);
       return str;
   }
 
@@ -180,14 +180,20 @@ define(function() {
       second = remainder;
 
       str = sign;
-      temp = '0' + degree.toFixed(0);
-      str += temp.substr(temp.length - 2, 2);
+      if (degree < 100) {
+        temp = '0' + degree.toFixed(0);
+        str += temp.substr(temp.length - 2, 2);
+      }
+      else {
+        temp = degree.toFixed(0);
+        str += temp;
+      }
       str += ':';
       temp = '0' + minute.toFixed(0);
       str += temp.substr(temp.length - 2, 2);
       str += ':';
-      temp = '0' + second.toFixed(2);
-      str += temp.substr(temp.length - 5, 5);
+      temp = '0' + second.toFixed(0);
+      str += temp.substr(temp.length - 2, 2);
       return str;
   }
 

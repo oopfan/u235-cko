@@ -1,0 +1,488 @@
+<div class="row pt-3">
+  <div class="col-12">
+    <h5>AstroCalc v1 Instructions with Tutorial</h5>
+  </div>
+</div>
+<hr />
+
+<section id="initial-state">
+  <div class="row">
+    <div class="col-12">
+      <h4>Initial State</h4>
+      <p>
+        AstroCalc uses terminology familiar to computer programmers. <em>Commands</em>
+        tell the computer what action to take (those are the blue buttons.) The
+        <em>Accumulator</em> holds the result of the last command. <em>Memory</em>
+        remembers the value of the <em>Accumulator</em> whenever you click the <em>Store</em>
+        button.
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-initial-screen.jpg" alt="Initial Screen" />
+        </a>
+        <p>
+          The <em>Accumulator</em> and <em>Memory</em> are empty in the initial state.
+        </p>
+        <p>
+          Only three commands are available from here: <em>Observatory</em>,
+          <em>Universal Time</em>, and <em>Coordinates</em>. The remaining commands are unavailable
+          because they operate on memory. After you begin storing results those commands will
+          become available.
+        </p>
+        <p>
+          <em>Observatory</em>, <em>Universal Time</em>, and <em>Coordinates</em> are always available
+          because they simply require raw numbers from you. The other commands operate on the results
+          of these. It is a good idea at this time to understand dependencies.
+        </p>
+      </div>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<section id="dependencies">
+  <div class="row">
+    <div class="col-12">
+      <h4>Dependencies</h4>
+      <ul>
+        <li><em>Local Time</em> depends on <em>Observatory</em> and <em>Universal Time</em>.</li>
+        <li><em>Precession</em> depends on <em>Coordinates</em> and <em>Universal Time</em>.</li>
+        <li><em>Transformation</em> depends on <em>Coordinates</em> and <em>Local Time</em>.</li>
+      </ul>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<section id="tutorial">
+  <div class="row">
+    <div class="col-12">
+      <h4>Tutorial</h4>
+      <p>
+        This morning I watched sunrise and wondered what it looked
+        like from Kitt Peak National Observatory in Arizona. By the time I
+        got to it the Sun was about 25 degrees above my horizon here near
+        New York City. My intuition told me that the Sun would be close to
+        rising in Arizona but how close I did not know until running
+        this calculation.
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-mica.jpg" alt="MICA" />
+        </a>
+        <p>
+          This is a screenshot of a program called MICA, the <em>Multiyear Interactive
+          Computer Almanac</em>, a product from the United States Naval Observatory.
+        </p>
+        <p>
+          From their Introduction: "MICA is a software system created especially for astronomers,
+          surveyors, meteorologists, navigators, and others who regularly need accurate
+          information on the positions and motions of celestial objects. It provides
+          high-precision astronomical data for a variety of astronomical objects."
+        </p>
+        <p>
+          You can purchase it for $29.95 from
+          <a href="https://www.willbell.com/almanacs/almanac_mica.htm" target="_blank">
+          Willmann-Bell, Inc.</a>
+        </p>
+        <p>
+          The primary difference between an <em>Almanac</em> and <em>AstroCalc</em> is
+          the way the data is organized. If you ever purchased the <em>Old
+          Farmers' Almanac</em> at the checkout of your local grocery store then you
+          are familiar with how data is organized. It is in tables. If you are interested
+          in the time of sunrise in your town on a particular date then you need to
+          <em>interpolate</em> since the almanac is not tailored for you personally.
+          Internally, MICA is organized similarly. AstroCalc, on the other hand, uses
+          formulas to do its work. I am sure that MICA uses formulas also but it performs
+          the heavy computations beforehand whereas AstroCalc performs it on demand.
+          AstroCalc is not as precise as MICA but it does not need to for most
+          applications.
+        </p>
+        <p>
+          For this tutorial, the date is October 14, 2019 and the time is 9:59:07 local
+          time on the U.S. east coast, daylight savings time. That is equivalent to
+          13:59:07 Universal Time.
+        </p>
+      </div>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<section id="tutorial-step-1">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 1</h4>
+      <p>
+        Use an Internet search or map service to find the latitude and longitude of Kitt Peak.
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-observatory.jpg" alt="Observatory" width="600" />
+        </a>
+        <p>
+          Click the <em>Observatory</em> command button.
+        </p>
+        <p>
+          Fill in the form fields and click "OK".
+        </p>
+      </div>
+      <p>
+        You can see that the result of the <em>Observatory</em> command is placed in the
+        <em>Accumulator</em>:
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-observatory-result.jpg" alt="Observatory result" />
+        </a>
+        <p>
+          This is a good time to emphasize that the <em>Accumulator</em> is volatile. It changes after each command
+          so it is a good idea to save it to <em>Memory</em> by clicking the <em>Store</em> button. Not only will it
+          save your work but it will also make it available to other commands.
+        </p>
+      </div>
+      <p>
+        Save the <em>Observatory</em> results to memory.
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-observatory-store.jpg" alt="Observatory store" width="600" />
+        </a>
+        <p>
+          Click the <em>Store</em> command button.
+        </p>
+        <p>
+          Accept the default memory location and then click "OK".
+        </p>
+        <p>
+          Tip: Use the default memory location for all store operations. You will save a lot of time.
+          After developing experience with AstroCalc you may develop advanced solutions that may
+          benefit from a different name. For now however choose the default.
+        </p>
+      </div>
+      <p>
+        Here you can see the result of the <em>Store</em> command:
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-observatory-store-result.jpg" alt="Observatory store result" />
+        </a>
+        <p>
+          For now on I will rely on you to store the result of commands. I'll simply show the result.
+        </p>
+      </div>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<section id="tutorial-step-2">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 2</h4>
+      <p>
+        Set <em>Universal Time</em>. The Earth's Prime Meridian is the great arc from North to South pole that passes through Greenwich, England.
+        Think of <em>Universal Time</em> as the local time at the Prime Meridian. All calculations begin with it, even the position of the planets
+        in their orbits.
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-universal-time.jpg" alt="Universal Time" width="600" />
+        </a>
+        <p>
+          Click the <em>Universal Time</em> command button.
+        </p>
+        <p>
+          Fill in the fields and click "OK". (If you want to follow this tutorial and achieve
+          the same results then you need to use these same values.) After clicking "OK" then click the
+          <em>Store</em> button to save the result to <em>Memory</em>. Use the default memory location.
+        </p>
+        <p>
+          Tip: AstroCalc pre-populates this form by reading your computer's date and time.
+          This is intended to save you time by anticipating that you are interested in where things
+          are right now.
+        </p>
+        <p>
+          Notice that the initial date and time will be different than your computer time if you don't live along
+          the Prime Meridian. For example I live in the New York City area. Depending on the season my local time is
+          either four or five hours behind <em>Universal Time</em>. Keep this in mind if you want to specify some
+          other date and time in your location. You will need to adjust your local time by your time zone's
+          <em>Zone Correction</em> in order to derive <em>Universal Time</em>.
+        </p>
+      </div>
+      <p>
+        You can see the result:
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-universal-time-store-result.jpg" alt="Universal Time store result" />
+        </a>
+        <p>
+          Notice that the <em>Local Time</em> command button is now available. We will set that next.
+        </p>
+      </div>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<section id="tutorial-step-3">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 3</h4>
+      <p>
+        Set <em>Local Time</em>.
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-local-time.jpg" alt="Local Time" width="600" />
+        </a>
+        <p>
+          Click the <em>Local Time</em> command button.
+        </p>
+        <p>
+          Choose the default <em>Memory</em> locations and click "OK".
+        </p>
+      </div>
+      <p>
+        You can see the result:
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-local-time-store-result.jpg" alt="Local Time store result" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<section id="tutorial-step-4">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 4</h4>
+      <p>
+        Set <em>Coordinates</em> of the Sun.
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-coordinates.jpg" alt="Coordinates" width="600" />
+        </a>
+        <p>
+          Click the <em>Coordinates</em> command button.
+        </p>
+        <p>
+          Copy the J2000 Right Ascension and Declination from the MICA screen into AstroCalc's
+          form fields.
+        </p>
+      </div>
+      <p>
+        You can see the result:
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-coordinates-store-results.jpg" alt="Coordinates store result" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<section id="tutorial-step-5">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 5</h4>
+      <p>
+        Apply <em>Precession</em> to convert J2000 coordinates to current date.
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-precession.jpg" alt="Precession" width="600" />
+        </a>
+        <p>
+          Click the <em>Precession</em> command button.
+        </p>
+        <p>
+          Choose the defaults and then click the "OK" button.
+        </p>
+      </div>
+      <p>
+        This time when you run the <em>Store</em> command it overwrites the <em>Coordinates</em>
+        memory location. This is perfectly fine. You can see the result:
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-precession-store-result.jpg" alt="Precession store result" width="700" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<section id="tutorial-step-6">
+  <div class="row">
+    <div class="col-12">
+      <h4>Step 6</h4>
+      <p>
+        Apply the <em>Transformation</em> to convert from equatorial coordinates to horizontal coordinates.
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-transformation.jpg" alt="Transformation" width="600" />
+        </a>
+        <p>
+          Click the <em>Transformation</em> command button.
+        </p>
+        <p>
+          Choose the defaults and then click the "OK" button.
+        </p>
+      </div>
+      <p>
+        Like the previous, when you run the <em>Store</em> command it overwrites the <em>Coordinates</em>
+        memory location. Here is the result:
+      </p>
+      <div class="clearfix">
+        <a class="float-left" href="#">
+          <img class="mr-2 mb-2 border" src="images/astrocalc-v1-transformation-store-result.jpg" alt="Transformation store result" width="700" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<section id="tutorial-compare-results">
+  <div class="row">
+    <div class="col-12">
+      <h4>Results Comparison</h4>
+      <p>
+        Let's compare the results of our calculations to MICA:
+      </p>
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th>Measurement</th>
+            <th>MICA</th>
+            <th>AstroCalc</th>
+            <th>Comparison</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Universal Time</td>
+            <td>2019 Oct 14 13:59:07.0</td>
+            <td>2019-10-14 13:59:07</td>
+            <td><span class="badge badge-success">Same</span></td>
+          </tr>
+          <tr>
+            <td>Julian Date</td>
+            <td>2458771.082720</td>
+            <td>2458771.08272</td>
+            <td><span class="badge badge-success">Same</span></td>
+          </tr>
+          <tr>
+            <td>Greenwich Mean Sidereal Time (GMST)</td>
+            <td>15:30:26.2084</td>
+            <td>15:30:26</td>
+            <td><span class="badge badge-success">Same</span>&nbsp;See note 1</td>
+          </tr>
+          <tr>
+            <td>Local Mean Sidereral Time (LMST)</td>
+            <td>08:04:02.2751</td>
+            <td>08:04:02</td>
+            <td><span class="badge badge-success">Same</span>&nbsp;See note 1</td>
+          </tr>
+          <tr>
+            <td>Right Ascension (J2000)</td>
+            <td>13:16:20.142</td>
+            <td>13:16:20</td>
+            <td><span class="badge badge-success">Same</span>&nbsp;See note 2</td>
+          </tr>
+          <tr>
+            <td>Declination (J2000)</td>
+            <td>-08:04:01.31</td>
+            <td>-08:04:01</td>
+            <td><span class="badge badge-success">Same</span>&nbsp;See note 2</td>
+          </tr>
+          <tr>
+            <td>Right Ascension (Precessed)</td>
+            <td>13:17:19.820</td>
+            <td>13:17:22</td>
+            <td><span class="badge badge-warning">Diff</span>&nbsp;See note 3</td>
+          </tr>
+          <tr>
+            <td>Declination (Precessed)</td>
+            <td>-08:10:00.76</td>
+            <td>-08:10:15</td>
+            <td><span class="badge badge-warning">Diff</span>&nbsp;See note 3</td>
+          </tr>
+          <tr>
+            <td>Azimuth</td>
+            <td>103:09:10.3</td>
+            <td>103:09:12</td>
+            <td><span class="badge badge-warning">Diff</span>&nbsp;See note 4</td>
+          </tr>
+          <tr>
+            <td>Altitude</td>
+            <td>+05:25:56.1</td>
+            <td>+05:25:43</td>
+            <td><span class="badge badge-warning">Diff</span>&nbsp;See note 4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row pt-2">
+    <div class="col-12">
+      <h5>Notes:</h5>
+      <p>
+        <sup>1</sup> Differences in Sidereal Time are related to formatting.
+        Internally, calculations use the full precision as seen in the MICA results.
+      </p>
+      <p>
+        <sup>2</sup> The J2000 coordinates of the Sun are calculated by MICA to high precision.
+        For the purpose of this test however I copied the MICA values into AstroCalc by
+        using the <em>Coordinates</em> command dialog. By design the dialog limits data
+        entry to whole numbers. As you can see the difference is very small but it will
+        have an impact on further calculations albeit small.
+      </p>
+      <p>
+        <sup>3</sup> As expected adjusting the J2000 coordinates for precession introduces
+        some error in AstroCalc due to the complex nature of Precession. Looking at these
+        numbers the difference is only about 20 arc-seconds which for most applications is
+        tolerable.
+      </p>
+      <p>
+        <sup>4</sup> The calculations of azimuth and altitude are affected by precession
+        as described in the previous step but there is another source of error here:
+        Horizontal Parallax. AstroCalc version 1 does not adjust for parallax. It will
+        in a future version.
+      </p>
+      <h5>Final notes:</h5>
+      <p>
+        * MICA does not adjust for atmospheric refraction which affects altitude
+        near the horizon. Neither does AstroCalc but it will in future versions.
+      </p>
+      <p>
+        * In the next version of AstroCalc you will be able to calculate the
+        position of the Sun, Moon, and Planets using a new command button.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="tutorial-conclusion">
+  <div class="row">
+    <div class="col-12">
+      <h4>Conclusion</h4>
+      <p>
+        MICA is the <em>gold standard</em> as far as I am concerned. As mentioned in the notes
+        above, adjusting for Horizontal Parallax will improve the results but there will always
+        be some error mostly due to precession. Still I hope you find AstroCalc useful.
+      </p>
+    </div>
+  </div>
+  <hr />
+</section>

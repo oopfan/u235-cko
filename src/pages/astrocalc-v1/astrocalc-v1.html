@@ -1,0 +1,501 @@
+<h5 class="pt-3">AstroCalc 1.0.0</h5>
+
+<div class="card border-primary mt-3">
+  <div class="card-header">What does it do?</div>
+  <div class="card-body">
+    <p class="card-text">
+      Conventional calculators may offer several modes: basic, scientific, finance, programming,
+      but none offer an astronomy mode. AstroCalc attempts to fill that gap. Version 1 is capable of
+      transforming catalog coordinates (i.e. RA and DEC) for any object into horizontal coordinates
+      (i.e. AZ and ALT) for any observer and time. More functionality to come! You can find instructions,
+      tutorials and screenshots <a href="#astrocalc-v1-instructions" target="_blank">here</a>.
+    </p>
+  </div>
+</div>
+
+<h5 class="pt-4">Commands</h5>
+<div class="pt-1">
+  <button type="button" class="btn btn-primary" data-bind="click: clickObservatory">Observatory</button>
+  <button type="button" class="btn btn-primary" data-bind="click: clickUniversalTime">Universal Time</button>
+  <button type="button" class="btn btn-primary" data-bind="click: clickLocalTime, enable: enableLocalTime">Local Time</button>
+</div>
+<div class="pt-2">
+  <button type="button" class="btn btn-primary" data-bind="click: clickCoordinates">Coordinates</button>
+  <button type="button" class="btn btn-primary" data-bind="click: clickPrecession, enable: enablePrecession">Precession</button>
+  <button type="button" class="btn btn-primary" data-bind="click: clickTransformation, enable: enableTransformation">Transformation</button>
+</div>
+<div class="pt-2">
+  <button type="button" class="btn btn-primary" data-bind="click: clickStore, enable: accumulatorArray().length > 0">Store</button>
+  <button type="button" class="btn btn-primary" data-bind="click: clickLoad, enable: memoryArray().length > 0">Load</button>
+  <button type="button" class="btn btn-primary" data-bind="click: clickClearAll, enable: accumulatorArray().length > 0">Clear All</button>
+</div>
+
+<h5 class="pt-4">Accumulator</h5>
+<div data-bind="foreach: accumulatorArray">
+  <div class="row">
+    <div class="col">
+      <span data-bind="text: description" class="text-warning"></span>
+    </div>
+  </div>
+</div>
+
+<h5 class="pt-4">Memory</h5>
+<div data-bind="foreach: memoryArray">
+  <div class="row">
+    <div class="col-2">
+      <span data-bind="text: $data[0]" class="text-info"></span>&nbsp;
+    </div>
+    <div class="col-10">
+      <span data-bind="text: $data[1]().description"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Observatory Modal -->
+<script type="text/html" id="modal-observatory">
+  <div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="observatoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="observatoryModalLabel">Observatory</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form data-bind="submit: submitForm">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="observatory-input-name">Name</label>
+              <input type="text" class="form-control" id="observatory-input-name" placeholder="Enter name" data-bind="value: name" required />
+            </div>
+            <div class="form-group">
+              <label for="observatory-latitude-degrees">Latitude</label>
+              <div class="form-row align-items-center">
+                <div class="col-2">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="observatory-latitude-north" name="observatory-latitude-northsouth" data-bind="checked: latitudeNorthSouth" value="N" required />
+                    <label class="form-check-label" for="observatory-latitude-north">North</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="observatory-latitude-south" name="observatory-latitude-northsouth" data-bind="checked: latitudeNorthSouth" value="S" required />
+                    <label class="form-check-label" for="observatory-latitude-south">South</label>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="observatory-latitude-degrees" aria-describedby="observatory-latitude-degrees-help" min="0" max="89" step="1" data-bind="value: latitudeDegrees" required />
+                  <small id="observatory-latitude-degrees-help" class="form-text text-muted">0 - 89 degrees</small>
+                </div>
+                <div class="col-1">
+                  deg
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="observatory-latitude-minutes" aria-describedby="observatory-latitude-minutes-help" min="0" max="59" step="1" data-bind="value: latitudeMinutes" required />
+                  <small id="observatory-latitude-minutes-help" class="form-text text-muted">0 - 59 minutes</small>
+                </div>
+                <div class="col-1">
+                  min
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="observatory-latitude-seconds" aria-describedby="observatory-latitude-seconds-help" min="0" max="59" step="1" data-bind="value: latitudeSeconds" required />
+                  <small id="observatory-latitude-seconds-help" class="form-text text-muted">0 - 59 seconds</small>
+                </div>
+                <div class="col-1">
+                  sec
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="observatory-longitude-degrees">Longitude</label>
+              <div class="form-row align-items-center">
+                <div class="col-2">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="observatory-longitude-east" name="observatory-longitude-eastwest" data-bind="checked: longitudeEastWest" value="E" required />
+                    <label class="form-check-label" for="observatory-longitude-east">East</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="observatory-longitude-west" name="observatory-longitude-eastwest" data-bind="checked: longitudeEastWest" value="W" required />
+                    <label class="form-check-label" for="observatory-longitude-west">West</label>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="observatory-longitude-degrees" aria-describedby="observatory-longitude-degrees-help" min="0" max="179" step="1" data-bind="value: longitudeDegrees" required />
+                  <small id="observatory-longitude-degrees-help" class="form-text text-muted">0 - 179 degrees</small>
+                </div>
+                <div class="col-1">
+                  deg
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="observatory-longitude-minutes" aria-describedby="observatory-longitude-minutes-help" min="0" max="59" step="1" data-bind="value: longitudeMinutes" required />
+                  <small id="observatory-longitude-minutes-help" class="form-text text-muted">0 - 59 minutes</small>
+                </div>
+                <div class="col-1">
+                  min
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="observatory-longitude-seconds" aria-describedby="observatory-longitude-seconds-help" min="0" max="59" step="1" data-bind="value: longitudeSeconds" required />
+                  <small id="observatory-longitude-seconds-help" class="form-text text-muted">0 - 59 seconds</small>
+                </div>
+                <div class="col-1">
+                  sec
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">OK</a>
+            <button type="button" class="btn btn-primary" data-bind="click: cancelForm">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+
+<!-- Universal Time Modal -->
+<script type="text/html" id="modal-universal-time">
+  <div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="universalTimeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="universalTimeModalLabel">Universal Time</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form data-bind="submit: submitForm">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="universal-time-year">Date</label>
+              <div class="form-row align-items-center">
+                <div class="col-2">
+                  <input type="number" class="form-control" id="universal-time-year" aria-describedby="universal-time-year-help" min="1900" max="2100" step="1" data-bind="value: year" required />
+                  <small id="universal-time-year-help" class="form-text text-muted">1900 - 2100</small>
+                </div>
+                <div class="col-1">
+                  year
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="universal-time-month" aria-describedby="universal-time-month-help" min="1" max="12" step="1" data-bind="value: month" required />
+                  <small id="universal-time-month-help" class="form-text text-muted">1 - 12</small>
+                </div>
+                <div class="col-1">
+                  month
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="universal-time-day" aria-describedby="universal-time-day-help" min="1" max="31" step="1" data-bind="value: day" required />
+                  <small id="universal-time-day-help" class="form-text text-muted">1 - 31</small>
+                </div>
+                <div class="col-1">
+                  day
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="universal-time-hour">Time</label>
+              <div class="form-row align-items-center">
+                <div class="col-2">
+                  <input type="number" class="form-control" id="universal-time-hour" aria-describedby="universal-time-hour-help" min="0" max="23" step="1" data-bind="value: hour" required />
+                  <small id="universal-time-hour-help" class="form-text text-muted">0 - 23</small>
+                </div>
+                <div class="col-1">
+                  hour
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="universal-time-minute" aria-describedby="universal-time-minute-help" min="0" max="59" step="1" data-bind="value: minute" required />
+                  <small id="universal-time-minute-help" class="form-text text-muted">0 - 59</small>
+                </div>
+                <div class="col-1">
+                  minute
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="universal-time-second" aria-describedby="universal-time-second-help" min="0" max="59" step="1" data-bind="value: second" required />
+                  <small id="universal-time-second-help" class="form-text text-muted">0 - 59</small>
+                </div>
+                <div class="col-1">
+                  second
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">OK</a>
+            <button type="button" class="btn btn-primary" data-bind="click: cancelForm">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+
+<!-- Local Time Modal -->
+<script type="text/html" id="modal-local-time">
+  <div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="localTimeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="localTimeModalLabel">Local Time</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form data-bind="submit: submitForm">
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="load-obsy-select">Observatory memory location</label>
+                <select class="form-control" id="load-obsy-select" aria-describedby="load-obsy-select-help" data-bind="options: availableObservatories, value: selectedObservatory" required />
+                <small id="load-obsy-select-help" class="form-text text-muted">Choose from this list of current Observatory memory locations.</small>
+              </div>
+              <div class="form-group">
+                <label for="load-utc-select">Universal Time memory location</label>
+                <select class="form-control" id="load-utc-select" aria-describedby="load-utc-select-help" data-bind="options: availableUniversalTimes, value: selectedUniversalTime" required />
+                <small id="load-utc-select-help" class="form-text text-muted">Choose from this list of current Universal Time memory locations.</small>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">OK</a>
+            <button type="button" class="btn btn-primary" data-bind="click: cancelForm">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+
+<!-- Coordinates Modal -->
+<script type="text/html" id="modal-coordinates">
+  <div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="coordinatesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="coordinatesModalLabel">Coordinates</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form data-bind="submit: submitForm">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="coordinates-ra-hours">Right Ascension</label>
+              <div class="form-row align-items-center">
+                <div class="col-2">
+                  <input type="number" class="form-control" id="coordinates-ra-hours" aria-describedby="coordinates-ra-hours-help" min="0" max="23" step="1" data-bind="value: raHours" required />
+                  <small id="coordinates-ra-hours-help" class="form-text text-muted">0 - 23</small>
+                </div>
+                <div class="col-1">
+                  hour
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="coordinates-ra-minutes" aria-describedby="coordinates-ra-minutes-help" min="0" max="59" step="1" data-bind="value: raMinutes" required />
+                  <small id="coordinates-ra-minutes-help" class="form-text text-muted">0 - 59</small>
+                </div>
+                <div class="col-1">
+                  min
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="coordinates-ra-seconds" aria-describedby="coordinates-ra-seconds-help" min="0" max="59" step="1" data-bind="value: raSeconds" required />
+                  <small id="coordinates-ra-seconds-help" class="form-text text-muted">0 - 59</small>
+                </div>
+                <div class="col-1">
+                  sec
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="coordinates-dec-degrees">Declination</label>
+              <div class="form-row align-items-center">
+                <div class="col-2">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="coordinates-dec-north" name="coordinates-dec-northsouth" data-bind="checked: decNorthSouth" value="N" required />
+                    <label class="form-check-label" for="coordinates-dec-north">North</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="coordinates-dec-south" name="coordinates-dec-northsouth" data-bind="checked: decNorthSouth" value="S" required />
+                    <label class="form-check-label" for="coordinates-dec-south">South</label>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="coordinates-dec-degrees" aria-describedby="coordinates-dec-degrees-help" min="0" max="89" step="1" data-bind="value: decDegrees" required />
+                  <small id="coordinates-dec-degrees-help" class="form-text text-muted">0 - 89</small>
+                </div>
+                <div class="col-1">
+                  deg
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="coordinates-dec-minutes" aria-describedby="coordinates-dec-minutes-help" min="0" max="59" step="1" data-bind="value: decMinutes" required />
+                  <small id="coordinates-dec-minutes-help" class="form-text text-muted">0 - 59</small>
+                </div>
+                <div class="col-1">
+                  min
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="coordinates-dec-seconds" aria-describedby="coordinates-dec-seconds-help" min="0" max="59" step="1" data-bind="value: decSeconds" required />
+                  <small id="coordinates-dec-seconds-help" class="form-text text-muted">0 - 59</small>
+                </div>
+                <div class="col-1">
+                  sec
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">OK</a>
+            <button type="button" class="btn btn-primary" data-bind="click: cancelForm">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+
+<!-- Precession Modal -->
+<script type="text/html" id="modal-precession">
+  <div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="precessionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="precessionModalLabel">Precession</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form data-bind="submit: submitForm">
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="load-coordinates-select">Coordinates memory location</label>
+                <select class="form-control" id="load-coordinates-select" aria-describedby="load-coordinates-select-help" data-bind="options: availableCoordinates, value: selectedCoordinates" required />
+                <small id="load-coordinates-select-help" class="form-text text-muted">Choose from this list of current Coordinates memory locations.</small>
+              </div>
+              <div class="form-group">
+                <label for="load-utc-select">Universal Time memory location</label>
+                <select class="form-control" id="load-utc-select" aria-describedby="load-utc-select-help" data-bind="options: availableUniversalTimes, value: selectedUniversalTime" required />
+                <small id="load-utc-select-help" class="form-text text-muted">Choose from this list of current Universal Time memory locations.</small>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">OK</a>
+            <button type="button" class="btn btn-primary" data-bind="click: cancelForm">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+
+<!-- Transformation Modal -->
+<script type="text/html" id="modal-transformation">
+  <div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="transformationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="transformationModalLabel">Transformation to Horizontal Coordinates</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form data-bind="submit: submitForm">
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="load-coordinates-select">Coordinates memory location</label>
+                <select class="form-control" id="load-coordinates-select" aria-describedby="load-coordinates-select-help" data-bind="options: availableCoordinates, value: selectedCoordinates" required />
+                <small id="load-coordinates-select-help" class="form-text text-muted">Choose from this list of current Coordinates memory locations.</small>
+              </div>
+              <div class="form-group">
+                <label for="load-local-select">Local Time memory location</label>
+                <select class="form-control" id="load-local-select" aria-describedby="load-local-select-help" data-bind="options: availableLocalTimes, value: selectedLocalTime" required />
+                <small id="load-local-select-help" class="form-text text-muted">Choose from this list of current Local Time memory locations.</small>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">OK</a>
+            <button type="button" class="btn btn-primary" data-bind="click: cancelForm">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+
+<!-- Store Modal -->
+<script type="text/html" id="modal-store">
+  <div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="storeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="storeModalLabel">Store Accumulator to Memory</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form data-bind="submit: submitForm">
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="store-input-key">Memory location name</label>
+                <input type="text" class="form-control" id="store-input-key" aria-describedby="store-input-key-help" placeholder="Enter string" data-bind="value: location" required />
+                <small id="store-input-key-help" class="form-text text-muted">A unique name for storing to a new memory location, or an existing name to replace it.</small>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">OK</a>
+            <button type="button" class="btn btn-primary" data-bind="click: cancelForm">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+
+<!-- Load Modal -->
+<script type="text/html" id="modal-load">
+  <div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="loadModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loadModalLabel">Load Accumulator from Memory</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form data-bind="submit: submitForm">
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="load-select">Memory location name</label>
+                <select class="form-control" id="load-select" aria-describedby="load-select-help" data-bind="options: availableLocations, value: selectedLocation" required />
+                <small id="load-select-help" class="form-text text-muted">Choose from this list of current memory locations.</small>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">OK</a>
+            <button type="button" class="btn btn-primary" data-bind="click: cancelForm">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+
+<!-- Clear All Modal -->
+<script type="text/html" id="modal-clear-all">
+  <div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="clearAllModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="clearAllModalLabel">Clear Accumulator and Memory</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form data-bind="submit: submitForm">
+          <div class="modal-body">
+            <p>
+              OK to clear the contents of the accumulator and all memory locations? This action is irreversible.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">OK</a>
+            <button type="button" class="btn btn-primary" data-bind="click: cancelForm">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
