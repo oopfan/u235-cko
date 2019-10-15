@@ -2,6 +2,17 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
   function (ko, modalHelper, Engine, Accumulator, Memory, templateMarkup) {
 
   function AstroCalcViewModel() {
+    var lastObservatory = {
+      name: "New York City",
+      latitudeDegrees: 40,
+      latitudeMinutes: 43,
+      latitudeSeconds: 1,
+      latitudeNorthSouth: "N",
+      longitudeDegrees: 74,
+      longitudeMinutes: 0,
+      longitudeSeconds: 0,
+      longitudeEastWest: "W"
+    };
     this.accumulatorArray = ko.observableArray();
     var accumulator = new Accumulator(this.accumulatorArray);
     this.memoryArray = ko.observableArray();
@@ -70,7 +81,7 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
     }, this);
     this.clickObservatory = function(data, event) {
       modalHelper.showModal({
-        viewModel: new ObservatoryViewModel(engine),
+        viewModel: new ObservatoryViewModel(engine, lastObservatory),
         context: this
       });
     };
@@ -124,18 +135,29 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
     };
   }
 
-  function ObservatoryViewModel(engine) {
+  function ObservatoryViewModel(engine, lastObservatory) {
     this.template = "modal-observatory";
-    this.name = ko.observable("New York City");
-    this.latitudeDegrees = ko.observable(40);
-    this.latitudeMinutes = ko.observable(43);
-    this.latitudeSeconds = ko.observable(1);
-    this.latitudeNorthSouth = ko.observable("N");
-    this.longitudeDegrees = ko.observable(74);
-    this.longitudeMinutes = ko.observable(0);
-    this.longitudeSeconds = ko.observable(0);
-    this.longitudeEastWest = ko.observable("W");
+    this.name = ko.observable(lastObservatory.name);
+    this.latitudeDegrees = ko.observable(lastObservatory.latitudeDegrees);
+    this.latitudeMinutes = ko.observable(lastObservatory.latitudeMinutes);
+    this.latitudeSeconds = ko.observable(lastObservatory.latitudeSeconds);
+    this.latitudeNorthSouth = ko.observable(lastObservatory.latitudeNorthSouth);
+    this.longitudeDegrees = ko.observable(lastObservatory.longitudeDegrees);
+    this.longitudeMinutes = ko.observable(lastObservatory.longitudeMinutes);
+    this.longitudeSeconds = ko.observable(lastObservatory.longitudeSeconds);
+    this.longitudeEastWest = ko.observable(lastObservatory.longitudeEastWest);
+
     this.submitForm = function() {
+      lastObservatory.name = this.name();
+      lastObservatory.latitudeDegrees = this.latitudeDegrees();
+      lastObservatory.latitudeMinutes = this.latitudeMinutes();
+      lastObservatory.latitudeSeconds = this.latitudeSeconds();
+      lastObservatory.latitudeNorthSouth = this.latitudeNorthSouth();
+      lastObservatory.longitudeDegrees = this.longitudeDegrees();
+      lastObservatory.longitudeMinutes = this.longitudeMinutes();
+      lastObservatory.longitudeSeconds = this.longitudeSeconds();
+      lastObservatory.longitudeEastWest = this.longitudeEastWest();
+
       var latitude = Number.parseInt(this.latitudeDegrees()) + (Number.parseInt(this.latitudeMinutes()) + Number.parseInt(this.latitudeSeconds()) / 60) / 60;
       if (this.latitudeNorthSouth() === 'S') {
         latitude = -latitude;
