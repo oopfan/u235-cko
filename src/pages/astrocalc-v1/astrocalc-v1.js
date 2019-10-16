@@ -6,12 +6,14 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       name: "New York City",
       latitudeDegrees: 40,
       latitudeMinutes: 43,
-      latitudeSeconds: 1,
+      latitudeSeconds: 0,
       latitudeNorthSouth: "N",
       longitudeDegrees: 74,
       longitudeMinutes: 0,
       longitudeSeconds: 0,
-      longitudeEastWest: "W"
+      longitudeEastWest: "W",
+      autostoreEnable: true,
+      autostoreLocation: "Observatory"
     };
     this.accumulatorArray = ko.observableArray();
     var accumulator = new Accumulator(this.accumulatorArray);
@@ -146,6 +148,8 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
     this.longitudeMinutes = ko.observable(lastObservatory.longitudeMinutes);
     this.longitudeSeconds = ko.observable(lastObservatory.longitudeSeconds);
     this.longitudeEastWest = ko.observable(lastObservatory.longitudeEastWest);
+    this.autostoreEnable = ko.observable(lastObservatory.autostoreEnable);
+    this.autostoreLocation = ko.observable(lastObservatory.autostoreLocation);
 
     this.submitForm = function() {
       lastObservatory.name = this.name();
@@ -157,6 +161,8 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       lastObservatory.longitudeMinutes = this.longitudeMinutes();
       lastObservatory.longitudeSeconds = this.longitudeSeconds();
       lastObservatory.longitudeEastWest = this.longitudeEastWest();
+      lastObservatory.autostoreEnable = this.autostoreEnable();
+      lastObservatory.autostoreLocation = this.autostoreLocation();
 
       var latitude = Number.parseInt(this.latitudeDegrees()) + (Number.parseInt(this.latitudeMinutes()) + Number.parseInt(this.latitudeSeconds()) / 60) / 60;
       if (this.latitudeNorthSouth() === 'S') {
@@ -166,12 +172,20 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       if (this.longitudeEastWest() === 'W') {
         longitude = -longitude;
       }
+
       var command = "Observatory";
       var args = {};
       args.name = this.name();
       args.latitude = latitude;
       args.longitude = longitude;
       engine.submit(command, args);
+
+      if (this.autostoreEnable()) {
+        var command = "Store";
+        var args = {};
+        args.to = this.autostoreLocation();
+        engine.submit(command, args);
+      }
       this.modal.close();
     };
     this.cancelForm = function(data, event) {
@@ -356,6 +370,18 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       this.modal.close();
     };
   }
+
+  AstroCalcViewModel.prototype.dispose = function() {
+    this.observatoryKeys.dispose();
+    this.universalTimeKeys.dispose();
+    this.localTimeKeys.dispose();
+    this.coordinateKeys.dispose();
+    this.coordinateGeoEquJ2000Keys.dispose();
+    this.coordinateGeoEquKeys.dispose();
+    this.enableLocalTime.dispose();
+    this.enablePrecession.dispose();
+    this.enableTransformation.dispose();
+  };
 
   return { viewModel: AstroCalcViewModel, template: templateMarkup };
 });
