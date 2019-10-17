@@ -15,6 +15,19 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       autostoreEnable: true,
       autostoreLocation: "Observatory"
     };
+
+    var date = new Date();
+    var lastUniversalTime = {
+      year: date.getUTCFullYear(),
+      month: date.getUTCMonth() + 1,
+      day: date.getUTCDate(),
+      hour: date.getUTCHours(),
+      minute: date.getUTCMinutes(),
+      second: date.getUTCSeconds(),
+      autostoreEnable: true,
+      autostoreLocation: "UniversalTime"
+    };
+
     this.accumulatorArray = ko.observableArray();
     var accumulator = new Accumulator(this.accumulatorArray);
     this.memoryArray = ko.observableArray();
@@ -89,7 +102,7 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
     };
     this.clickUniversalTime = function(data, event) {
       modalHelper.showModal({
-        viewModel: new UniversalTimeViewModel(engine),
+        viewModel: new UniversalTimeViewModel(engine, lastUniversalTime),
         context: this
       });
     };
@@ -193,16 +206,37 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
     };
   }
 
-  function UniversalTimeViewModel(engine) {
+  function UniversalTimeViewModel(engine, lastUniversalTime) {
     this.template = "modal-universal-time";
-    var date = new Date();
-    this.year = ko.observable(date.getUTCFullYear());
-    this.month = ko.observable(date.getUTCMonth() + 1);
-    this.day = ko.observable(date.getUTCDate());
-    this.hour = ko.observable(date.getUTCHours());
-    this.minute = ko.observable(date.getUTCMinutes());
-    this.second = ko.observable(date.getUTCSeconds());
+    this.year = ko.observable(lastUniversalTime.year);
+    this.month = ko.observable(lastUniversalTime.month);
+    this.day = ko.observable(lastUniversalTime.day);
+    this.hour = ko.observable(lastUniversalTime.hour);
+    this.minute = ko.observable(lastUniversalTime.minute);
+    this.second = ko.observable(lastUniversalTime.second);
+    this.autostoreEnable = ko.observable(lastUniversalTime.autostoreEnable);
+    this.autostoreLocation = ko.observable(lastUniversalTime.autostoreLocation);
+
+    this.clickNow = function(data, event) {
+      var date = new Date();
+      this.year(date.getUTCFullYear());
+      this.month(date.getUTCMonth() + 1);
+      this.day(date.getUTCDate());
+      this.hour(date.getUTCHours());
+      this.minute(date.getUTCMinutes());
+      this.second(date.getUTCSeconds());
+    };
+
     this.submitForm = function() {
+      lastUniversalTime.year = this.year();
+      lastUniversalTime.month = this.month();
+      lastUniversalTime.day = this.day();
+      lastUniversalTime.hour = this.hour();
+      lastUniversalTime.minute = this.minute();
+      lastUniversalTime.second = this.second();
+      lastUniversalTime.autostoreEnable = this.autostoreEnable();
+      lastUniversalTime.autostoreLocation = this.autostoreLocation();
+
       var date = new Date(Date.UTC(this.year(), this.month()-1, this.day(), this.hour(), this.minute(), this.second()));
 
       var year = date.getUTCFullYear().toFixed(0);
@@ -224,6 +258,12 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       args.time = hour + ':' + minute + ':' + second;
       engine.submit(command, args);
 
+      if (this.autostoreEnable()) {
+        var command = "Store";
+        var args = {};
+        args.to = this.autostoreLocation();
+        engine.submit(command, args);
+      }
       this.modal.close();
     };
     this.cancelForm = function(data, event) {
