@@ -34,7 +34,8 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
             'pages/color-balance/color-balance',
             'pages/color-balance-instructions/color-balance-instructions',
             'pages/astrocalc-v1/astrocalc-v1',
-            'pages/astrocalc-v1-instructions/astrocalc-v1-instructions'
+            'pages/astrocalc-v1-instructions/astrocalc-v1-instructions',
+            'pages/astrocalc-release-notes/astrocalc-release-notes'
         ],
         insertRequire: ['app/startup'],
         bundles: {

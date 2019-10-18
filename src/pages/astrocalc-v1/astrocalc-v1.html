@@ -1,11 +1,15 @@
-<h5 class="pt-3">AstroCalc 1.0.0</h5>
+<h5 class="pt-3">AstroCalc 1.1.0</h5>
+<p>
+  Last update 2019-10-17
+  &nbsp;<a href="#astrocalc-release-notes" target="_blank">Read the Release Notes</a>
+</p>
 
 <div class="card border-primary mt-3">
   <div class="card-header">What does it do?</div>
   <div class="card-body">
     <p class="card-text">
-      Conventional calculators may offer several modes: basic, scientific, finance, programming,
-      but none offer an astronomy mode. AstroCalc attempts to fill that gap. Version 1 is capable of
+      Conventional calculators offer basic, scientific, finance, and programming modes but
+      none offer an astronomy mode. AstroCalc attempts to fill the gap. Version 1 is capable of
       transforming catalog coordinates (i.e. RA and DEC) for any object into horizontal coordinates
       (i.e. AZ and ALT) for any observer and time. More functionality to come! You can find instructions,
       tutorials and screenshots <a href="#astrocalc-v1-instructions" target="_blank">here</a>.
@@ -279,7 +283,7 @@
         <form data-bind="submit: submitForm">
           <div class="modal-body">
             <div class="form-group">
-              <label for="coordinates-ra-hours">Right Ascension</label>
+              <label for="coordinates-ra-hours">Right Ascension (J2000)</label>
               <div class="form-row align-items-center">
                 <div class="col-2">
                   <input type="number" class="form-control" id="coordinates-ra-hours" aria-describedby="coordinates-ra-hours-help" min="0" max="23" step="1" data-bind="value: raHours" required />
@@ -305,7 +309,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="coordinates-dec-degrees">Declination</label>
+              <label for="coordinates-dec-degrees">Declination (J2000)</label>
               <div class="form-row align-items-center">
                 <div class="col-2">
                   <div class="form-check form-check-inline">

@@ -21,6 +21,7 @@ define(["knockout", "crossroads", "hasher"], function(ko, crossroads, hasher) {
             { url: 'color-balance-instructions',  params: { page: 'color-balance-instructions' } },
             { url: 'astrocalc-v1',                params: { page: 'astrocalc-v1' } },
             { url: 'astrocalc-v1-instructions',   params: { page: 'astrocalc-v1-instructions' } },
+            { url: 'astrocalc-release-notes',     params: { page: 'astrocalc-release-notes' } }
         ]
     });
 
