@@ -16,6 +16,7 @@
     // Components - knockout components intended as parts of pages, a.k.a. components
     components: [
         // [Scaffolded components will be inserted here. To retain this feature, don't remove this comment.]
+        { name: 'auto-store', path: 'components/auto-store/auto-store' },
         { name: 'nav-bar', path: 'components/nav-bar/nav-bar' },
         { name: 'app', path: 'components/app/app' }
 

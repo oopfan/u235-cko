@@ -28,6 +28,39 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       autostoreLocation: "UniversalTime"
     };
 
+    var lastLocalTime = {
+      selectedObservatory: "Observatory",
+      selectedUniversalTime: "UniversalTime",
+      autostoreEnable: true,
+      autostoreLocation: "LocalTime"
+    };
+
+    var lastCoordinates = {
+      raHours: 0,
+      raMinutes: 0,
+      raSeconds: 0,
+      decDegrees: 0,
+      decMinutes: 0,
+      decSeconds: 0,
+      decNorthSouth: "N",
+      autostoreEnable: true,
+      autostoreLocation: "Coordinates"
+    };
+
+    var lastPrecession = {
+      selectedCoordinates: "Coordinates",
+      selectedUniversalTime: "UniversalTime",
+      autostoreEnable: true,
+      autostoreLocation: "Coordinates"
+    };
+
+    var lastTransformation = {
+      selectedCoordinates: "Coordinates",
+      selectedLocalTime: "LocalTime",
+      autostoreEnable: true,
+      autostoreLocation: "Coordinates"
+    };
+
     this.accumulatorArray = ko.observableArray();
     var accumulator = new Accumulator(this.accumulatorArray);
     this.memoryArray = ko.observableArray();
@@ -108,25 +141,25 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
     };
     this.clickLocalTime = function(data, event) {
       modalHelper.showModal({
-        viewModel: new LocalTimeViewModel(engine, this.observatoryKeys(), this.universalTimeKeys()),
+        viewModel: new LocalTimeViewModel(engine, lastLocalTime, this.observatoryKeys(), this.universalTimeKeys()),
         context: this
       });
     };
     this.clickCoordinates = function(data, event) {
       modalHelper.showModal({
-        viewModel: new CoordinatesViewModel(engine),
+        viewModel: new CoordinatesViewModel(engine, lastCoordinates),
         context: this
       });
     };
     this.clickPrecession = function(data, event) {
       modalHelper.showModal({
-        viewModel: new PrecessionViewModel(engine, this.coordinateGeoEquJ2000Keys(), this.universalTimeKeys()),
+        viewModel: new PrecessionViewModel(engine, lastPrecession, this.coordinateGeoEquJ2000Keys(), this.universalTimeKeys()),
         context: this
       });
     };
     this.clickTransformation = function(data, event) {
       modalHelper.showModal({
-        viewModel: new TransformationViewModel(engine, this.coordinateGeoEquKeys(), this.localTimeKeys()),
+        viewModel: new TransformationViewModel(engine, lastTransformation, this.coordinateGeoEquKeys(), this.localTimeKeys()),
         context: this
       });
     };
@@ -201,6 +234,7 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       }
       this.modal.close();
     };
+
     this.cancelForm = function(data, event) {
       this.modal.close();
     };
@@ -266,40 +300,70 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       }
       this.modal.close();
     };
+
     this.cancelForm = function(data, event) {
       this.modal.close();
     };
   }
 
-  function LocalTimeViewModel(engine, observatoryKeys, universalTimeKeys) {
+  function LocalTimeViewModel(engine, lastLocalTime, observatoryKeys, universalTimeKeys) {
     this.template = "modal-local-time";
     this.availableObservatories = observatoryKeys;
-    this.selectedObservatory = ko.observable(observatoryKeys[0]);
+    this.selectedObservatory = ko.observable(lastLocalTime.selectedObservatory);
     this.availableUniversalTimes = universalTimeKeys;
-    this.selectedUniversalTime = ko.observable(universalTimeKeys[0]);
+    this.selectedUniversalTime = ko.observable(lastLocalTime.selectedUniversalTime);
+    this.autostoreEnable = ko.observable(lastLocalTime.autostoreEnable);
+    this.autostoreLocation = ko.observable(lastLocalTime.autostoreLocation);
+
     this.submitForm = function() {
+      lastLocalTime.selectedObservatory = this.selectedObservatory();
+      lastLocalTime.selectedUniversalTime = this.selectedUniversalTime();
+      lastLocalTime.autostoreEnable = this.autostoreEnable();
+      lastLocalTime.autostoreLocation = this.autostoreLocation();
+
       var command = "LocalTime";
       var args = {};
       args.observatory = this.selectedObservatory();
       args.universalTime = this.selectedUniversalTime();
       engine.submit(command, args);
+
+      if (this.autostoreEnable()) {
+        var command = "Store";
+        var args = {};
+        args.to = this.autostoreLocation();
+        engine.submit(command, args);
+      }
       this.modal.close();
     };
+
     this.cancelForm = function(data, event) {
       this.modal.close();
     };
   }
 
-  function CoordinatesViewModel(engine) {
+  function CoordinatesViewModel(engine, lastCoordinates) {
     this.template = "modal-coordinates";
-    this.raHours = ko.observable(0);
-    this.raMinutes = ko.observable(0);
-    this.raSeconds = ko.observable(0);
-    this.decDegrees = ko.observable(0);
-    this.decMinutes = ko.observable(0);
-    this.decSeconds = ko.observable(0);
-    this.decNorthSouth = ko.observable('N');
+    this.raHours = ko.observable(lastCoordinates.raHours);
+    this.raMinutes = ko.observable(lastCoordinates.raMinutes);
+    this.raSeconds = ko.observable(lastCoordinates.raSeconds);
+    this.decDegrees = ko.observable(lastCoordinates.decDegrees);
+    this.decMinutes = ko.observable(lastCoordinates.decMinutes);
+    this.decSeconds = ko.observable(lastCoordinates.decSeconds);
+    this.decNorthSouth = ko.observable(lastCoordinates.decNorthSouth);
+    this.autostoreEnable = ko.observable(lastCoordinates.autostoreEnable);
+    this.autostoreLocation = ko.observable(lastCoordinates.autostoreLocation);
+
     this.submitForm = function() {
+      lastCoordinates.raHours = this.raHours();
+      lastCoordinates.raMinutes = this.raMinutes();
+      lastCoordinates.raSeconds = this.raSeconds();
+      lastCoordinates.decDegrees = this.decDegrees();
+      lastCoordinates.decMinutes = this.decMinutes();
+      lastCoordinates.decSeconds = this.decSeconds();
+      lastCoordinates.decNorthSouth = this.decNorthSouth();
+      lastCoordinates.autostoreEnable = this.autostoreEnable();
+      lastCoordinates.autostoreLocation = this.autostoreLocation();
+
       var raHours = '0' + Number.parseInt(this.raHours()).toFixed(0);
       raHours = raHours.substr(raHours.length - 2, 2);
       var raMinutes = '0' + Number.parseInt(this.raMinutes()).toFixed(0);
@@ -321,47 +385,86 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       args.dec = decSign + decDegrees + ':' + decMinutes + ':' + decSeconds;
       engine.submit(command, args);
 
+      if (this.autostoreEnable()) {
+        var command = "Store";
+        var args = {};
+        args.to = this.autostoreLocation();
+        engine.submit(command, args);
+      }
       this.modal.close();
     };
+
     this.cancelForm = function(data, event) {
       this.modal.close();
     };
   }
 
-  function PrecessionViewModel(engine, coordinateKeys, universalTimeKeys) {
+  function PrecessionViewModel(engine, lastPrecession, coordinateKeys, universalTimeKeys) {
     this.template = "modal-precession";
     this.availableCoordinates = coordinateKeys;
-    this.selectedCoordinates = ko.observable(coordinateKeys[0]);
+    this.selectedCoordinates = ko.observable(lastPrecession.selectedCoordinates);
     this.availableUniversalTimes = universalTimeKeys;
-    this.selectedUniversalTime = ko.observable(universalTimeKeys[0]);
+    this.selectedUniversalTime = ko.observable(lastPrecession.selectedUniversalTime);
+    this.autostoreEnable = ko.observable(lastPrecession.autostoreEnable);
+    this.autostoreLocation = ko.observable(lastPrecession.autostoreLocation);
+
     this.submitForm = function() {
+      lastPrecession.selectedCoordinates = this.selectedCoordinates();
+      lastPrecession.selectedUniversalTime = this.selectedUniversalTime();
+      lastPrecession.autostoreEnable = this.autostoreEnable();
+      lastPrecession.autostoreLocation = this.autostoreLocation();
+
       var command = "Precession";
       var args = {};
       args.coordinates = this.selectedCoordinates();
       args.universalTime = this.selectedUniversalTime();
       engine.submit(command, args);
+
+      if (this.autostoreEnable()) {
+        var command = "Store";
+        var args = {};
+        args.to = this.autostoreLocation();
+        engine.submit(command, args);
+      }
       this.modal.close();
     };
+
     this.cancelForm = function(data, event) {
       this.modal.close();
     };
   }
 
-  function TransformationViewModel(engine, coordinateKeys, localTimeKeys) {
+  function TransformationViewModel(engine, lastTransformation, coordinateKeys, localTimeKeys) {
     this.template = "modal-transformation";
     this.availableCoordinates = coordinateKeys;
-    this.selectedCoordinates = ko.observable(coordinateKeys[0]);
+    this.selectedCoordinates = ko.observable(lastTransformation.selectedCoordinates);
     this.availableLocalTimes = localTimeKeys;
-    this.selectedLocalTime = ko.observable(localTimeKeys[0]);
+    this.selectedLocalTime = ko.observable(lastTransformation.selectedLocalTime);
+    this.autostoreEnable = ko.observable(lastTransformation.autostoreEnable);
+    this.autostoreLocation = ko.observable(lastTransformation.autostoreLocation);
+
     this.submitForm = function() {
+      lastTransformation.selectedCoordinates = this.selectedCoordinates();
+      lastTransformation.selectedLocalTime = this.selectedLocalTime();
+      lastTransformation.autostoreEnable = this.autostoreEnable();
+      lastTransformation.autostoreLocation = this.autostoreLocation();
+
       var command = "Transformation";
       var args = {};
       args.coordinates = this.selectedCoordinates();
       args.localTime = this.selectedLocalTime();
       args.to = "Hor";
       engine.submit(command, args);
+
+      if (this.autostoreEnable()) {
+        var command = "Store";
+        var args = {};
+        args.to = this.autostoreLocation();
+        engine.submit(command, args);
+      }
       this.modal.close();
     };
+
     this.cancelForm = function(data, event) {
       this.modal.close();
     };

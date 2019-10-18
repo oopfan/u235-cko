@@ -1,0 +1,17 @@
+<div class="form-group">
+  <label for="autostore-location">Auto-store to memory</label>
+  <div class="form-row align-items-center">
+    <div class="col-2">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="autostore-enable" data-bind="checked: autostoreEnable" />
+        <label class="form-check-label" for="autostore-enable">Enable</label>
+      </div>
+    </div>
+    <div class="col-2">
+      <label for="autostore-location" class="col-form-label">Location:</label>
+    </div>
+    <div class="col-8">
+      <input type="text" class="form-control" id="autostore-location" data-bind="value: autostoreLocation, attr: {required: autostoreEnable, readonly: !autostoreEnable()}" />
+    </div>
+  </div>
+</div>

@@ -140,23 +140,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-group">
-              <label for="observatory-autostore-location">Auto-store to memory</label>
-              <div class="form-row align-items-center">
-                <div class="col-2">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="observatory-autostore-enable" data-bind="checked: autostoreEnable" />
-                    <label class="form-check-label" for="observatory-autostore-enable">Enable</label>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <label for="observatory-autostore-location" class="col-form-label">Location:</label>
-                </div>
-                <div class="col-8">
-                  <input type="text" class="form-control" id="observatory-autostore-location" data-bind="value: autostoreLocation, attr: {required: autostoreEnable, readonly: !autostoreEnable()}" />
-                </div>
-              </div>
-            </div>
+            <auto-store params="autostoreEnable: autostoreEnable, autostoreLocation: autostoreLocation"></auto-store>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">OK</a>
@@ -233,23 +217,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-group">
-              <label for="universal-time-autostore-location">Auto-store to memory</label>
-              <div class="form-row align-items-center">
-                <div class="col-2">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="universal-time-autostore-enable" data-bind="checked: autostoreEnable" />
-                    <label class="form-check-label" for="universal-time-autostore-enable">Enable</label>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <label for="universal-time-autostore-location" class="col-form-label">Location:</label>
-                </div>
-                <div class="col-8">
-                  <input type="text" class="form-control" id="universal-time-autostore-location" data-bind="value: autostoreLocation, attr: {required: autostoreEnable, readonly: !autostoreEnable()}" />
-                </div>
-              </div>
-            </div>
+            <auto-store params="autostoreEnable: autostoreEnable, autostoreLocation: autostoreLocation"></auto-store>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary mr-auto" data-bind="click: clickNow">Now</a>
@@ -285,6 +253,7 @@
                 <select class="form-control" id="load-utc-select" aria-describedby="load-utc-select-help" data-bind="options: availableUniversalTimes, value: selectedUniversalTime" required />
                 <small id="load-utc-select-help" class="form-text text-muted">Choose from this list of current Universal Time memory locations.</small>
               </div>
+              <auto-store params="autostoreEnable: autostoreEnable, autostoreLocation: autostoreLocation"></auto-store>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">OK</a>
@@ -371,6 +340,7 @@
                 </div>
               </div>
             </div>
+            <auto-store params="autostoreEnable: autostoreEnable, autostoreLocation: autostoreLocation"></auto-store>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">OK</a>
@@ -405,6 +375,7 @@
                 <select class="form-control" id="load-utc-select" aria-describedby="load-utc-select-help" data-bind="options: availableUniversalTimes, value: selectedUniversalTime" required />
                 <small id="load-utc-select-help" class="form-text text-muted">Choose from this list of current Universal Time memory locations.</small>
               </div>
+              <auto-store params="autostoreEnable: autostoreEnable, autostoreLocation: autostoreLocation"></auto-store>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">OK</a>
@@ -439,6 +410,7 @@
                 <select class="form-control" id="load-local-select" aria-describedby="load-local-select-help" data-bind="options: availableLocalTimes, value: selectedLocalTime" required />
                 <small id="load-local-select-help" class="form-text text-muted">Choose from this list of current Local Time memory locations.</small>
               </div>
+              <auto-store params="autostoreEnable: autostoreEnable, autostoreLocation: autostoreLocation"></auto-store>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">OK</a>
