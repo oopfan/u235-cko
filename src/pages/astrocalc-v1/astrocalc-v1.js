@@ -44,21 +44,21 @@ define(['knockout', 'ko-modal-helper', 'astrocalc-v1-engine', 'astrocalc-v1-accu
       decSeconds: 0,
       decNorthSouth: "N",
       autostoreEnable: true,
-      autostoreLocation: "Coordinates"
+      autostoreLocation: "Coordinates J2000"
     };
 
     var lastPrecession = {
-      selectedCoordinates: "Coordinates",
+      selectedCoordinates: "Coordinates J2000",
       selectedUniversalTime: "UniversalTime",
       autostoreEnable: true,
-      autostoreLocation: "Coordinates"
+      autostoreLocation: "Coordinates Now"
     };
 
     var lastTransformation = {
-      selectedCoordinates: "Coordinates",
+      selectedCoordinates: "Coordinates Now",
       selectedLocalTime: "LocalTime",
       autostoreEnable: true,
-      autostoreLocation: "Coordinates"
+      autostoreLocation: "Coordinates Alt/Az"
     };
 
     this.accumulatorArray = ko.observableArray();
