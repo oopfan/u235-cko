@@ -126,9 +126,13 @@ define(function() {
         this._blueFrameCount = rgbFrames;
       }
       else {
-        this._redFrameCount = rgbFlux / rRate / this._redExposure;
-        this._greenFrameCount = rgbFlux / gRate / this._greenExposure;
-        this._blueFrameCount = rgbFlux / bRate / this._blueExposure;
+        var minExposure = Math.min(this._redExposure, this._greenExposure, this._blueExposure);
+        var rFac = Math.pow(this._redBalance / this._redExposure * minExposure, 2);
+        var gFac = Math.pow(this._greenBalance / this._greenExposure * minExposure, 2);
+        var bFac = Math.pow(this._blueBalance / this._blueExposure * minExposure, 2);
+        this._redFrameCount = rFac * rgbFlux / rRate / this._redExposure;
+        this._greenFrameCount = gFac * rgbFlux / gRate / this._greenExposure;
+        this._blueFrameCount = bFac * rgbFlux / bRate / this._blueExposure;
       }
     }
 /*
