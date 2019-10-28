@@ -126,40 +126,37 @@ define(function() {
         this._blueFrameCount = rgbFrames;
       }
       else {
-        var minExposure = Math.min(this._redExposure, this._greenExposure, this._blueExposure);
-        var rFac = Math.pow(this._redBalance / this._redExposure * minExposure, 2);
-        var gFac = Math.pow(this._greenBalance / this._greenExposure * minExposure, 2);
-        var bFac = Math.pow(this._blueBalance / this._blueExposure * minExposure, 2);
-        this._redFrameCount = rFac * rgbFlux / rRate / this._redExposure;
-        this._greenFrameCount = gFac * rgbFlux / gRate / this._greenExposure;
-        this._blueFrameCount = bFac * rgbFlux / bRate / this._blueExposure;
+        var read_noise = 5;   // Any value will do
+        var snrRed = SNR(this._redExposure, this._rgbBinning, this._redBalance, read_noise, this._luminanceFrameCount / 3);
+        var snrGreen = SNR(this._greenExposure, this._rgbBinning, this._greenBalance, read_noise, this._luminanceFrameCount / 3);
+        var snrBlue = SNR(this._blueExposure, this._rgbBinning, this._blueBalance, read_noise, this._luminanceFrameCount / 3);
+        var snrLum = Math.sqrt(snrRed * snrRed + snrGreen * snrGreen + snrBlue * snrBlue);
+        var snrAvg = Math.sqrt(snrLum * snrLum / 3);
+        //console.log("snrRed:", snrRed);
+        //console.log("snrGreen:", snrGreen);
+        //console.log("snrBlue:", snrBlue);
+        //console.log("snrLum:", snrLum);
+        //console.log("snrAvg:", snrAvg);
+        var fcRed = FC(this._redExposure, this._rgbBinning, this._redBalance, read_noise, snrAvg);
+        var fcGreen = FC(this._greenExposure, this._rgbBinning, this._greenBalance, read_noise, snrAvg);
+        var fcBlue = FC(this._blueExposure, this._rgbBinning, this._blueBalance, read_noise, snrAvg);
+        //console.log("fcRed:", fcRed);
+        //console.log("fcGreen:", fcGreen);
+        //console.log("fcBlue:", fcBlue);
+        this._redFrameCount = fcRed;
+        this._greenFrameCount = fcGreen;
+        this._blueFrameCount = fcBlue;
       }
     }
-/*
-    _updateDependencies: function() {
-      var rgbExposure = this._luminanceExposure * 3 / this._rgbBinning / this._rgbBinning;
-      var rExp = rgbExposure * this._redBalance;
-      var gExp = rgbExposure * this._greenBalance;
-      var bExp = rgbExposure * this._blueBalance;
-      var rCnt = this._luminanceFrameCount / 3;
-      var gCnt = this._luminanceFrameCount / 3;
-      var bCnt = this._luminanceFrameCount / 3;
-
-      if (this._commonFrameCountMode) {
-        this._redExposure = rExp;
-        this._greenExposure = gExp;
-        this._blueExposure = bExp;
-        this._redFrameCount = rCnt;
-        this._greenFrameCount = gCnt;
-        this._blueFrameCount = bCnt;
-      }
-      else {
-        this._redFrameCount = this._redExposure > 0 ? (rExp * rCnt / this._redExposure) : 0;
-        this._greenFrameCount = this._greenExposure > 0 ? (gExp * gCnt / this._greenExposure) : 0;
-        this._blueFrameCount = this._blueExposure > 0 ? (bExp * bCnt / this._blueExposure) : 0;
-      }
-    }
-    */
   };
+
+  function SNR(exposure, binning, balance, read_noise, frame_count) {
+    return (exposure * binning * binning) / (balance * read_noise) * Math.sqrt(frame_count);
+  }
+
+  function FC(exposure, binning, balance, read_noise, snr) {
+    return Math.pow(snr * (balance * read_noise) / (exposure * binning * binning), 2);
+  }
+
   return LrgbExposureCalculator;
 });
