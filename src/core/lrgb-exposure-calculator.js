@@ -109,43 +109,28 @@ define(function() {
     },
 
     _updateDependencies: function() {
+      var read_noise = 1;   // Any value greater than 0 will do
       var rRate = 1 / this._redBalance;
       var gRate = 1 / this._greenBalance;
       var bRate = 1 / this._blueBalance;
       var lRate = rRate + gRate + bRate;
-      var lFlux = lRate * this._luminanceExposure * this._luminanceFrameCount;
-      var rgbFlux = lFlux / 3 / this._rgbBinning / this._rgbBinning;
+      var snrLum = SNR(this._luminanceExposure * lRate, 1, 1, read_noise, this._luminanceFrameCount);
+      var snrAvg = Math.sqrt(snrLum * snrLum / 3);
 
       if (this._commonFrameCountMode) {
         var rgbFrames = this._luminanceFrameCount / 3;
-        this._redExposure = rgbFlux / rRate / rgbFrames;
-        this._greenExposure = rgbFlux / gRate / rgbFrames;
-        this._blueExposure = rgbFlux / bRate / rgbFrames;
         this._redFrameCount = rgbFrames;
         this._greenFrameCount = rgbFrames;
         this._blueFrameCount = rgbFrames;
+
+        this._redExposure = EXP(rgbFrames, this._rgbBinning, this._redBalance, read_noise, snrAvg);
+        this._greenExposure = EXP(rgbFrames, this._rgbBinning, this._greenBalance, read_noise, snrAvg);
+        this._blueExposure = EXP(rgbFrames, this._rgbBinning, this._blueBalance, read_noise, snrAvg);
       }
       else {
-        var read_noise = 5;   // Any value will do
-        var snrRed = SNR(this._redExposure, this._rgbBinning, this._redBalance, read_noise, this._luminanceFrameCount / 3);
-        var snrGreen = SNR(this._greenExposure, this._rgbBinning, this._greenBalance, read_noise, this._luminanceFrameCount / 3);
-        var snrBlue = SNR(this._blueExposure, this._rgbBinning, this._blueBalance, read_noise, this._luminanceFrameCount / 3);
-        var snrLum = Math.sqrt(snrRed * snrRed + snrGreen * snrGreen + snrBlue * snrBlue);
-        var snrAvg = Math.sqrt(snrLum * snrLum / 3);
-        //console.log("snrRed:", snrRed);
-        //console.log("snrGreen:", snrGreen);
-        //console.log("snrBlue:", snrBlue);
-        //console.log("snrLum:", snrLum);
-        //console.log("snrAvg:", snrAvg);
-        var fcRed = FC(this._redExposure, this._rgbBinning, this._redBalance, read_noise, snrAvg);
-        var fcGreen = FC(this._greenExposure, this._rgbBinning, this._greenBalance, read_noise, snrAvg);
-        var fcBlue = FC(this._blueExposure, this._rgbBinning, this._blueBalance, read_noise, snrAvg);
-        //console.log("fcRed:", fcRed);
-        //console.log("fcGreen:", fcGreen);
-        //console.log("fcBlue:", fcBlue);
-        this._redFrameCount = fcRed;
-        this._greenFrameCount = fcGreen;
-        this._blueFrameCount = fcBlue;
+        this._redFrameCount = FC(this._redExposure, this._rgbBinning, this._redBalance, read_noise, snrAvg);
+        this._greenFrameCount = FC(this._greenExposure, this._rgbBinning, this._greenBalance, read_noise, snrAvg);
+        this._blueFrameCount = FC(this._blueExposure, this._rgbBinning, this._blueBalance, read_noise, snrAvg);
       }
     }
   };
@@ -156,6 +141,10 @@ define(function() {
 
   function FC(exposure, binning, balance, read_noise, snr) {
     return Math.pow(snr * (balance * read_noise) / (exposure * binning * binning), 2);
+  }
+
+  function EXP(frame_count, binning, balance, read_noise, snr) {
+    return snr * (balance * read_noise) / Math.sqrt(frame_count) / (binning * binning);
   }
 
   return LrgbExposureCalculator;
