@@ -17,7 +17,8 @@
 </div>
 <div class="row pt-3 pb-4">
   <div class="col-md-12">
-    <span>Do you want to enter the RGB exposure values yourself?</span>
+    Do you want to enter the RGB exposure values yourself?
+    &nbsp;<span class="text-warning">(see Notes below)</span>
   </div>
   <div class="col-md-12">
     <div class="form-check form-check-inline">
@@ -229,6 +230,35 @@
 <div class="row pt-3">
   <div class="col-md-12">
     <div class="card border-primary">
+      <div class="card-header">Notes</div>
+      <div class="card-body">
+        <p class="card-text">
+          <em>&quot;Do you want to enter the RGB exposure values yourself?&quot;</em>
+        </p>
+        <p class="card-text">
+          If you accept the default answer "No" then depending on your color balance ratios the calculator will recommend
+          three different exposures: one for red, green, and blue. On the other hand if you answer "Yes" then you have the
+          opportunity to reduce the number of exposures to perhaps as low as one which has benefits for when you capture
+          calibration dark frames but be careful if your color balance ratios are significantly spread apart.
+        </p>
+        <p class="card-text">
+          My color balance ratios are 1.71 : 1.00 : 1.55. For a 120-second luminance exposure the calculator by default
+          recommends 114.4s for reds, 66.9s for greens, and 103.7s for blues. If I choose one exposure, say 90s, then green
+          frames will be overexposed and red frames will be underexposed which is something you want to avoid. In my case
+          I choose two exposure values: 110s for reds and blues, and 70s for greens. Now at least I reduced three sets of
+          darks to two sets which is still a significant savings.
+        </p>
+        <p class="card-text">
+          Your color balance ratios will be different. If you determine that your ratios are in a fairly tight
+          range, say from 1.0 to 1.2, then you can choose one exposure value.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row pt-3">
+  <div class="col-md-12">
+    <div class="card border-primary">
       <div class="card-header">Disclaimer</div>
       <div class="card-body">
         <p class="card-text">
@@ -247,10 +277,6 @@
           to track the target without smearing it. Also, longer exposures mean a higher likelihood that frames will be
           spoiled by aircraft, satellites, and passing clouds. As always - experiment! Don't go for the <em>brass ring</em>
           the first time out. Start small and build from there as your knowledge increases.
-        </p>
-        <p class="card-text">
-          One final important note: the calculator offers the question &quot;Do you want to enter the RGB exposure values yourself?&quot;
-          Be careful with this since you can easily saturate the frame by choosing values that are too high.
         </p>
       </div>
     </div>
