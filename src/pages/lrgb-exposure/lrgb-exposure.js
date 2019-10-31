@@ -2,11 +2,11 @@ define(['knockout', 'lrgb-exposure-calculator', 'text!./lrgb-exposure.html'], fu
 
   var calc = new Calculator();
   calc.rgbBinning = 2;
-  calc.redBalance = 1.0;
+  calc.redBalance = 1.71;
   calc.greenBalance = 1.0;
-  calc.blueBalance = 1.0;
-  calc.luminanceFrameCount = 60;
-  calc.luminanceExposure = 90;
+  calc.blueBalance = 1.55;
+  calc.luminanceFrameCount = 45;
+  calc.luminanceExposure = 120;
   calc.redExposure = 60;
   calc.greenExposure = 60;
   calc.blueExposure = 60;
