@@ -256,45 +256,57 @@
     </div>
   </div>
 </div>
-<div class="row pt-3">
-  <div class="col-md-12">
-    <div class="card border-primary">
-      <div class="card-header">Sample Images</div>
+<div class="card border-primary mt-3">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="images/M31-120s_comparison_RGB-different.png" class="card-img" alt="M31 Sample Images">
+    </div>
+    <div class="col-md-8">
       <div class="card-body">
-        <div class="clearfix">
-          <img class="float-right ml-2 mb-2" src="images/M31-120s_comparison.png" alt="M31 Sample Images" width="75%" />
-          <p class="card-text">
-            The left-hand column demonstrates the disadvantage of using one exposure value for
-            red, green, and blue under certain circumstances. The green frames are overexposed by
-            35&percnt; over the recommended value, and the red and blue frames are underexposed by
-            20&percnt;. Please read the Notes section for more information.
-          </p>
-          <p class="card-text">
-            Fig. A - L38x120s R18x90s G11x90s B17x90s - You may notice a strong green cast to this
-            image despite using fewer frames in the green stack.
-          </p>
-          <p class="card-text">
-            Fig. B - L38x120s R18x90s G9x90s B17x90s - I tried using even fewer frames in the
-            green stack but it had little impact on reducing the green cast. In a last ditch effort to
-            save the data I employed Background Color Calibration and Star Color Calibration using
-            Astro Pixel Processor (APP). You can see that the green cast is now a magenta cast.
-            There was no hope for this data despite my heroic efforts.
-          </p>
-        </div>
+        <h5 class="card-title">The advantage of using a different exposure for each filter</h5>
         <p class="card-text">
-          The right-hand column demonstrates the benefit of using different exposure values for
-          red, green, and blue. Please note that using exposure values to a fraction of a second is
-          a bit anal retentive on my part. Feel free to round it to the nearest whole number: 114s,
-          67s, 104s.
+          Bottom image (Fig. C) - Lum:38x120s Red:13x114.4s Green:13x66.9s Blue:13x103.7s - In my
+          opinion the color is perfect. Post-processing was simple: a small stretch, a little contrast
+          adjustment, and sharpening. No background or star color calibration needed.
         </p>
         <p class="card-text">
-          Fig. C - L38x120s R13x114.4s G13x66.9s B13x103.7s - In my opinion the color is perfect.
-          Post-processing was simple: a small stretch, a little contrast adjustment, and sharpening.
-          No background or star color calibration needed.
+          Top image (Fig. D) - Lum:38x120s Red:20x114.4s Green:20x66.9s Blue:20x103.7s - I increased
+          the size of the color stacks to see the effect: richer colors and lower noise - very easy
+          to process.
         </p>
         <p class="card-text">
-          Fig. D - L38x120s R20x114.4s G20x66.9s B20x103.7s - I increased the size of the color
-          stacks to see the effect: richer colors and lower noise - very easy to process.
+          Please note that using exposure values to a fraction of a second is a bit anal retentive on
+          my part. Feel free to round it to the nearest whole number: 114s, 67s, 104s.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card border-primary mt-3">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="images/M31-120s_comparison_RGB-90s.png" class="card-img" alt="M31 Sample Images">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Potential problems with using a single RGB exposure</h5>
+        <p class="card-text">
+          As discussed in the Notes section you should be wary of using a single RGB exposure
+          value when your color balance ratios are significantly spread apart. The accompanying
+          images used a 90s exposure for red, green, and blue. As a result the green frames were
+          overexposed by 35&percnt; over the recommended value, and the red and blue frames were
+          underexposed by 20&percnt;.
+        </p>
+        <p class="card-text">
+          Bottom Image (Fig. A) - Lum:38x120s Red:18x90s Green:11x90s Blue:17x90s - You may
+          notice a strong green cast to this image despite using fewer frames in the green stack.
+        </p>
+        <p class="card-text">
+          Top image (Fig. B) - Lum:38x120s Red:18x90s Green:9x90s Blue:17x90s - I tried using
+          even fewer frames in the green stack but it had little impact on reducing the green
+          cast. In a last ditch effort to save the data I employed background color calibration
+          and star color calibration using Astro Pixel Processor (APP). You can see that the
+          green cast is now a magenta cast. There was no hope for this data despite my efforts.
         </p>
         <p class="card-text">
           In the Notes section I talked about the possibility of using two exposures instead of
