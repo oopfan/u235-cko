@@ -245,8 +245,8 @@
           My color balance ratios are 1.71 : 1.00 : 1.55. For a 120-second luminance exposure the calculator by default
           recommends 114.4s for reds, 66.9s for greens, and 103.7s for blues. If I choose one exposure, say 90s, then green
           frames will be overexposed and red frames will be underexposed which is something you want to avoid. In my case
-          I choose two exposure values: 110s for reds and blues, and 70s for greens. Now at least I reduced three sets of
-          darks to two sets which is still a significant savings.
+          I would choose two exposure values: 110s for reds and blues, and 70s for greens. Now at least I would reduce three
+          sets of darks to two sets which is still a significant savings.
         </p>
         <p class="card-text">
           Your color balance ratios will be different. If you determine that your ratios are in a fairly tight
@@ -265,18 +265,24 @@
       <div class="card-body">
         <h5 class="card-title">The advantage of using a different exposure for each filter</h5>
         <p class="card-text">
-          Bottom image (Fig. C) - Lum:38x120s Red:13x114.4s Green:13x66.9s Blue:13x103.7s - In my
-          opinion the color is perfect. Post-processing was simple: a small stretch, a little contrast
-          adjustment, and sharpening. No background or star color calibration needed.
-        </p>
-        <p class="card-text">
-          Top image (Fig. D) - Lum:38x120s Red:20x114.4s Green:20x66.9s Blue:20x103.7s - I increased
-          the size of the color stacks to see the effect: richer colors and lower noise - very easy
-          to process.
-        </p>
-        <p class="card-text">
+          Having good quality data makes image processing almost effortless. For the following images
+          it was simple: a small stretch, a little constrast adjustment, and some sharpening. No
+          background or star color calibration needed.
           Please note that using exposure values to a fraction of a second is a bit anal retentive on
           my part. Feel free to round it to the nearest whole number: 114s, 67s, 104s.
+        </p>
+        <p class="card-text">
+          Bottom image (Fig. C) - Lum:38x120s
+          <span class="text-danger">Red:13x114.4s</span>
+          <span class="text-success">Green:13x66.9s</span>
+          <span class="text-info">Blue:13x103.7s</span>
+        </p>
+        <p class="card-text">
+          Top image (Fig. D) - Lum:38x120s
+          <span class="text-danger">Red:20x114.4s</span>
+          <span class="text-success">Green:20x66.9s</span>
+          <span class="text-info">Blue:20x103.7s</span> -
+          I increased the size of the color stacks to see the effect: richer colors and lower noise.
         </p>
       </div>
     </div>
@@ -285,7 +291,7 @@
 <div class="card border-primary mt-3">
   <div class="row no-gutters">
     <div class="col-md-4">
-      <img src="images/M31-120s_comparison_RGB-90s.png" class="card-img" alt="M31 Sample Images">
+      <img src="images/M31-L38x120s-R18x90s-G6x90s-B15x90s-bmorgan-20190925-APP.png" class="card-img" alt="M31 Sample Images">
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -293,23 +299,22 @@
         <p class="card-text">
           As discussed in the Notes section you should be wary of using a single RGB exposure
           value when your color balance ratios are significantly spread apart. The accompanying
-          images used a 90s exposure for red, green, and blue. As a result the green frames were
+          image used a 90s exposure for red, green, and blue. As a result the green frames were
           overexposed by 35&percnt; over the recommended value, and the red and blue frames were
           underexposed by 20&percnt;.
         </p>
         <p class="card-text">
-          Bottom Image (Fig. A) - Lum:38x120s Red:18x90s Green:11x90s Blue:17x90s - You may
-          notice a strong green cast to this image despite using fewer frames in the green stack.
+          Image - Lum:38x120s <span class="text-danger">Red:18x90s</span>
+          <span class="text-success">Green:6x90s</span>
+          <span class="text-info">Blue:15x90s</span> - The calculator recommended
+          to stack only 6 green frames to compensate for overexposure. Although the image is
+          passable in terms of quality it still has a green cast. Seen on its own it is not bad
+          but when compared to a properly exposed image seen in the previous panel it shows its
+          deficiencies. An effort was made to calibrate the background and star color using
+          APP but the image simply took on a magenta cast.
         </p>
         <p class="card-text">
-          Top image (Fig. B) - Lum:38x120s Red:18x90s Green:9x90s Blue:17x90s - I tried using
-          even fewer frames in the green stack but it had little impact on reducing the green
-          cast. In a last ditch effort to save the data I employed background color calibration
-          and star color calibration using Astro Pixel Processor (APP). You can see that the
-          green cast is now a magenta cast. There was no hope for this data despite my efforts.
-        </p>
-        <p class="card-text">
-          In the Notes section I talked about the possibility of using two exposures instead of
+          In the Notes section I talk about the possibility of using two exposures instead of
           three. I'll work on acquiring that data for comparison.
         </p>
       </div>
