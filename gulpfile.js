@@ -102,7 +102,7 @@ var images = function() {
 var css = function() {
   // Array of all CSS files needed
   var appCss = src([
-    './node_modules/bootswatch/dist/darkly/bootstrap.min.css',
+    './node_modules/bootswatch/dist/sandstone/bootstrap.min.css',
     './src/css/*.css'
   ])
   .pipe(replace(/url\((')?\.\.\/fonts\//g, 'url($1fonts/'));
