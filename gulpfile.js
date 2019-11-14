@@ -94,7 +94,7 @@ var html = function() {
 };
 
 var images = function() {
-  return src('./src/images/*')
+  return src('./src/images/**/*')
     .pipe(dest('./dist/images/'));
 };
 
