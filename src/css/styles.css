@@ -1,3 +1,24 @@
 #page {
 	margin-top: 80px;
 }
+
+.horizontal-layout {
+  display: flex;
+  flex-direction: row;
+}
+
+footer {
+  padding-top: 16px;
+  padding-bottom: 48px;
+  border-top: 1px solid lightgray;
+  font-size: 0.8rem;
+}
+
+footer p:first-child {
+  flex: 1;
+  padding-left: 24px;
+}
+
+footer p:nth-child(n+2) {
+  padding-right: 24px;
+}
