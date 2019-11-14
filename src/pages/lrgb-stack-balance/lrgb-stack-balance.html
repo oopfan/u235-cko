@@ -2,7 +2,7 @@
 
 <div class="row pt-3">
   <div class="col-md-12">
-    <div class="card border-secondary">
+    <div class="card bg-light border-secondary">
       <div class="card-body">
         <h5 class="card-title">What does it do?</h5>
         <p class="card-text">
@@ -28,7 +28,7 @@
           It expects those to be present and of the requisite format. You will know if there is a problem if
           the <span class="text-warning">computed Altitude field</span> is missing or is an insane value.
           If all appears nominal then you can play with the luminance and color <em>Total Integration Time</em>
-          inputs. In the list of image files those highlighted in <span class="bg-primary">blue</span> have
+          inputs. In the list of image files those highlighted in <span class="bg-info">blue</span> have
           the highest signal-to-noise ratio and contribute to the overall sum of total integration time. You
           can then click the <em>Export</em> button to copy the results to your clipboard.
         </p>
@@ -61,7 +61,7 @@
 <div data-bind="foreach: stagedFiles" style="font-size: 0.9rem;">
   <div class="row pt-3 border-bottom border-light">
     <div class="col-12">
-      <span data-bind="text: filename, css: { 'bg-primary': selected() }"></span>
+      <span data-bind="text: filename, css: { 'bg-info': selected() }"></span>
     </div>
   </div>
   <div class="row border-bottom border-light">
