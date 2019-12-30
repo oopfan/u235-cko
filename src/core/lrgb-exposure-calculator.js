@@ -109,12 +109,11 @@ define(function() {
     },
 
     _updateDependencies: function() {
-      var read_noise = 1;   // Any value greater than 0 will do
       var rRate = 1 / this._redBalance;
       var gRate = 1 / this._greenBalance;
       var bRate = 1 / this._blueBalance;
       var lRate = rRate + gRate + bRate;
-      var snrLum = SNR(this._luminanceExposure * lRate, 1, 1, read_noise, this._luminanceFrameCount);
+      var snrLum = SNR(this._luminanceExposure * lRate, 1, 1, this._luminanceFrameCount);
       var snrAvg = Math.sqrt(snrLum * snrLum / 3);
 
       if (this._commonFrameCountMode) {
@@ -123,28 +122,28 @@ define(function() {
         this._greenFrameCount = rgbFrames;
         this._blueFrameCount = rgbFrames;
 
-        this._redExposure = EXP(rgbFrames, this._rgbBinning, this._redBalance, read_noise, snrAvg);
-        this._greenExposure = EXP(rgbFrames, this._rgbBinning, this._greenBalance, read_noise, snrAvg);
-        this._blueExposure = EXP(rgbFrames, this._rgbBinning, this._blueBalance, read_noise, snrAvg);
+        this._redExposure = EXP(rgbFrames, this._rgbBinning, this._redBalance, snrAvg);
+        this._greenExposure = EXP(rgbFrames, this._rgbBinning, this._greenBalance, snrAvg);
+        this._blueExposure = EXP(rgbFrames, this._rgbBinning, this._blueBalance, snrAvg);
       }
       else {
-        this._redFrameCount = FC(this._redExposure, this._rgbBinning, this._redBalance, read_noise, snrAvg);
-        this._greenFrameCount = FC(this._greenExposure, this._rgbBinning, this._greenBalance, read_noise, snrAvg);
-        this._blueFrameCount = FC(this._blueExposure, this._rgbBinning, this._blueBalance, read_noise, snrAvg);
+        this._redFrameCount = FC(this._redExposure, this._rgbBinning, this._redBalance, snrAvg);
+        this._greenFrameCount = FC(this._greenExposure, this._rgbBinning, this._greenBalance, snrAvg);
+        this._blueFrameCount = FC(this._blueExposure, this._rgbBinning, this._blueBalance, snrAvg);
       }
     }
   };
 
-  function SNR(exposure, binning, balance, read_noise, frame_count) {
-    return (exposure * binning * binning) / (balance * read_noise) * Math.sqrt(frame_count);
+  function SNR(exposure, binning, balance, frame_count) {
+    return Math.sqrt(exposure * binning * binning / balance * frame_count);
   }
 
-  function FC(exposure, binning, balance, read_noise, snr) {
-    return Math.pow(snr * (balance * read_noise) / (exposure * binning * binning), 2);
+  function FC(exposure, binning, balance, snr) {
+    return snr * snr * balance / (exposure * binning * binning);
   }
 
-  function EXP(frame_count, binning, balance, read_noise, snr) {
-    return snr * (balance * read_noise) / Math.sqrt(frame_count) / (binning * binning);
+  function EXP(frame_count, binning, balance, snr) {
+    return snr * snr * balance / (frame_count * binning * binning);
   }
 
   return LrgbExposureCalculator;
