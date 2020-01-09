@@ -1,0 +1,53 @@
+<h5>Camera Profiles</h5>
+
+<div data-bind="foreach: profiles">
+  <div class="row mt-3">
+    <div class="col-md-7">
+      <input type="text" class="form-control" data-bind="value: name" required />
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteProfile">Delete Camera</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-1 align-self-center">
+      Pixel&nbsp;size&nbsp;(um):&nbsp;
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" min="0.01" max="20" step="0.01" data-bind="value: pixelSize" required />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-1 align-self-center">
+      <div>Read&nbsp;noise&nbsp;(e-):&nbsp;</div>
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" min="0" max="20" step="0.1" data-bind="value: readNoise" required />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-1 align-self-center">
+      <div>Dark&nbsp;current&nbsp;(e-/s):&nbsp;</div>
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" min="0" max="10" step="0.01" data-bind="value: darkCurrent" required />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-1 align-self-center">
+      <div>Quantum&nbsp;efficiency&nbsp;(%):&nbsp;</div>
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" min="0" max="100" step="1" data-bind="value: quantumEfficiency" required />
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-md-2">
+    <button type="button" class="btn btn-success" data-bind="click: addProfile">Add Camera</button>
+  </div>
+  <div class="col-md-3 offset-md-5">
+    <button type="button" class="btn btn-danger" data-bind="click: rollbackChanges">Rollback All Changes</button>
+  </div>
+</div>

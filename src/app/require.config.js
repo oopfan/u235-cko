@@ -26,6 +26,12 @@ var require = {
         "astrocalc-v1-coordinates":       "./core/astrocalc-v1-coordinates",
         "astrocalc-v1-precession":        "./core/astrocalc-v1-precession",
         "astrocalc-v1-transformation":    "./core/astrocalc-v1-transformation",
-        "astrocalc-v1-clear-all":         "./core/astrocalc-v1-clear-all"
+        "astrocalc-v1-clear-all":         "./core/astrocalc-v1-clear-all",
+        "snrcalc-telescope-profile":      "./core/snrcalc-telescope-profile",
+        "snrcalc-optical-element":        "./core/snrcalc-optical-element",
+        "snrcalc-camera-profile":         "./core/snrcalc-camera-profile",
+        "snrcalc-observatory-profile":    "./core/snrcalc-observatory-profile",
+        "snrcalc-target-profile":         "./core/snrcalc-target-profile",
+        "snrcalc-datastore":              "./core/snrcalc-datastore"
     }
 };

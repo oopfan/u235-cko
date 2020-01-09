@@ -1,0 +1,72 @@
+<h5>Telescope Profiles</h5>
+
+<div data-bind="foreach: profiles">
+  <div class="row mt-3">
+    <div class="col-md-7">
+      <input type="text" class="form-control" data-bind="value: name" required />
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteProfile">Delete Telescope</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-1 align-self-center">
+      Aperture&nbsp;(mm):&nbsp;
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" min="1" max="10000" step="1" data-bind="value: aperture" required />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-1 align-self-center">
+      <div>Focal&nbsp;length&nbsp;(mm):&nbsp;</div>
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" min="1" max="10000" step="1" data-bind="value: focalLength" required />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-1 align-self-center">
+      <div>Central&nbsp;obstruction&nbsp;(mm):&nbsp;</div>
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" min="0" max="10000" step="1" data-bind="value: centralObstruction" required />
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-11 offset-md-1">
+      <div>Reflectance/transmittance&nbsp;(1=ideal,&nbsp;0=opaque)</div>
+    </div>
+  </div>
+  <div data-bind="foreach: opticalElements">
+    <div class="row">
+      <div class="col-md-4 offset-md-1">
+        <input type="text" class="form-control" data-bind="value: name" required />
+      </div>
+      <div class="col-md-2">
+        <input type="number" class="form-control" min="0" max="1" step="0.01" data-bind="value: reflectanceTransmittance" required />
+      </div>
+      <div class="col-md-4">
+        <button type="button" class="btn btn-danger" data-bind="click: $parents[1].deleteOpticalElement">Delete Optical Element</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-1">
+      <div>Total:</div>
+    </div>
+    <div class="col-md-7">
+      <div data-bind="text: totalLosses"></div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-success offset-md-1" data-bind="click: $parent.addOpticalElement">Add Optical Element</button>
+</div>
+
+<div class="row mt-3">
+  <div class="col-md-2">
+    <button type="button" class="btn btn-success" data-bind="click: addProfile">Add Telescope</button>
+  </div>
+  <div class="col-md-3 offset-md-5">
+    <button type="button" class="btn btn-danger" data-bind="click: rollbackChanges">Rollback All Changes</button>
+  </div>
+</div>

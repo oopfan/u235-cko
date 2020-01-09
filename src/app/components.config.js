@@ -12,7 +12,11 @@
         { name: 'color-balance-instructions', path: 'pages/color-balance-instructions/color-balance-instructions' },
         { name: 'astrocalc-v1', path: 'pages/astrocalc-v1/astrocalc-v1' },
         { name: 'astrocalc-v1-instructions', path: 'pages/astrocalc-v1-instructions/astrocalc-v1-instructions' },
-        { name: 'astrocalc-release-notes', path: 'pages/astrocalc-release-notes/astrocalc-release-notes' }
+        { name: 'astrocalc-release-notes', path: 'pages/astrocalc-release-notes/astrocalc-release-notes' },
+        { name: 'snrcalc-telescope-profiles', path: 'pages/snrcalc-telescope-profiles/snrcalc-telescope-profiles' },
+        { name: 'snrcalc-camera-profiles', path: 'pages/snrcalc-camera-profiles/snrcalc-camera-profiles' },
+        { name: 'snrcalc-observatory-profiles', path: 'pages/snrcalc-observatory-profiles/snrcalc-observatory-profiles' },
+        { name: 'snrcalc-target-profiles', path: 'pages/snrcalc-target-profiles/snrcalc-target-profiles' }
     ],
     // Components - knockout components intended as parts of pages, a.k.a. components
     components: [
