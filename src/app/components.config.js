@@ -16,7 +16,8 @@
         { name: 'snrcalc-telescope-profiles', path: 'pages/snrcalc-telescope-profiles/snrcalc-telescope-profiles' },
         { name: 'snrcalc-camera-profiles', path: 'pages/snrcalc-camera-profiles/snrcalc-camera-profiles' },
         { name: 'snrcalc-observatory-profiles', path: 'pages/snrcalc-observatory-profiles/snrcalc-observatory-profiles' },
-        { name: 'snrcalc-target-profiles', path: 'pages/snrcalc-target-profiles/snrcalc-target-profiles' }
+        { name: 'snrcalc-target-profiles', path: 'pages/snrcalc-target-profiles/snrcalc-target-profiles' },
+        { name: 'snrcalc-calculator', path: 'pages/snrcalc-calculator/snrcalc-calculator' }
     ],
     // Components - knockout components intended as parts of pages, a.k.a. components
     components: [

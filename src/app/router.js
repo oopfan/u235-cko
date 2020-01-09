@@ -24,8 +24,9 @@ define(["knockout", "crossroads", "hasher"], function(ko, crossroads, hasher) {
             { url: 'astrocalc-release-notes',     params: { page: 'astrocalc-release-notes' } },
             { url: 'snrcalc-telescope-profiles',  params: { page: 'snrcalc-telescope-profiles' } },
             { url: 'snrcalc-camera-profiles',     params: { page: 'snrcalc-camera-profiles' } },
-            { url: 'snrcalc-observatory-profiles',     params: { page: 'snrcalc-observatory-profiles' } },
-            { url: 'snrcalc-target-profiles',     params: { page: 'snrcalc-target-profiles' } }
+            { url: 'snrcalc-observatory-profiles', params: { page: 'snrcalc-observatory-profiles' } },
+            { url: 'snrcalc-target-profiles',     params: { page: 'snrcalc-target-profiles' } },
+            { url: 'snrcalc-calculator',          params: { page: 'snrcalc-calculator' } }
         ]
     });
 

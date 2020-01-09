@@ -39,7 +39,8 @@ var requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync('src/app/require
             'pages/snrcalc-telescope-profiles/snrcalc-telescope-profiles',
             'pages/snrcalc-camera-profiles/snrcalc-camera-profiles',
             'pages/snrcalc-observatory-profiles/snrcalc-observatory-profiles',
-            'pages/snrcalc-target-profiles/snrcalc-target-profiles'
+            'pages/snrcalc-target-profiles/snrcalc-target-profiles',
+            'pages/snrcalc-calculator/snrcalc-calculator'
         ],
         insertRequire: ['app/startup'],
         bundles: {
