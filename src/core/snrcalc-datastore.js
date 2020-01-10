@@ -51,11 +51,19 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
     cameraProfiles.push(camera);
 
     camera = new CameraProfile();
+    camera.name('Altair 290M');
+    camera.pixelSize('2.9');
+    camera.readNoise('1.55');
+    camera.darkCurrent('0');
+    camera.quantumEfficiency('65');
+    cameraProfiles.push(camera);
+
+    camera = new CameraProfile();
     camera.name('ZWO ASI1600');
     camera.pixelSize('3.8');
     camera.readNoise('1.4');
     camera.darkCurrent('0');
-    camera.quantumEfficiency('60');
+    camera.quantumEfficiency('55');
     cameraProfiles.push(camera);
   }
 
