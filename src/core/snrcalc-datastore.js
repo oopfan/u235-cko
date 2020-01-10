@@ -75,6 +75,21 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
 
   var loadTargetProfiles = function() {
     var target = new TargetProfile();
+    target.name("M51 Whirlpool Galaxy");
+    target.surfaceBrightness('21.7');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("M63 Sunflower Galaxy");
+    target.surfaceBrightness('22.1');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("M64 Blackeye Galaxy");
+    target.surfaceBrightness('21.5');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
     target.name("M81 Bode's Galaxy");
     target.surfaceBrightness('21.7');
     targetProfiles.push(target);
@@ -82,6 +97,36 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
     target = new TargetProfile();
     target.name('M82 Cigar Galaxy');
     target.surfaceBrightness('21.2');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("M94 Croc's Eye Galaxy");
+    target.surfaceBrightness('22.4');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("M101 Pinwheel Galaxy");
+    target.surfaceBrightness('23.8');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("M106");
+    target.surfaceBrightness('22.3');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("M109");
+    target.surfaceBrightness('22.2');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("NGC 4565 Needle Galaxy");
+    target.surfaceBrightness('22.0');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("NGC 4631 Herring Galaxy");
+    target.surfaceBrightness('21.9');
     targetProfiles.push(target);
   }
 
