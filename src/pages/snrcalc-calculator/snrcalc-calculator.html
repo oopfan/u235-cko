@@ -54,7 +54,7 @@
   </div>
 </div>
 
-<div class="row mt-2">
+<div class="row mt-4">
   <div class="col-md-4 offset-md-1 align-self-center">
     <div>Number&nbsp;of&nbsp;subs:&nbsp;</div>
   </div>
@@ -72,200 +72,215 @@
   </div>
 </div>
 
-<div class="row mt-4">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Clear&nbsp;aperture&nbsp;equivalent&nbsp;(cm<sup>2</sup>):&nbsp;</div>
+<div class="card mt-4">
+  <div class="card-header" id="card-one">
+    <h2 class="mb-0">
+      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-one" aria-expanded="false" aria-controls="collapse-one">
+        Intermediate Calculations
+      </button>
+    </h2>
   </div>
-  <div class="col-md-2">
-    <div data-bind="text: clearApertureEquivalent"></div>
-  </div>
-</div>
+  <div id="collapse-one" class="collapse" aria-labelledby="card-one">
+    <div class="card-body">
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Focal&nbsp;length&nbsp;(mm):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: focalLength"></div>
-  </div>
-</div>
+      <div class="row">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Clear&nbsp;aperture&nbsp;equivalent&nbsp;(cm<sup>2</sup>):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: clearApertureEquivalent"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Pixel&nbsp;size&nbsp;(um):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: pixelSize"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Focal&nbsp;length&nbsp;(mm):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: focalLength"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Read&nbsp;noise&nbsp;(e-):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: readNoise"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Pixel&nbsp;size&nbsp;(um):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: pixelSize"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Dark&nbsp;current&nbsp;(e-/s):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: darkCurrent"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Read&nbsp;noise&nbsp;(e-):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: readNoise"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Quantum&nbsp;efficiency&nbsp;(%):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: quantumEfficiency"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Dark&nbsp;current&nbsp;(e-/s):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: darkCurrent"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Image&nbsp;resolution&nbsp;(arcsec/pixel):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: imageResolution"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Quantum&nbsp;efficiency&nbsp;(%):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: quantumEfficiency"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Pixel&nbsp;surface&nbsp;(arcsec<sup>2</sup>/pixel):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: pixelSurface"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Image&nbsp;resolution&nbsp;(arcsec/pixel):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: imageResolution"></div>
+        </div>
+      </div>
 
-<div class="row mt-3">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Bortle&nbsp;class:&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: bortleClass"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Pixel&nbsp;surface&nbsp;(arcsec<sup>2</sup>/pixel):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: pixelSurface"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Sky&nbsp;brightness&nbsp;(mag/arcsec<sup>2</sup>):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: skyBrightness"></div>
-  </div>
-</div>
+      <div class="row mt-3">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Bortle&nbsp;class:&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: bortleClass"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Sky&nbsp;signal&nbsp;(e-/s):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: skyElectronsPerSecond"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Sky&nbsp;brightness&nbsp;(mag/arcsec<sup>2</sup>):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: skyBrightness"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Sky&nbsp;signal&nbsp;(e-/sub):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: skyElectronsPerSub"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Sky&nbsp;signal&nbsp;(e-/s):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: skyElectronsPerSecond"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Sky&nbsp;noise&nbsp;(e-):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: skyNoise"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Sky&nbsp;signal&nbsp;(e-/sub):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: skyElectronsPerSub"></div>
+        </div>
+      </div>
 
-<div class="row mt-3">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Target&nbsp;brightness&nbsp;(mag/arcsec<sup>2</sup>):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: targetBrightness"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Sky&nbsp;noise&nbsp;(e-):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: skyNoise"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Target&nbsp;signal&nbsp;(e-/s):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: targetElectronsPerSecond"></div>
-  </div>
-</div>
+      <div class="row mt-3">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Target&nbsp;brightness&nbsp;(mag/arcsec<sup>2</sup>):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: targetBrightness"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Target&nbsp;signal&nbsp;(e-/sub):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: targetElectronsPerSub"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Target&nbsp;signal&nbsp;(e-/s):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: targetElectronsPerSecond"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Shot&nbsp;noise&nbsp;(e-):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: shotNoise"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Target&nbsp;signal&nbsp;(e-/sub):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: targetElectronsPerSub"></div>
+        </div>
+      </div>
 
-<div class="row mt-3">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Dark&nbsp;signal&nbsp;(e-/sub):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: darkCurrentPerSub"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Shot&nbsp;noise&nbsp;(e-):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: shotNoise"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Dark&nbsp;noise&nbsp;(e-):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: darkNoise"></div>
-  </div>
-</div>
+      <div class="row mt-3">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Dark&nbsp;signal&nbsp;(e-/sub):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: darkCurrentPerSub"></div>
+        </div>
+      </div>
 
-<div class="row mt-3">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Total&nbsp;signal&nbsp;(e-/sub):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: totalSignalPerSub"></div>
-  </div>
-</div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Dark&nbsp;noise&nbsp;(e-):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: darkNoise"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Total&nbsp;noise&nbsp;(e-/sub):&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: totalNoisePerSub"></div>
-  </div>
-</div>
+      <div class="row mt-3">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Total&nbsp;signal&nbsp;(e-/sub):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: totalSignalPerSub"></div>
+        </div>
+      </div>
 
-<div class="row mt-1">
-  <div class="col-md-4 offset-md-1 align-self-center">
-    <div>Signal-to-noise&nbsp;per&nbsp;sub&nbsp;:&nbsp;</div>
-  </div>
-  <div class="col-md-2">
-    <div data-bind="text: signalToNoisePerSub"></div>
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Total&nbsp;noise&nbsp;(e-/sub):&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: totalNoisePerSub"></div>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-md-4 offset-md-1 align-self-center">
+          <div>Signal-to-noise&nbsp;per&nbsp;sub&nbsp;:&nbsp;</div>
+        </div>
+        <div class="col-md-7">
+          <div data-bind="text: signalToNoisePerSub"></div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
