@@ -83,8 +83,23 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
 
   var loadTargetProfiles = function() {
     var target = new TargetProfile();
+    target.name("M1 Crab Nebula");
+    target.surfaceBrightness('20.5');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("M27 Dumbbell Nebula");
+    target.surfaceBrightness('20.2');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
     target.name("M51 Whirlpool Galaxy");
     target.surfaceBrightness('21.7');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("M57 Ring Nebula");
+    target.surfaceBrightness('19.6');
     targetProfiles.push(target);
 
     target = new TargetProfile();
@@ -95,6 +110,11 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
     target = new TargetProfile();
     target.name("M64 Blackeye Galaxy");
     target.surfaceBrightness('21.5');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("M76 Little Dumbbell Nebula");
+    target.surfaceBrightness('21.2');
     targetProfiles.push(target);
 
     target = new TargetProfile();
@@ -113,17 +133,22 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
     targetProfiles.push(target);
 
     target = new TargetProfile();
+    target.name("M97 Owl Nebula");
+    target.surfaceBrightness('20.8');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
     target.name("M101 Pinwheel Galaxy");
     target.surfaceBrightness('23.8');
     targetProfiles.push(target);
 
     target = new TargetProfile();
-    target.name("M106");
+    target.name("M106 (a galaxy)");
     target.surfaceBrightness('22.3');
     targetProfiles.push(target);
 
     target = new TargetProfile();
-    target.name("M109");
+    target.name("M109 (a galaxy)");
     target.surfaceBrightness('22.2');
     targetProfiles.push(target);
 
