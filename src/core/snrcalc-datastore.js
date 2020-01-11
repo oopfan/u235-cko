@@ -136,6 +136,11 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
     target.name("NGC 4631 Herring Galaxy");
     target.surfaceBrightness('21.9');
     targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("Mag 17 Star / Poor Seeing");
+    target.surfaceBrightness('20');
+    targetProfiles.push(target);
   }
 
   var load = function() {
