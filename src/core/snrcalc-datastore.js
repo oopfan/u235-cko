@@ -79,6 +79,60 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
     observatory.bortleClass('6');
     observatory.skyBrightness('19.25');
     observatoryProfiles.push(observatory);
+
+    observatory = new ObservatoryProfile();
+    observatory.name("Bortle 1");
+    observatory.bortleClass('1');
+    observatory.skyBrightness('22');
+    observatoryProfiles.push(observatory);
+
+    observatory = new ObservatoryProfile();
+    observatory.name("Bortle 2");
+    observatory.bortleClass('2');
+    observatory.skyBrightness('21.93');
+    observatoryProfiles.push(observatory);
+
+    observatory = new ObservatoryProfile();
+    observatory.name("Bortle 3");
+    observatory.bortleClass('3');
+    observatory.skyBrightness('21.81');
+    observatoryProfiles.push(observatory);
+
+    observatory = new ObservatoryProfile();
+    observatory.name("Bortle 4");
+    observatory.bortleClass('4');
+    observatory.skyBrightness('21.51');
+    observatoryProfiles.push(observatory);
+
+    observatory = new ObservatoryProfile();
+    observatory.name("Bortle 5");
+    observatory.bortleClass('5');
+    observatory.skyBrightness('20.02');
+    observatoryProfiles.push(observatory);
+
+    observatory = new ObservatoryProfile();
+    observatory.name("Bortle 6");
+    observatory.bortleClass('6');
+    observatory.skyBrightness('19.23');
+    observatoryProfiles.push(observatory);
+
+    observatory = new ObservatoryProfile();
+    observatory.name("Bortle 7");
+    observatory.bortleClass('7');
+    observatory.skyBrightness('18.67');
+    observatoryProfiles.push(observatory);
+
+    observatory = new ObservatoryProfile();
+    observatory.name("Bortle 8");
+    observatory.bortleClass('8');
+    observatory.skyBrightness('18.09');
+    observatoryProfiles.push(observatory);
+
+    observatory = new ObservatoryProfile();
+    observatory.name("Bortle 9");
+    observatory.bortleClass('9');
+    observatory.skyBrightness('17.8');
+    observatoryProfiles.push(observatory);
   }
 
   var loadTargetProfiles = function() {
