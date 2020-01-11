@@ -147,6 +147,11 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
     targetProfiles.push(target);
 
     target = new TargetProfile();
+    target.name("M33 Triangulum Galaxy");
+    target.surfaceBrightness('23');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
     target.name("M51 Whirlpool Galaxy");
     target.surfaceBrightness('21.7');
     targetProfiles.push(target);
@@ -204,6 +209,11 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
     target = new TargetProfile();
     target.name("M109 (a galaxy)");
     target.surfaceBrightness('22.2');
+    targetProfiles.push(target);
+
+    target = new TargetProfile();
+    target.name("NGC 3486 (a galaxy)");
+    target.surfaceBrightness('23.0');
     targetProfiles.push(target);
 
     target = new TargetProfile();
