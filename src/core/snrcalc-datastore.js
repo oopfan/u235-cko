@@ -101,7 +101,7 @@ define(['knockout', "snrcalc-telescope-profile", "snrcalc-optical-element", "snr
     observatory = new ObservatoryProfile();
     observatory.name("Bortle 4");
     observatory.bortleClass('4');
-    observatory.skyBrightness('21.51');
+    observatory.skyBrightness('21.09');
     observatoryProfiles.push(observatory);
 
     observatory = new ObservatoryProfile();
