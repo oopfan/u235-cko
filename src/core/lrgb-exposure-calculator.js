@@ -117,7 +117,7 @@ define(function() {
       var snrAvg = Math.sqrt(snrLum * snrLum / 3);
 
       if (this._commonFrameCountMode) {
-        var rgbFrames = this._luminanceFrameCount / 3;
+        var rgbFrames = this._luminanceFrameCount / 2;
         this._redFrameCount = rgbFrames;
         this._greenFrameCount = rgbFrames;
         this._blueFrameCount = rgbFrames;

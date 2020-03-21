@@ -161,12 +161,13 @@ define(['knockout', "ko-modal-helper", 'vector3d', 'matrix3d', 'timekeeper', 'ut
         }
         return result;
       });
-      var content = "filter,file,include\n";
+      var content = "filter,file,altitude,include\n";
       for (var i = 0; i < sortedFiles.length; i++) {
         var filter = sortedFiles[i].filter();
         var filename = sortedFiles[i].filename();
+        var altitude = sortedFiles[i].altitudeFmt();
         var selected = sortedFiles[i].selected() ? "x" : "";
-        content += filter + "," + filename + "," + selected + "\n";
+        content += filter + "," + filename + "," + altitude + "," + selected + "\n";
       }
       self.content(content);
     }, 1000);
