@@ -109,42 +109,20 @@ define(function() {
     },
 
     _updateDependencies: function() {
-      var rRate = 1 / this._redBalance;
-      var gRate = 1 / this._greenBalance;
-      var bRate = 1 / this._blueBalance;
-      var lRate = rRate + gRate + bRate;
-      var snrLum = SNR(this._luminanceExposure * lRate, 1, 1, this._luminanceFrameCount);
-      var snrAvg = Math.sqrt(snrLum * snrLum / 3);
+      var redFluxAttenuation = 1 / 3 / this._redBalance;
+      var greenFluxAttenuation = 1 / 3 / this._greenBalance;
+      var blueFluxAttenuation = 1 / 3 / this._blueBalance;
+      var luminanceFluxAttenuation = redFluxAttenuation + greenFluxAttenuation + blueFluxAttenuation;
 
-      if (this._commonFrameCountMode) {
-        var rgbFrames = this._luminanceFrameCount / 3;
-        this._redFrameCount = rgbFrames;
-        this._greenFrameCount = rgbFrames;
-        this._blueFrameCount = rgbFrames;
+      this._redExposure = this._luminanceExposure * luminanceFluxAttenuation / redFluxAttenuation / this._rgbBinning / this._rgbBinning;
+      this._greenExposure = this._luminanceExposure * luminanceFluxAttenuation / greenFluxAttenuation / this._rgbBinning / this._rgbBinning;
+      this._blueExposure = this._luminanceExposure * luminanceFluxAttenuation / blueFluxAttenuation / this._rgbBinning / this._rgbBinning;
 
-        this._redExposure = EXP(rgbFrames, this._rgbBinning, this._redBalance, snrAvg);
-        this._greenExposure = EXP(rgbFrames, this._rgbBinning, this._greenBalance, snrAvg);
-        this._blueExposure = EXP(rgbFrames, this._rgbBinning, this._blueBalance, snrAvg);
-      }
-      else {
-        this._redFrameCount = FC(this._redExposure, this._rgbBinning, this._redBalance, snrAvg);
-        this._greenFrameCount = FC(this._greenExposure, this._rgbBinning, this._greenBalance, snrAvg);
-        this._blueFrameCount = FC(this._blueExposure, this._rgbBinning, this._blueBalance, snrAvg);
-      }
+      this._redFrameCount = this._luminanceFrameCount;
+      this._greenFrameCount = this._luminanceFrameCount;
+      this._blueFrameCount = this._luminanceFrameCount;
     }
   };
-
-  function SNR(exposure, binning, balance, frame_count) {
-    return Math.sqrt(exposure * binning * binning / balance * frame_count);
-  }
-
-  function FC(exposure, binning, balance, snr) {
-    return snr * snr * balance / (exposure * binning * binning);
-  }
-
-  function EXP(frame_count, binning, balance, snr) {
-    return snr * snr * balance / (frame_count * binning * binning);
-  }
 
   return LrgbExposureCalculator;
 });
